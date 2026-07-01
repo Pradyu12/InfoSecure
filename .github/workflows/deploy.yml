@@ -1,0 +1,26 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare deployment files
+        run: |
+          mkdir -p dist
+          cp index.html style.css script.js dist/
+          sed -i "s/__GITHUB_PAT__/${{ secrets.CONTACT_PAT }}/g" dist/script.js
+          sed -i "s/__GITHUB_REPO__/${{ github.repository }}/g" dist/script.js
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
