@@ -506,8 +506,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = e.clientX - rect.left
         const y = e.clientY - rect.top
         const cx = rect.width / 2, cy = rect.height / 2
-        const ry = ((x - cx) / cx) * 6
-        const rx = ((cy - y) / cy) * 6
+        const ry = ((x - cx) / cx) * 4
+        const rx = ((cy - y) / cy) * 4
         card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`
         ticking = false
       })
@@ -657,6 +657,31 @@ document.addEventListener('DOMContentLoaded', () => {
   if (radarCanvas) chartObserver.observe(radarCanvas)
 
   initCarousel()
+
+  /* ── HERO MOUSE-TRACKING GLOW ── */
+  const hero = document.getElementById('hero')
+  if (hero) {
+    const glow = document.createElement('div')
+    glow.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:1;transition:opacity 1s;opacity:0'
+    hero.appendChild(glow)
+
+    let glowTicking = false
+    hero.addEventListener('mousemove', (e) => {
+      if (glowTicking) return
+      glowTicking = true
+      requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const cx = (x / rect.width) * 100
+        const cy = (y / rect.height) * 100
+        glow.style.background = `radial-gradient(400px at ${cx}% ${cy}%, rgba(34,211,238,0.04) 0%, transparent 70%)`
+        glow.style.opacity = '1'
+        glowTicking = false
+      })
+    })
+    hero.addEventListener('mouseleave', () => { glow.style.opacity = '0' })
+  }
 
   /* ── PARALLAX ON HERO SHAPES ── */
   const parallaxEls = [
