@@ -130,6 +130,31 @@
         <span class="hero-trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>SOC 2 Compliant</span>
         <span class="hero-trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>250+ Audits Passed</span>
       </div>
+      <div class="hero-metrics fade-in-up" style="animation-delay:0.22s">
+        <div class="metric-item">
+          <canvas class="sparkline" data-values="8000,9500,10200,11800,12400,13000,14100,15200,16300,17100,18000,19200,20500,21800,23000,24200,25800,27000,28500,30000"></canvas>
+          <div class="metric-info">
+            <span class="metric-value">30K+</span>
+            <span class="metric-label">Threats Blocked</span>
+          </div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <canvas class="sparkline" data-values="99.85,99.87,99.90,99.91,99.92,99.93,99.94,99.95,99.95,99.96,99.96,99.97,99.97,99.97,99.98,99.98,99.98,99.99,99.99,99.99"></canvas>
+          <div class="metric-info">
+            <span class="metric-value">99.99%</span>
+            <span class="metric-label">Uptime SLA</span>
+          </div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <canvas class="sparkline" data-values="50,75,95,120,150,175,200,230,260,290,320,350,375,400,420,445,460,475,490,510"></canvas>
+          <div class="metric-info">
+            <span class="metric-value">500+</span>
+            <span class="metric-label">Enterprise Clients</span>
+          </div>
+        </div>
+      </div>
       <h1 class="fade-in-up-delay-1">
         Fortifying Digital<br />
         <span class="gradient-text">Frontiers</span>
@@ -227,22 +252,34 @@
     <div class="container">
       <div class="grid-4 gap-6" id="stats-grid">
         <div class="card stat-card text-center reveal">
-          <div class="stat-value" data-target="68" data-suffix="%">0%</div>
+          <div class="donut-wrapper">
+            <canvas class="donut-chart" data-percent="68"></canvas>
+            <div class="stat-value" data-target="68" data-suffix="%">0%</div>
+          </div>
           <div class="stat-label">Savings on Migration Time</div>
           <div class="stat-narrative">Average reduction vs. legacy approaches — cutting your time-to-market by two-thirds</div>
         </div>
         <div class="card stat-card text-center reveal" style="transition-delay:0.1s">
-          <div class="stat-value" data-target="75" data-suffix="%">0%</div>
+          <div class="donut-wrapper">
+            <canvas class="donut-chart" data-percent="75"></canvas>
+            <div class="stat-value" data-target="75" data-suffix="%">0%</div>
+          </div>
           <div class="stat-label">Reduction in Bandwidth Costs</div>
           <div class="stat-narrative">Through intelligent WAN optimization — meaning more budget for growth, not bandwidth</div>
         </div>
         <div class="card stat-card text-center reveal" style="transition-delay:0.2s">
-          <div class="stat-value" data-target="99.99" data-suffix="%" data-decimals="2">0%</div>
+          <div class="donut-wrapper">
+            <canvas class="donut-chart" data-percent="99.99"></canvas>
+            <div class="stat-value" data-target="99.99" data-suffix="%" data-decimals="2">0%</div>
+          </div>
           <div class="stat-label">Infrastructure Uptime</div>
           <div class="stat-narrative">Enterprise-grade SLA achievement — because every minute of downtime is revenue lost</div>
         </div>
         <div class="card stat-card text-center reveal" style="transition-delay:0.3s">
-          <div class="stat-value" data-target="500" data-suffix="+">0+</div>
+          <div class="donut-wrapper">
+            <canvas class="donut-chart" data-percent="100"></canvas>
+            <div class="stat-value" data-target="500" data-suffix="+">0+</div>
+          </div>
           <div class="stat-label">Enterprise Clients</div>
           <div class="stat-narrative">Across 20+ countries worldwide — from startups to Fortune 500 enterprises</div>
         </div>
@@ -316,6 +353,15 @@
           <button class="solution-toggle" onclick="toggleDetail(this)">Details <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
         </div>
       </div>
+      <div class="radar-card card reveal" style="margin-top:3rem">
+        <div class="radar-header">
+          <h3 class="card-title">Capability Overview</h3>
+          <p class="radar-subtitle">Expertise ratings across all solution domains</p>
+        </div>
+        <div class="radar-wrapper">
+          <canvas id="radar-chart" class="radar-canvas"></canvas>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -327,12 +373,12 @@
         <h2>Enterprises That<br /><span class="gradient-text">Trust InfoSecure</span></h2>
       </div>
       <div class="grid-6 gap-4">
-        <div class="card client-sector reveal"><span class="sector-icon">🏭</span><span>Manufacturing</span></div>
-        <div class="card client-sector reveal" style="transition-delay:0.05s"><span class="sector-icon">🏦</span><span>BFSI</span></div>
-        <div class="card client-sector reveal" style="transition-delay:0.1s"><span class="sector-icon">🛡️</span><span>Defense</span></div>
-        <div class="card client-sector reveal" style="transition-delay:0.15s"><span class="sector-icon">🏥</span><span>Healthcare</span></div>
-        <div class="card client-sector reveal" style="transition-delay:0.2s"><span class="sector-icon">📡</span><span>Telecom</span></div>
-        <div class="card client-sector reveal" style="transition-delay:0.25s"><span class="sector-icon">⚡</span><span>Energy</span></div>
+        <div class="card client-sector reveal"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span><span>Manufacturing</span></div>
+        <div class="card client-sector reveal" style="transition-delay:0.05s"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6M8 10h1M15 10h1M12 10h1"/></svg></span><span>BFSI</span></div>
+        <div class="card client-sector reveal" style="transition-delay:0.1s"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Defense</span></div>
+        <div class="card client-sector reveal" style="transition-delay:0.15s"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8" stroke-linecap="round"/></svg></span><span>Healthcare</span></div>
+        <div class="card client-sector reveal" style="transition-delay:0.2s"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5.5 16.5a4 4 0 01-.5-8A5.5 5.5 0 0111 4a5.5 5.5 0 015 3 3.5 3.5 0 013.5 3.5 3.5 3.5 0 010 6"/><path d="M13 13l4 4M17 13l-4 4"/></svg></span><span>Telecom</span></div>
+        <div class="card client-sector reveal" style="transition-delay:0.25s"><span class="sector-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13 2L4.5 12.5h6L7 22l12-12.5h-6L17 2z" stroke-linejoin="round"/></svg></span><span>Energy</span></div>
       </div>
       <div class="card marquee-card reveal" style="transition-delay:0.3s">
         <p class="marquee-label">Representative Clients</p>
@@ -342,6 +388,56 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Client Voices</span>
+        <h2>What Our Clients<br /><span class="gradient-text">Say About Us</span></h2>
+      </div>
+      <div class="testimonial-carousel" id="testimonial-carousel">
+        <div class="testimonial-track" id="testimonial-track">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">"InfoSecure transformed our security posture. Their team identified vulnerabilities we didn't know existed and reduced our incident response time by 60%."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">SM</div>
+              <div>
+                <p class="testimonial-name">Sarah Mitchell</p>
+                <p class="testimonial-role">CISO, TechCorp Industries</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">"The cloud migration expertise at InfoSecure is unmatched. They guided us through a complex multi-cloud deployment with zero downtime and 40% cost savings."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">JR</div>
+              <div>
+                <p class="testimonial-name">James Rodriguez</p>
+                <p class="testimonial-role">CTO, NovaTel Communications</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">"Working with InfoSecure on our SOC 2 certification was seamless. Their compliance team automated evidence collection and we certified in half the expected time."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">EL</div>
+              <div>
+                <p class="testimonial-name">Emily Liu</p>
+                <p class="testimonial-role">VP Engineering, QuantumSoft Solutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
 
   <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="section">
@@ -361,23 +457,28 @@
         <form id="contact-form" class="card contact-form reveal" style="transition-delay:0.2s" novalidate>
           <h3>Send a Message</h3>
           <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name *" required />
+            <label for="form-name" class="sr-only">Your Name</label>
+            <input type="text" id="form-name" name="name" placeholder="Your Name *" required />
             <span class="form-error"></span>
           </div>
           <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address *" required />
+            <label for="form-email" class="sr-only">Email Address</label>
+            <input type="email" id="form-email" name="email" placeholder="Email Address *" required />
             <span class="form-error"></span>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <input type="text" name="company" placeholder="Company" />
+              <label for="form-company" class="sr-only">Company</label>
+              <input type="text" id="form-company" name="company" placeholder="Company" />
             </div>
             <div class="form-group">
-              <input type="tel" name="phone" placeholder="Phone" />
+              <label for="form-phone" class="sr-only">Phone</label>
+              <input type="tel" id="form-phone" name="phone" placeholder="Phone" />
             </div>
           </div>
           <div class="form-group">
-            <textarea name="message" rows="4" placeholder="Your Message *" required></textarea>
+            <label for="form-message" class="sr-only">Your Message</label>
+            <textarea id="form-message" name="message" rows="4" placeholder="Your Message *" required></textarea>
             <span class="form-error"></span>
           </div>
           <button type="submit" class="btn-primary w-full" id="form-submit">
@@ -392,8 +493,9 @@
         </form>
       </div>
     </div>
+  </section>
 
-    <footer class="footer">
+  <footer class="footer">
       <div class="container footer-inner">
         <div class="logo">
           <span class="logo-mark small">
@@ -427,7 +529,6 @@
         <p class="footer-text">&copy; 2026 InfoSecure. All rights reserved. — <em>Solutions Redefined</em></p>
       </div>
     </footer>
-  </section>
 
 </body>
 </html>

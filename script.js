@@ -117,6 +117,234 @@ function toggleDetail(btn) {
   btn.innerHTML = isOpen ? 'Less <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>' : 'Details <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>'
 }
 
+/* ═══════════════════════════════════════════
+   CHART UTILITIES
+   ═══════════════════════════════════════════ */
+
+function setupCanvas(canvas, w, h) {
+  const dpr = window.devicePixelRatio || 1
+  canvas.width = w * dpr
+  canvas.height = h * dpr
+  canvas.style.width = w + 'px'
+  canvas.style.height = h + 'px'
+  const ctx = canvas.getContext('2d')
+  ctx.scale(dpr, dpr)
+  return ctx
+}
+
+function createDonutChart(canvas) {
+  const percent = parseFloat(canvas.dataset.percent) / 100
+  const size = canvas.parentElement.clientWidth || 160
+  const ctx = setupCanvas(canvas, size, size)
+  const cx = size / 2, cy = size / 2, r = size * 0.34, lw = size * 0.07
+  let startTime = null
+  const dur = 1500
+
+  function draw(p) {
+    ctx.clearRect(0, 0, size, size)
+    ctx.beginPath()
+    ctx.arc(cx, cy, r, 0, Math.PI * 2)
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)'
+    ctx.lineWidth = lw
+    ctx.stroke()
+    const end = -Math.PI / 2 + Math.PI * 2 * percent * p
+    const grad = ctx.createLinearGradient(cx - r, cy, cx + r, cy)
+    grad.addColorStop(0, '#22d3ee')
+    grad.addColorStop(1, '#06b6d4')
+    ctx.beginPath()
+    ctx.arc(cx, cy, r, -Math.PI / 2, end)
+    ctx.strokeStyle = grad
+    ctx.lineWidth = lw
+    ctx.lineCap = 'round'
+    ctx.stroke()
+  }
+
+  function anim(time) {
+    if (!startTime) startTime = time
+    const el = Math.min((time - startTime) / dur, 1)
+    const e = 1 - Math.pow(1 - el, 3)
+    draw(e)
+    if (el < 1) requestAnimationFrame(anim)
+  }
+  requestAnimationFrame(anim)
+}
+
+function createRadarChart(canvas) {
+  const labels = ['Vulnerability\nAssessment', 'Patch\nManagement', 'WAN\nAcceleration', 'Managed\nSIEM', 'Cloud\nSecurity', 'Data Center\nOps', 'Compliance\n& GRC', 'IT\nAdvisory']
+  const values = [92, 88, 78, 95, 90, 85, 82, 75]
+  const ctx = setupCanvas(canvas, 400, 400)
+  const cx = 200, cy = 200, r = 140, n = labels.length, levels = 4
+  let startTime = null
+  const dur = 1500
+
+  function draw(p) {
+    ctx.clearRect(0, 0, 400, 400)
+    const ar = r * Math.min(p * 1.1, 1)
+    const ip = Math.min(p * 1.4, 1)
+    for (let lv = 1; lv <= levels; lv++) {
+      const lr = (ar / levels) * lv
+      ctx.beginPath()
+      for (let i = 0; i <= n; i++) {
+        const a = (Math.PI * 2 * i) / n - Math.PI / 2
+        const x = cx + lr * Math.cos(a), y = cy + lr * Math.sin(a)
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+      }
+      ctx.closePath()
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)'
+      ctx.lineWidth = 1
+      ctx.stroke()
+    }
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 * i) / n - Math.PI / 2
+      ctx.beginPath()
+      ctx.moveTo(cx, cy)
+      ctx.lineTo(cx + ar * Math.cos(a), cy + ar * Math.sin(a))
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)'
+      ctx.stroke()
+    }
+    ctx.beginPath()
+    for (let i = 0; i <= n; i++) {
+      const idx = i % n
+      const a = (Math.PI * 2 * idx) / n - Math.PI / 2
+      const v = (values[idx] / 100) * ar * ip
+      const x = cx + v * Math.cos(a), y = cy + v * Math.sin(a)
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+    }
+    ctx.closePath()
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, ar)
+    grad.addColorStop(0, 'rgba(34,211,238,0.2)')
+    grad.addColorStop(1, 'rgba(6,182,212,0.04)')
+    ctx.fillStyle = grad
+    ctx.fill()
+    ctx.strokeStyle = '#22d3ee'
+    ctx.lineWidth = 2
+    ctx.stroke()
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 * i) / n - Math.PI / 2
+      const v = (values[i] / 100) * ar * ip
+      const x = cx + v * Math.cos(a), y = cy + v * Math.sin(a)
+      ctx.beginPath()
+      ctx.arc(x, y, 3, 0, Math.PI * 2)
+      ctx.fillStyle = '#22d3ee'
+      ctx.fill()
+      ctx.beginPath()
+      ctx.arc(x, y, 1.5, 0, Math.PI * 2)
+      ctx.shadowColor = '#22d3ee'
+      ctx.shadowBlur = 8
+      ctx.fill()
+      ctx.shadowBlur = 0
+    }
+    ctx.font = '11px Inter, sans-serif'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 * i) / n - Math.PI / 2
+      const lx = cx + (ar + 30) * Math.cos(a), ly = cy + (ar + 30) * Math.sin(a)
+      const parts = labels[i].split('\n')
+      ctx.fillStyle = 'rgba(148,163,184,0.85)'
+      parts.forEach((line, li) => {
+        ctx.fillText(line, lx, ly + (li - (parts.length - 1) / 2) * 14)
+      })
+    }
+  }
+
+  function anim(time) {
+    if (!startTime) startTime = time
+    const el = Math.min((time - startTime) / dur, 1)
+    const e = 1 - Math.pow(1 - el, 3)
+    draw(e)
+    if (el < 1) requestAnimationFrame(anim)
+  }
+  requestAnimationFrame(anim)
+}
+
+function createSparkline(canvas) {
+  const raw = canvas.dataset.values.split(',').map(Number)
+  const ctx = setupCanvas(canvas, 80, 26)
+  const w = 80, h = 26
+  const min = Math.min(...raw), max = Math.max(...raw)
+  const range = max - min || 1
+  const pts = raw.map((v, i) => ({
+    x: (i / (raw.length - 1)) * w,
+    y: h - ((v - min) / range) * (h - 4) - 2
+  }))
+  let startTime = null
+  const dur = 1200
+
+  function draw(p) {
+    ctx.clearRect(0, 0, w, h)
+    const dp = pts.slice(0, Math.ceil(pts.length * Math.min(p, 1)))
+    if (dp.length < 2) return
+    ctx.beginPath()
+    ctx.moveTo(dp[0].x, h)
+    dp.forEach(pt => ctx.lineTo(pt.x, pt.y))
+    ctx.lineTo(dp[dp.length - 1].x, h)
+    ctx.closePath()
+    const grad = ctx.createLinearGradient(0, 0, 0, h)
+    grad.addColorStop(0, 'rgba(34,211,238,0.25)')
+    grad.addColorStop(1, 'rgba(34,211,238,0.01)')
+    ctx.fillStyle = grad
+    ctx.fill()
+    ctx.beginPath()
+    dp.forEach((pt, i) => i === 0 ? ctx.moveTo(pt.x, pt.y) : ctx.lineTo(pt.x, pt.y))
+    ctx.strokeStyle = '#22d3ee'
+    ctx.lineWidth = 1.5
+    ctx.stroke()
+    const last = dp[dp.length - 1]
+    ctx.beginPath()
+    ctx.arc(last.x, last.y, 2, 0, Math.PI * 2)
+    ctx.fillStyle = '#22d3ee'
+    ctx.fill()
+  }
+
+  function anim(time) {
+    if (!startTime) startTime = time
+    const el = Math.min((time - startTime) / dur, 1)
+    const e = 1 - Math.pow(1 - el, 3)
+    draw(e)
+    if (el < 1) requestAnimationFrame(anim)
+  }
+  requestAnimationFrame(anim)
+}
+
+function initCarousel() {
+  const track = document.getElementById('testimonial-track')
+  const dots = document.getElementById('carousel-dots')
+  if (!track || !dots) return
+  const cards = track.querySelectorAll('.testimonial-card')
+  const total = cards.length
+  let cur = 0, timer = null
+
+  cards.forEach((_, i) => {
+    const d = document.createElement('button')
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '')
+    d.setAttribute('aria-label', 'Go to testimonial ' + (i + 1))
+    d.addEventListener('click', () => go(i))
+    dots.appendChild(d)
+  })
+
+  function go(idx) {
+    cur = idx
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)'
+    dots.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === cur))
+    resetTimer()
+  }
+
+  function next() { go((cur + 1) % total) }
+
+  function resetTimer() {
+    if (timer) clearInterval(timer)
+    timer = setInterval(next, 5000)
+  }
+  resetTimer()
+
+  const carousel = document.getElementById('testimonial-carousel')
+  if (carousel) {
+    carousel.addEventListener('mouseenter', () => clearInterval(timer))
+    carousel.addEventListener('mouseleave', resetTimer)
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── HERO DOT GRID ── */
@@ -156,8 +384,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScroll = 0
   window.addEventListener('scroll', () => {
     const y = window.scrollY
-    if (y > 80 && y > lastScroll) header.classList.add('hidden')
-    else header.classList.remove('hidden')
+    const delta = y - lastScroll
+    if (y > 150 && delta > 20) header.classList.add('hidden')
+    else if (delta < -20 || y <= 150) header.classList.remove('hidden')
     lastScroll = y
   }, { passive: true })
 
@@ -207,8 +436,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const counters = document.querySelectorAll('.stat-value')
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (!e.isIntersecting) return
       const el = e.target
+      if (el._counterDone) return
+      if (!e.isIntersecting) {
+        if (el._counterTimer) {
+          clearInterval(el._counterTimer)
+          el._counterTimer = null
+        }
+        return
+      }
       const target = parseFloat(el.dataset.target)
       const suffix = el.dataset.suffix || ''
       const decimals = parseInt(el.dataset.decimals) || 0
@@ -221,25 +457,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (current >= target) {
           el.textContent = target.toFixed(decimals) + suffix
           clearInterval(timer)
+          el._counterDone = true
+          el._counterTimer = null
+          counterObserver.unobserve(el)
         } else {
           el.textContent = current.toFixed(decimals) + suffix
         }
       }, duration / steps)
-      counterObserver.unobserve(el)
+      el._counterTimer = timer
     })
   }, { threshold: 0.3 })
   counters.forEach(el => counterObserver.observe(el))
 
   /* ── TILT CARDS ── */
   document.querySelectorAll('.tilt-card').forEach(card => {
+    let ticking = false
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const cx = rect.width / 2, cy = rect.height / 2
-      const ry = ((x - cx) / cx) * 6
-      const rx = ((cy - y) / cy) * 6
-      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const cx = rect.width / 2, cy = rect.height / 2
+        const ry = ((x - cx) / cx) * 6
+        const rx = ((cy - y) / cy) * 6
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`
+        ticking = false
+      })
     })
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(800px) rotateX(0) rotateY(0)'
@@ -309,7 +554,11 @@ document.addEventListener('DOMContentLoaded', () => {
         valid = false
       }
       check('message', 'Message is required')
-      if (!valid) return
+      if (!valid) {
+        const firstError = form.querySelector('.error')
+        if (firstError) firstError.focus()
+        return
+      }
 
       // Submit
       btnText.style.display = 'none'
@@ -348,4 +597,21 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  /* ── INIT CHARTS & CAROUSEL ── */
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return
+      const el = e.target
+      if (el.classList.contains('donut-chart')) createDonutChart(el)
+      else if (el.id === 'radar-chart') createRadarChart(el)
+      else if (el.classList.contains('sparkline')) createSparkline(el)
+      chartObserver.unobserve(el)
+    })
+  }, { threshold: 0.3 })
+
+  document.querySelectorAll('.donut-chart, .sparkline').forEach(el => chartObserver.observe(el))
+  const radarCanvas = document.getElementById('radar-chart')
+  if (radarCanvas) chartObserver.observe(radarCanvas)
+
+  initCarousel()
 })
