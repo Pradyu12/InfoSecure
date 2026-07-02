@@ -1,17 +1,16 @@
 /* ═══════════════════════════════════════════
-   InfoSecure — Futureswap-Inspired Design System
+   InfoSecure — Design System
    Palette: #05080F (base) + #22d3ee (electric cyan) + #06b6d4 (accent)
-   Glass: blur(8px) + rgba(255,255,255,0.05) + 1px white border
+   Surfaces: solid dark tones with subtle cyan tint on interactive states
    ═══════════════════════════════════════════ */
 
 /* ── Design Tokens ── */
 :root {
   --surface-0: #05080F;
-  --surface-1: rgba(255,255,255,0.05);
-  --surface-2: rgba(255,255,255,0.08);
-  --surface-3: rgba(255,255,255,0.10);
-  --glass-border: rgba(255,255,255,0.10);
-  --glass-blur: 8px;
+  --surface-1: #0C111D;
+  --surface-2: #111827;
+  --surface-3: #1A2332;
+  --card-border: rgba(255,255,255,0.06);
   --cyan: #22d3ee;
   --cyan-dark: #06b6d4;
   --cyan-glow: rgba(34,211,238,0.20);
@@ -75,21 +74,11 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
   outline: none;
 }
 
-/* ── Glass (with @supports fallback) ── */
-.glass {
-  background: var(--surface-1);
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-}
-@supports not (backdrop-filter: blur(1px)) {
-  .glass { background: rgba(10,14,23,0.92); }
-}
-
 /* ── Surface levels ── */
 .surface-1 { background: var(--surface-1); }
 .surface-2 { background: var(--surface-2); }
 .surface-3 { background: var(--surface-3); }
+.glass { background: var(--surface-1); border: 1px solid var(--card-border); }
 
 /* ── Container ── */
 .container {
@@ -116,24 +105,30 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
   box-shadow: 0 0 24px var(--cyan-glow);
 }
 
-/* ── Glass Card ── */
+/* ── Card ── */
 .card {
   background: var(--surface-1);
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
   padding: 1.5rem;
   transition: border-color 0.3s, transform 0.25s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(34,211,238,0.03) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
 }
 .card:hover {
-  border-color: rgba(34,211,238,0.20);
+  border-color: rgba(34,211,238,0.25);
   background: var(--surface-2);
 }
-@supports not (backdrop-filter: blur(1px)) {
-  .card { background: rgba(10,14,23,0.88); }
-  .card:hover { background: rgba(10,14,23,0.94); }
-}
+.card:hover::before { opacity: 1; }
 
 /* Tilt card */
 .tilt-card { transform-style: preserve-3d; will-change: transform; }
@@ -194,7 +189,9 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
    ═══════════════════════════════════════════ */
 #header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(5,8,15,0.92);
   transition: transform 0.35s ease, background 0.3s;
+  border-bottom: 1px solid var(--card-border);
 }
 #header.hidden { transform: translateY(-100%); }
 .header-inner {
@@ -270,7 +267,7 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 
 .mobile-menu {
   display: none;
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--card-border);
   padding: 1rem;
 }
 .mobile-menu.open { display: block; animation: slide-down 0.3s ease-out forwards; }
@@ -448,18 +445,12 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
   display: inline-block; padding: 0.9rem 2.2rem;
   border-radius: var(--radius-btn);
   background: var(--surface-1);
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--card-border);
   color: #CBD5E1; font-size: 0.9rem; font-weight: 500;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
-.btn-secondary:hover { background: var(--surface-2); border-color: rgba(34,211,238,0.20); color: var(--text-primary); }
+.btn-secondary:hover { background: var(--surface-2); border-color: rgba(34,211,238,0.25); color: var(--text-primary); }
 .btn-secondary:active { transform: scale(0.97); }
-@supports not (backdrop-filter: blur(1px)) {
-  .btn-secondary { background: rgba(10,14,23,0.88); }
-  .btn-secondary:hover { background: rgba(10,14,23,0.94); }
-}
 
 /* ── Scroll indicator ── */
 .scroll-indicator {
@@ -594,7 +585,7 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
   width: 100%; padding: 0.8rem 1rem;
   border-radius: var(--radius-btn);
   background: var(--surface-1);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--card-border);
   color: var(--text-primary); font-size: 0.9rem;
   transition: border-color 0.25s, box-shadow 0.25s;
 }
@@ -634,7 +625,7 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 /* ═══════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════ */
-.footer { margin-top: 6rem; border-top: 1px solid var(--glass-border); }
+.footer { margin-top: 6rem; border-top: 1px solid var(--card-border); }
 .footer-inner {
   display: flex; flex-direction: column; align-items: center;
   justify-content: space-between; gap: 1rem; padding: 2rem 0;
@@ -652,7 +643,7 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
   background: rgba(5,8,15,0.95);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--card-border);
   padding: 1rem;
   transform: translateY(0);
   transition: transform 0.4s ease;
@@ -1045,7 +1036,7 @@ body.loaded { opacity: 1; }
   min-width: 100%;
   padding: 2.5rem;
   background: var(--surface-1);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
   text-align: center;
   box-sizing: border-box;
@@ -1124,7 +1115,7 @@ body.loaded { opacity: 1; }
   height: 1px;
   max-width: 480px;
   margin: 0 auto;
-  background: var(--glass-border);
+  background: var(--card-border);
 }
 @media (max-width: 640px) {
   .testimonial-card { padding: 1.5rem; }
