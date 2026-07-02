@@ -109,6 +109,12 @@ function initHero3D() {
   loop()
 }
 
+/* ── FAQ toggle ── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item')
+  const isOpen = item.classList.toggle('open')
+}
+
 /* ── Progressive disclosure toggle ── */
 function toggleDetail(btn) {
   const detail = btn.previousElementSibling
@@ -345,7 +351,27 @@ function initCarousel() {
   }
 }
 
+/* ── Cookie Consent ── */
+function acceptCookies() {
+  localStorage.setItem('infosec_cookie_consent', 'accepted')
+  document.getElementById('cookie-banner').classList.add('hidden')
+}
+function declineCookies() {
+  localStorage.setItem('infosec_cookie_consent', 'declined')
+  document.getElementById('cookie-banner').classList.add('hidden')
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── Cookie banner visibility ── */
+  const consent = localStorage.getItem('infosec_cookie_consent')
+  const banner = document.getElementById('cookie-banner')
+  if (consent && banner) banner.classList.add('hidden')
+
+  /* ── Service worker registration ── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {})
+  }
 
   /* ── HERO DOT GRID ── */
   const grid = document.getElementById('hero-grid')
@@ -525,6 +551,23 @@ document.addEventListener('DOMContentLoaded', () => {
       successMsg.style.display = 'none'
       errorMsg.style.display = 'none'
 
+      // Honeypot check
+      const honeypot = form.querySelector('[name="website"]')
+      if (honeypot && honeypot.value.trim()) return
+
+      // Rate limiting
+      const rateKey = 'infosec_form_ts'
+      const now = Date.now()
+      const timestamps = JSON.parse(localStorage.getItem(rateKey) || '[]')
+      const recent = timestamps.filter(t => now - t < 600000)
+      if (recent.length >= 3) {
+        errorMsg.textContent = 'Too many submissions. Please try again later.'
+        errorMsg.style.display = 'block'
+        return
+      }
+      recent.push(now)
+      localStorage.setItem(rateKey, JSON.stringify(recent))
+
       // Validate
       let valid = true
       const data = {}
@@ -614,4 +657,37 @@ document.addEventListener('DOMContentLoaded', () => {
   if (radarCanvas) chartObserver.observe(radarCanvas)
 
   initCarousel()
+
+  /* ── PARALLAX ON HERO SHAPES ── */
+  const parallaxEls = [
+    { el: document.querySelector('.shape-cube'), speed: 0.15 },
+    { el: document.querySelector('.shape-hex'), speed: 0.10 },
+    { el: document.querySelector('.orb-1'), speed: 0.05 },
+    { el: document.querySelector('.orb-2'), speed: 0.04 },
+  ].filter(p => p.el)
+  let parallaxTicking = false
+  window.addEventListener('scroll', () => {
+    if (parallaxTicking) return
+    parallaxTicking = true
+    requestAnimationFrame(() => {
+      const hero = document.getElementById('hero')
+      if (!hero) { parallaxTicking = false; return }
+      const rect = hero.getBoundingClientRect()
+      const heroTop = rect.top
+      const heroHeight = rect.height
+      if (heroTop < window.innerHeight && heroTop > -heroHeight) {
+        const scrolled = -heroTop
+        parallaxEls.forEach(p => {
+          p.el.style.transform = p.el.getAttribute('data-base-transform') + ` translateY(${scrolled * p.speed}px)`
+        })
+      }
+      parallaxTicking = false
+    })
+  }, { passive: true })
+  parallaxEls.forEach(p => {
+    p.el.setAttribute('data-base-transform', p.el.style.transform || '')
+  })
+
+  /* ── PAGE-LOAD SKELETON ── */
+  document.body.classList.add('loaded')
 })
