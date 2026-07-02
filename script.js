@@ -2,13 +2,128 @@
    InfoSecure — Script
    ═══════════════════════════════════════════ */
 
+/* ── 3D Hero Torus ── */
+function initHero3D() {
+  const canvas = document.getElementById('hero-canvas')
+  if (!canvas) return
+  const ctx = canvas.getContext('2d')
+
+  let w, h, cx, cy, sc
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect()
+    w = canvas.width = rect.width * devicePixelRatio
+    h = canvas.height = rect.height * devicePixelRatio
+    cx = w / 2
+    cy = h / 2
+    canvas.style.width = rect.width + 'px'
+    canvas.style.height = rect.height + 'px'
+    sc = Math.min(w, h) * 0.13
+  }
+
+  resize()
+  window.addEventListener('resize', resize)
+
+  const R = 4, r = 1.6, uSegs = 32, vSegs = 14, focal = 8
+  const verts = []
+
+  for (let ui = 0; ui < uSegs; ui++) {
+    const u = (ui / uSegs) * Math.PI * 2
+    for (let vi = 0; vi < vSegs; vi++) {
+      const v = (vi / vSegs) * Math.PI * 2
+      verts.push({
+        x: (R + r * Math.cos(v)) * Math.cos(u),
+        y: (R + r * Math.cos(v)) * Math.sin(u),
+        z: r * Math.sin(v),
+      })
+    }
+  }
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  let angle = 0, running = true
+
+  function renderSingle() {
+    ctx.clearRect(0, 0, w, h)
+    drawTorus(0)
+  }
+
+  function drawTorus(offset) {
+    const sinA = Math.sin(offset), cosA = Math.cos(offset)
+    const sinB = Math.sin(offset * 0.4), cosB = Math.cos(offset * 0.4)
+
+    const projected = verts.map(v => {
+      let y1 = v.y * cosB - v.z * sinB
+      let z1 = v.y * sinB + v.z * cosB
+      let x1 = v.x
+      let x2 = x1 * cosA + z1 * sinA
+      let z2 = -x1 * sinA + z1 * cosA
+      const f = focal / (focal + z2 + 5)
+      return { sx: x2 * f * sc + cx, sy: y1 * f * sc + cy, z: z2 }
+    })
+
+    ctx.lineCap = 'round'
+
+    for (let ui = 0; ui < uSegs; ui++) {
+      for (let vi = 0; vi < vSegs; vi++) {
+        const idx = ui * vSegs + vi
+        const nu = ((ui + 1) % uSegs) * vSegs + vi
+        const nv = ui * vSegs + (vi + 1) % vSegs
+        const p1 = projected[idx], p2 = projected[nu], p3 = projected[nv]
+
+        const d1 = (p1.z + 6) / 12
+        const a1 = 0.04 + d1 * 0.35
+        ctx.strokeStyle = `rgba(34, 211, 238, ${a1})`
+        ctx.lineWidth = (1 + d1 * 1.5) * devicePixelRatio
+        ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p2.sx, p2.sy); ctx.stroke()
+
+        const d2 = (p1.z + 6) / 12
+        const a2 = 0.03 + d2 * 0.25
+        ctx.strokeStyle = `rgba(34, 211, 238, ${a2})`
+        ctx.lineWidth = (0.8 + d2 * 1) * devicePixelRatio
+        ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p3.sx, p3.sy); ctx.stroke()
+      }
+    }
+
+    for (let i = 0; i < projected.length; i++) {
+      const p = projected[i]
+      const d = (p.z + 6) / 12
+      const a = 0.08 + d * 0.55
+      const s = (1.5 + d * 3) * devicePixelRatio
+      ctx.fillStyle = `rgba(34, 211, 238, ${a})`
+      ctx.shadowColor = `rgba(34, 211, 238, ${a * 0.5})`
+      ctx.shadowBlur = 12 * d
+      ctx.beginPath(); ctx.arc(p.sx, p.sy, s, 0, Math.PI * 2); ctx.fill()
+    }
+    ctx.shadowBlur = 0
+  }
+
+  function loop() {
+    if (!running) return
+    ctx.clearRect(0, 0, w, h)
+    drawTorus(angle)
+    angle += 0.01
+    requestAnimationFrame(loop)
+  }
+
+  if (reducedMotion) { renderSingle(); return }
+  loop()
+}
+
+/* ── Progressive disclosure toggle ── */
+function toggleDetail(btn) {
+  const detail = btn.previousElementSibling
+  const isOpen = detail.classList.toggle('open')
+  btn.classList.toggle('open')
+  btn.innerHTML = isOpen ? 'Less <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>' : 'Details <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>'
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── HERO DOT GRID ── */
   const grid = document.getElementById('hero-grid')
   if (grid) {
     const frag = document.createDocumentFragment()
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       const dot = document.createElement('div')
       dot.className = 'dot'
       dot.style.left = Math.random() * 100 + '%'
@@ -18,6 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     grid.appendChild(frag)
   }
+
+  /* ── 3D HERO TORUS ── */
+  initHero3D()
 
   /* ── TYPEWRITER ── */
   const tw = document.getElementById('typewriter')
