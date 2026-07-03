@@ -72,13 +72,13 @@ function initHero3D() {
 
         const d1 = (p1.z + 6) / 12
         const a1 = 0.04 + d1 * 0.35
-        ctx.strokeStyle = `rgba(136, 146, 160, ${a1})`
+        ctx.strokeStyle = `rgba(86, 204, 242, ${a1})`
         ctx.lineWidth = (1 + d1 * 1.5) * devicePixelRatio
         ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p2.sx, p2.sy); ctx.stroke()
 
         const d2 = (p1.z + 6) / 12
         const a2 = 0.03 + d2 * 0.25
-        ctx.strokeStyle = `rgba(136, 146, 160, ${a2})`
+        ctx.strokeStyle = `rgba(86, 204, 242, ${a2})`
         ctx.lineWidth = (0.8 + d2 * 1) * devicePixelRatio
         ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p3.sx, p3.sy); ctx.stroke()
       }
@@ -89,8 +89,8 @@ function initHero3D() {
       const d = (p.z + 6) / 12
       const a = 0.08 + d * 0.55
       const s = (1.5 + d * 3) * devicePixelRatio
-      ctx.fillStyle = `rgba(136, 146, 160, ${a})`
-      ctx.shadowColor = `rgba(136, 146, 160, ${a * 0.5})`
+      ctx.fillStyle = `rgba(86, 204, 242, ${a})`
+      ctx.shadowColor = `rgba(86, 204, 242, ${a * 0.5})`
       ctx.shadowBlur = 12 * d
       ctx.beginPath(); ctx.arc(p.sx, p.sy, s, 0, Math.PI * 2); ctx.fill()
     }
@@ -181,11 +181,11 @@ function createRadarChart(canvas) {
     }
     ctx.closePath()
     const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, ar)
-    grad.addColorStop(0, 'rgba(136,146,160,0.2)')
-    grad.addColorStop(1, 'rgba(6,182,212,0.04)')
+    grad.addColorStop(0, 'rgba(86,204,242,0.2)')
+    grad.addColorStop(1, 'rgba(86,204,242,0.04)')
     ctx.fillStyle = grad
     ctx.fill()
-    ctx.strokeStyle = '#8892A0'
+    ctx.strokeStyle = '#56CCF2'
     ctx.lineWidth = 2
     ctx.stroke()
     for (let i = 0; i < n; i++) {
@@ -194,11 +194,11 @@ function createRadarChart(canvas) {
       const x = cx + v * Math.cos(a), y = cy + v * Math.sin(a)
       ctx.beginPath()
       ctx.arc(x, y, 3, 0, Math.PI * 2)
-      ctx.fillStyle = '#8892A0'
+      ctx.fillStyle = '#56CCF2'
       ctx.fill()
       ctx.beginPath()
       ctx.arc(x, y, 1.5, 0, Math.PI * 2)
-      ctx.shadowColor = '#8892A0'
+      ctx.shadowColor = '#56CCF2'
       ctx.shadowBlur = 8
       ctx.fill()
       ctx.shadowBlur = 0
@@ -250,19 +250,19 @@ function createSparkline(canvas) {
     ctx.lineTo(dp[dp.length - 1].x, h)
     ctx.closePath()
     const grad = ctx.createLinearGradient(0, 0, 0, h)
-    grad.addColorStop(0, 'rgba(136,146,160,0.25)')
-    grad.addColorStop(1, 'rgba(136,146,160,0.01)')
+    grad.addColorStop(0, 'rgba(86,204,242,0.25)')
+    grad.addColorStop(1, 'rgba(86,204,242,0.01)')
     ctx.fillStyle = grad
     ctx.fill()
     ctx.beginPath()
     dp.forEach((pt, i) => i === 0 ? ctx.moveTo(pt.x, pt.y) : ctx.lineTo(pt.x, pt.y))
-    ctx.strokeStyle = '#8892A0'
+    ctx.strokeStyle = '#56CCF2'
     ctx.lineWidth = 1.5
     ctx.stroke()
     const last = dp[dp.length - 1]
     ctx.beginPath()
     ctx.arc(last.x, last.y, 2, 0, Math.PI * 2)
-    ctx.fillStyle = '#8892A0'
+    ctx.fillStyle = '#56CCF2'
     ctx.fill()
   }
 
@@ -639,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const y = e.clientY - rect.top
         const cx = (x / rect.width) * 100
         const cy = (y / rect.height) * 100
-        glow.style.background = `radial-gradient(400px at ${cx}% ${cy}%, rgba(136,146,160,0.04) 0%, transparent 70%)`
+        glow.style.background = `radial-gradient(400px at ${cx}% ${cy}%, rgba(86,204,242,0.04) 0%, transparent 70%)`
         glow.style.opacity = '1'
         glowTicking = false
       })
