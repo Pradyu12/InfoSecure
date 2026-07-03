@@ -138,43 +138,6 @@ function setupCanvas(canvas, w, h) {
   return ctx
 }
 
-function createDonutChart(canvas) {
-  const percent = parseFloat(canvas.dataset.percent) / 100
-  const size = canvas.parentElement.clientWidth || 160
-  const ctx = setupCanvas(canvas, size, size)
-  const cx = size / 2, cy = size / 2, r = size * 0.34, lw = size * 0.07
-  let startTime = null
-  const dur = 1500
-
-  function draw(p) {
-    ctx.clearRect(0, 0, size, size)
-    ctx.beginPath()
-    ctx.arc(cx, cy, r, 0, Math.PI * 2)
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)'
-    ctx.lineWidth = lw
-    ctx.stroke()
-    const end = -Math.PI / 2 + Math.PI * 2 * percent * p
-    const grad = ctx.createLinearGradient(cx - r, cy, cx + r, cy)
-    grad.addColorStop(0, '#22d3ee')
-    grad.addColorStop(1, '#06b6d4')
-    ctx.beginPath()
-    ctx.arc(cx, cy, r, -Math.PI / 2, end)
-    ctx.strokeStyle = grad
-    ctx.lineWidth = lw
-    ctx.lineCap = 'round'
-    ctx.stroke()
-  }
-
-  function anim(time) {
-    if (!startTime) startTime = time
-    const el = Math.min((time - startTime) / dur, 1)
-    const e = 1 - Math.pow(1 - el, 3)
-    draw(e)
-    if (el < 1) requestAnimationFrame(anim)
-  }
-  requestAnimationFrame(anim)
-}
-
 function createRadarChart(canvas) {
   const labels = ['Vulnerability\nAssessment', 'Patch\nManagement', 'WAN\nAcceleration', 'Managed\nSIEM', 'Cloud\nSecurity', 'Data Center\nOps', 'Compliance\n& GRC', 'IT\nAdvisory']
   const values = [92, 88, 78, 95, 90, 85, 82, 75]
@@ -377,12 +340,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('hero-grid')
   if (grid) {
     const frag = document.createDocumentFragment()
-    for (let i = 0; i < 80; i++) {
+    const sizes = ['', 'sm', 'md', 'lg']
+    for (let i = 0; i < 220; i++) {
+      const cls = sizes[i % sizes.length]
       const dot = document.createElement('div')
-      dot.className = 'dot'
+      dot.className = 'dot' + (cls ? ' ' + cls : '')
       dot.style.left = Math.random() * 100 + '%'
       dot.style.top = Math.random() * 100 + '%'
-      dot.style.animationDelay = Math.random() * 5 + 's'
+      dot.style.animationDelay = Math.random() * 8 + 's'
       frag.appendChild(dot)
     }
     grid.appendChild(frag)
@@ -645,14 +610,13 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(e => {
       if (!e.isIntersecting) return
       const el = e.target
-      if (el.classList.contains('donut-chart')) createDonutChart(el)
-      else if (el.id === 'radar-chart') createRadarChart(el)
+      if (el.id === 'radar-chart') createRadarChart(el)
       else if (el.classList.contains('sparkline')) createSparkline(el)
       chartObserver.unobserve(el)
     })
   }, { threshold: 0.3 })
 
-  document.querySelectorAll('.donut-chart, .sparkline').forEach(el => chartObserver.observe(el))
+  document.querySelectorAll('.sparkline').forEach(el => chartObserver.observe(el))
   const radarCanvas = document.getElementById('radar-chart')
   if (radarCanvas) chartObserver.observe(radarCanvas)
 
@@ -686,7 +650,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── PARALLAX ON HERO SHAPES ── */
   const parallaxEls = [
     { el: document.querySelector('.shape-cube'), speed: 0.15 },
-    { el: document.querySelector('.shape-hex'), speed: 0.10 },
+    { el: document.querySelector('.shape-hex'), speed: 0.12 },
+    { el: document.querySelector('.shape-sphere'), speed: 0.09 },
+    { el: document.querySelector('.shape-diamond'), speed: 0.07 },
     { el: document.querySelector('.orb-1'), speed: 0.05 },
     { el: document.querySelector('.orb-2'), speed: 0.04 },
   ].filter(p => p.el)
@@ -712,6 +678,35 @@ document.addEventListener('DOMContentLoaded', () => {
   parallaxEls.forEach(p => {
     p.el.setAttribute('data-base-transform', p.el.style.transform || '')
   })
+
+  /* ── SCROLL PROGRESS BAR ── */
+  const progressBar = document.getElementById('scroll-progress')
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      progressBar.style.width = (scrollTop / scrollHeight) * 100 + '%'
+    }, { passive: true })
+  }
+
+  /* ── BACK TO TOP ── */
+  const backToTop = document.getElementById('back-to-top')
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 600)
+    }, { passive: true })
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  }
+
+  /* ── ALTERNATING REVEAL ── */
+  const altRevealEls = document.querySelectorAll('.reveal-left, .reveal-right')
+  const altRevealObserver = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+  )
+  altRevealEls.forEach(el => altRevealObserver.observe(el))
 
   /* ── PAGE-LOAD SKELETON ── */
   document.body.classList.add('loaded')
