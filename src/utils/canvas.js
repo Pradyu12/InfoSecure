@@ -62,7 +62,7 @@ export function drawTorus(canvas) {
         const p3 = projected[nv]
 
         const d1 = (p1.z + 6) / 12
-        ctx.strokeStyle = `rgba(203,41,87,${0.04 + d1 * 0.35})`
+        ctx.strokeStyle = `rgba(220,38,38,${0.04 + d1 * 0.35})`
         ctx.lineWidth = (1 + d1 * 1.5) * dpr
         ctx.beginPath()
         ctx.moveTo(p1.sx, p1.sy)
@@ -70,7 +70,7 @@ export function drawTorus(canvas) {
         ctx.stroke()
 
         const d2 = (p1.z + 6) / 12
-        ctx.strokeStyle = `rgba(203,41,87,${0.03 + d2 * 0.25})`
+        ctx.strokeStyle = `rgba(220,38,38,${0.03 + d2 * 0.25})`
         ctx.lineWidth = (0.8 + d2 * 1) * dpr
         ctx.beginPath()
         ctx.moveTo(p1.sx, p1.sy)
@@ -84,8 +84,8 @@ export function drawTorus(canvas) {
       const d = (p.z + 6) / 12
       const a = 0.08 + d * 0.55
       const s = (1.5 + d * 3) * dpr
-      ctx.fillStyle = `rgba(203,41,87,${a})`
-      ctx.shadowColor = `rgba(203,41,87,${a * 0.5})`
+      ctx.fillStyle = `rgba(220,38,38,${a})`
+      ctx.shadowColor = `rgba(220,38,38,${a * 0.5})`
       ctx.shadowBlur = 12 * d
       ctx.beginPath()
       ctx.arc(p.sx, p.sy, s, 0, Math.PI * 2)
