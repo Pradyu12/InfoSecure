@@ -243,8 +243,37 @@ function useScrollReveal() {
       },
       { threshold: 0.15 }
     )
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+
+    const observedElements = new Set()
+
+    const observeElement = el => {
+      if (!observedElements.has(el)) {
+        observedElements.add(el)
+        observer.observe(el)
+      }
+    }
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(observeElement)
+
+    const mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === 1) {
+            if (node.matches('.reveal, .reveal-left, .reveal-right')) {
+              observeElement(node)
+            }
+            node.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(observeElement)
+          }
+        })
+      })
+    })
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutationObserver.disconnect()
+    }
   }, [])
 }
 
@@ -354,12 +383,22 @@ class ErrorBoundary extends Component {
    LAZY SECTION (deferred rendering)
    ═══════════════════════════════════════════ */
 
-function LazySection({ children }) {
+function LazySection({ id, children }) {
   const ref = useRef(null)
   const [shouldRender, setShouldRender] = useState(false)
 
   useEffect(() => {
-    if (!ref.current) return
+    const checkHash = () => {
+      if (window.location.hash === `#${id}`) {
+        setShouldRender(true)
+      }
+    }
+
+    checkHash()
+    window.addEventListener('hashchange', checkHash)
+
+    if (shouldRender) return () => window.removeEventListener('hashchange', checkHash)
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -369,11 +408,19 @@ function LazySection({ children }) {
       },
       { rootMargin: '200px' }
     )
-    observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+    if (ref.current) observer.observe(ref.current)
 
-  return <div ref={ref}>{shouldRender ? children : <div style={{ minHeight: 200 }} />}</div>
+    return () => {
+      window.removeEventListener('hashchange', checkHash)
+      observer.disconnect()
+    }
+  }, [id, shouldRender])
+
+  return (
+    <section id={id} ref={ref} className="lazy-section" style={shouldRender ? {} : { minHeight: 200 }}>
+      {shouldRender ? children : null}
+    </section>
+  )
 }
 
 /* ═══════════════════════════════════════════
@@ -489,7 +536,7 @@ function Header({ theme, toggleTheme }) {
       },
       { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' }
     )
-    document.querySelectorAll('section[id]').forEach(s => observer.observe(s))
+    document.querySelectorAll('section[id], .lazy-section').forEach(s => observer.observe(s))
     return () => observer.disconnect()
   }, [])
 
@@ -788,7 +835,7 @@ function Solutions() {
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section className="section" id="solutions">
+    <div className="section">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">Solutions</span>
@@ -813,13 +860,13 @@ function Solutions() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
 function CaseStudies() {
   return (
-    <section className="section surface-1" id="cases">
+    <div className="section surface-1">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">Case Studies</span>
@@ -852,13 +899,13 @@ function CaseStudies() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
 function Clients() {
   return (
-    <section className="section" id="clients">
+    <div className="section">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">Clients</span>
@@ -886,7 +933,7 @@ function Clients() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -906,7 +953,7 @@ function Testimonials() {
   }, [])
 
   return (
-    <section className="section surface-1" id="testimonials">
+    <div className="section surface-1">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">Testimonials</span>
@@ -938,7 +985,7 @@ function Testimonials() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -946,7 +993,7 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
 
   return (
-    <section className="section" id="faq">
+    <div className="section">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">FAQ</span>
@@ -967,7 +1014,7 @@ function FAQ() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -996,7 +1043,8 @@ function Contact() {
     setSending(true)
     setFormError('')
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const formId = import.meta.env.VITE_FORMSPREE_ID || 'YOUR_FORM_ID'
+      const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -1017,7 +1065,7 @@ function Contact() {
   }
 
   return (
-    <section className="section surface-1" id="contact">
+    <div className="section surface-1">
       <div className="container">
         <div className="section-header reveal">
           <span className="section-tag">Contact</span>
@@ -1119,7 +1167,7 @@ function Contact() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -1215,32 +1263,32 @@ export default function App() {
       </ErrorBoundary>
       <Team />
       <StatsBand />
-      <LazySection>
+      <LazySection id="solutions">
         <ErrorBoundary>
           <Solutions />
         </ErrorBoundary>
       </LazySection>
-      <LazySection>
+      <LazySection id="cases">
         <ErrorBoundary>
           <CaseStudies />
         </ErrorBoundary>
       </LazySection>
-      <LazySection>
+      <LazySection id="clients">
         <ErrorBoundary>
           <Clients />
         </ErrorBoundary>
       </LazySection>
-      <LazySection>
+      <LazySection id="testimonials">
         <ErrorBoundary>
           <Testimonials />
         </ErrorBoundary>
       </LazySection>
-      <LazySection>
+      <LazySection id="faq">
         <ErrorBoundary>
           <FAQ />
         </ErrorBoundary>
       </LazySection>
-      <LazySection>
+      <LazySection id="contact">
         <ErrorBoundary>
           <Contact />
         </ErrorBoundary>
