@@ -419,7 +419,9 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
    ═══════════════════════════════════════════ */
 #header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  background: rgba(0,0,0,0.92);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: transform 0.35s ease, background 0.3s;
   border-bottom: 1px solid var(--card-border);
 }
@@ -503,12 +505,13 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 
 .menu-btn { 
   display: block; padding: 0.5rem; color: var(--text-secondary); 
-  background: rgba(0,0,0,0.04);
+  background: var(--surface-1);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.menu-btn:hover { background: rgba(203,41,87,0.1); color: var(--accent); }
+.menu-btn:hover { background: var(--accent-subtle); color: var(--accent); }
 .menu-btn svg { width: 1.5rem; height: 1.5rem; }
 @media (min-width: 768px) { .menu-btn { display: none; } }
 

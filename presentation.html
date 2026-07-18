@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InfoSecure — Project Presentation</title>
+  <title>InfoSecure Solutions — Redesigned Website</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -12,93 +12,80 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #05080F;
-      color: #F1F5F9;
+      background: #0b0c10;
+      color: #f0f4f8;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    ::selection { background: #22d3ee; color: #05080F; }
+    ::selection { background: #cb2957; color: #ffffff; }
 
     .slide-nav {
       position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 0.5rem; z-index: 100;
-      background: rgba(255,255,255,0.05);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.10);
-      padding: 0.75rem 1.25rem; border-radius: 2rem;
+      display: flex; gap: 0.6rem; z-index: 100;
+      background: rgba(255,255,255,0.06);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.85rem 1.5rem; border-radius: 2rem;
     }
     .slide-nav a {
       width: 10px; height: 10px; border-radius: 50%;
-      background: #334155;
+      background: rgba(255,255,255,0.18);
       transition: background 0.3s, transform 0.3s;
     }
-    .slide-nav a:hover, .slide-nav a.active { background: #22d3ee; transform: scale(1.3); }
+    .slide-nav a:hover, .slide-nav a.active { background: #cb2957; transform: scale(1.3); }
 
     .nav-arrows {
       position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
-      display: flex; flex-direction: column; gap: 0.5rem; z-index: 100;
+      display: flex; flex-direction: column; gap: 0.6rem; z-index: 100;
     }
     .nav-arrows button {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      color: #94A3B8;
-      width: 2.5rem; height: 2.5rem; border-radius: 50%; cursor: pointer;
-      font-size: 1.2rem;
-      transition: background 0.2s, color 0.2s;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: #cbd5e1; width: 2.5rem; height: 2.5rem; border-radius: 50%; cursor: pointer;
+      font-size: 1.15rem; transition: background 0.2s, color 0.2s;
       display: flex; align-items: center; justify-content: center;
     }
-    .nav-arrows button:hover { background: rgba(34,211,238,0.12); color: #22d3ee; }
+    .nav-arrows button:hover { background: rgba(203,41,87,0.14); color: #cb2957; }
 
     .slide {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 4rem 2rem; position: relative; overflow: hidden;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 5rem 2rem; position: relative; overflow: hidden;
     }
-    .slide-content { max-width: 900px; width: 100%; position: relative; z-index: 2; }
+    .slide-content { max-width: 960px; width: 100%; position: relative; z-index: 2; }
 
     .orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+      position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none;
     }
-    .orb-1 { width: 25rem; height: 25rem; top: -5rem; right: -5rem; background: rgba(34,211,238,0.05); }
-    .orb-2 { width: 20rem; height: 20rem; bottom: -5rem; left: -5rem; background: rgba(6,182,212,0.04); }
+    .orb-1 { width: 28rem; height: 28rem; top: -8rem; right: -8rem; background: rgba(203,41,87,0.12); }
+    .orb-2 { width: 22rem; height: 22rem; bottom: -8rem; left: -8rem; background: rgba(217,74,110,0.09); }
 
     .tag {
       display: inline-block; font-size: 0.7rem; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: #22d3ee; margin-bottom: 0.75rem;
-      background: rgba(34,211,238,0.08);
-      padding: 0.3rem 0.75rem; border-radius: 2rem;
-      border: 1px solid rgba(34,211,238,0.10);
+      color: #cb2957; margin-bottom: 0.75rem;
+      background: rgba(203,41,87,0.1);
+      padding: 0.35rem 0.85rem; border-radius: 2rem;
+      border: 1px solid rgba(203,41,87,0.18);
     }
-    h1 {
-      font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em;
-      line-height: 1.15; margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
-      margin-bottom: 0.75rem; line-height: 1.2;
-    }
-    h3 {
-      font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; color: #CBD5E1;
-    }
-    p { font-size: 1rem; color: #94A3B8; line-height: 1.7; }
+    h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+    h2 { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.8rem; line-height: 1.2; }
+    h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0; }
+    p { font-size: 1rem; color: rgba(241,245,249,0.72); line-height: 1.7; }
     .gradient {
-      background: linear-gradient(135deg, #22d3ee, #06b6d4);
+      background: linear-gradient(135deg, #cb2957, #d94a6e);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .small { font-size: 0.85rem; color: #64748B; }
+    .small { font-size: 0.88rem; color: rgba(203,213,225,0.82); }
 
     .card {
       background: rgba(255,255,255,0.05);
       -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 16px; padding: 1.5rem;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, transform 0.3s ease;
     }
-    .card:hover { border-color: rgba(34,211,238,0.18); }
+    .card:hover { border-color: rgba(203,41,87,0.35); transform: translateY(-2px); }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
@@ -114,62 +101,61 @@
     .text-center { text-align: center; }
     .w-full { width: 100%; }
 
-    ul { color: #94A3B8; line-height: 1.8; padding-left: 1.25rem; }
-    ul li { margin-bottom: 0.25rem; }
-    ul li strong { color: #CBD5E1; }
+    ul { color: rgba(203,213,225,0.8); line-height: 1.8; padding-left: 1.25rem; }
+    ul li { margin-bottom: 0.35rem; }
+    ul li strong { color: #f1f5f9; }
 
     .icon-box {
       width: 2.5rem; height: 2.5rem; border-radius: 8px;
-      background: rgba(34,211,238,0.08);
+      background: rgba(203,41,87,0.11);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 0.75rem; color: #22d3ee;
+      margin-bottom: 0.75rem; color: #cb2957;
     }
     .icon-box svg { width: 1.25rem; height: 1.25rem; }
 
     code {
       font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem;
-      background: rgba(255,255,255,0.06); padding: 0.15rem 0.4rem; border-radius: 4px; color: #CBD5E1;
+      background: rgba(255,255,255,0.07); padding: 0.18rem 0.45rem; border-radius: 4px; color: #e2e8f0;
     }
-
     .code-block {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 12px; padding: 1.25rem;
       font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem;
-      line-height: 1.6; color: #CBD5E1; overflow-x: auto;
+      line-height: 1.6; color: #cbd5e1; overflow-x: auto;
     }
-    .code-block .cyan { color: #22d3ee; }
-    .code-block .green { color: #34D399; }
-    .code-block .gray { color: #64748B; }
+    .code-block .accent { color: #cb2957; }
+    .code-block .green { color: #34d399; }
+    .code-block .gray { color: rgba(148,163,189,0.85); }
 
     .badge {
       display: inline-block; font-size: 0.7rem; font-weight: 600;
       padding: 0.25rem 0.6rem; border-radius: 1rem; margin-right: 0.35rem;
     }
-    .badge-cyan { background: rgba(34,211,238,0.12); color: #22d3ee; }
-    .badge-slate { background: rgba(148,163,184,0.08); color: #94A3B8; }
-    .badge-green { background: rgba(52,211,153,0.12); color: #34D399; }
+    .badge-accent { background: rgba(203,41,87,0.14); color: #cb2957; }
+    .badge-slate { background: rgba(148,163,189,0.1); color: #94a3b8; }
+    .badge-green { background: rgba(52,211,153,0.12); color: #34d399; }
 
     .stats-row { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
     .stat-item { text-align: center; }
     .stat-num {
-      font-size: 1.8rem; font-weight: 800;
-      background: linear-gradient(135deg, #22d3ee, #06b6d4);
+      font-size: 1.9rem; font-weight: 800;
+      background: linear-gradient(135deg, #cb2957, #d94a6e);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .stat-label { font-size: 0.75rem; color: #64748B; margin-top: 0.15rem; }
+    .stat-label { font-size: 0.78rem; color: rgba(148,163,189,0.85); margin-top: 0.15rem; }
 
     .progress-bar {
       position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(135deg, #22d3ee, #06b6d4);
+      background: linear-gradient(135deg, #cb2957, #d94a6e);
       z-index: 200; transition: width 0.1s;
     }
 
     @keyframes fade-up {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .slide.active .slide-content > * { animation: fade-up 0.5s ease-out both; }
+    .slide.active .slide-content > * { animation: fade-up 0.55s ease-out both; }
     .slide.active .slide-content > *:nth-child(1) { animation-delay: 0.05s; }
     .slide.active .slide-content > *:nth-child(2) { animation-delay: 0.1s; }
     .slide.active .slide-content > *:nth-child(3) { animation-delay: 0.15s; }
@@ -177,20 +163,14 @@
     .slide.active .slide-content > *:nth-child(5) { animation-delay: 0.25s; }
     .slide.active .slide-content > *:nth-child(6) { animation-delay: 0.3s; }
 
-    .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #334155; }
+    .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: rgba(148,163,189,0.85); }
 
-    .divider {
-      width: 60px; height: 2px;
-      background: linear-gradient(135deg, #22d3ee, transparent);
-      margin: 1rem 0;
-    }
+    .divider { width: 60px; height: 2px; background: linear-gradient(135deg, #cb2957, transparent); margin: 1rem 0; }
+
+    .ideation-line { color: rgba(203,41,87,0.75); }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       html { scroll-behavior: auto; }
       .slide.active .slide-content > * { animation: none; opacity: 1; }
     }
@@ -200,415 +180,265 @@
 
 <div class="progress-bar" id="progress"></div>
 
-<!-- ═══ SLIDE 1: TITLE ═══ -->
+<!-- SLIDE 1: TITLE -->
 <section class="slide active" id="s1">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="slide-content text-center">
     <div style="margin-bottom:1.5rem">
-      <div style="display:inline-flex;width:4.5rem;height:4.5rem;border-radius:1rem;background:linear-gradient(135deg,#22d3ee,#06b6d4);align-items:center;justify-content:center;color:#05080F;box-shadow:0 0 30px rgba(34,211,238,0.20)">
-        <svg style="width:2.5rem;height:2.5rem" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 4L6 12V22C6 33.1 13.7 43.3 24 46C34.3 43.3 42 33.1 42 22V12L24 4Z" fill="currentColor" opacity="0.3"/>
-          <path d="M24 8L10 14.5V22C10 31.5 16.4 40 24 42.2C31.6 40 38 31.5 38 22V14.5L24 8Z" fill="currentColor" opacity="0.5"/>
-          <path d="M24 12L14 17V22C14 29.6 19.1 36.6 24 38.4C28.9 36.6 34 29.6 34 22V17L24 12Z" fill="currentColor" opacity="0.7"/>
-          <path d="M20.5 23.5L23 26L27.5 20" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <div style="display:inline-flex;width:4.5rem;height:4.5rem;border-radius:1rem;background:linear-gradient(135deg,#cb2957,#d94a6e);align-items:center;justify-content:center;color:#ffffff;box-shadow:0 0 30px rgba(203,41,87,0.22)">
+        <svg width="2.4rem" height="2.4rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
         </svg>
       </div>
     </div>
-    <h1>InfoSecure</h1>
-    <p style="font-size:1.25rem;color:#22d3ee;font-weight:500;margin-bottom:0.5rem">Solutions Redefined</p>
-    <p style="max-width:600px;margin:0 auto">Corporate Website — Project Presentation</p>
+    <h1>InfoSecure Solutions</h1>
+    <p style="font-size:1.25rem;color:#cb2957;font-weight:500;margin-bottom:0.5rem">Redesigned corporate website</p>
+    <p style="max-width:640px;margin:0 auto">Dark → light redesign, stronger typography, refined branding, and no certification or compliance claims.</p>
     <div style="margin-top:2.5rem">
       <div class="stats-row">
-        <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Files</div></div>
-        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Dependencies</div></div>
-        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Build Step</div></div>
+        <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Brand pass</div></div>
+        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">ISO / SOC / GDPR mentions</div></div>
+        <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Hardcoded secrets</div></div>
       </div>
     </div>
     <p class="small" style="margin-top:3rem">Use arrow keys or click navigation dots to advance</p>
   </div>
 </section>
 
-<!-- ═══ SLIDE 2: OVERVIEW ═══ -->
+<!-- SLIDE 2: OVERVIEW -->
 <section class="slide" id="s2">
   <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
   <div class="slide-content">
-    <span class="tag">Project Overview</span>
-    <h2>Corporate Website for<br><span class="gradient">InfoSecure</span></h2>
-    <p class="mb-2">A modern, professional IT solutions landing page built with zero frameworks — just vanilla HTML, CSS, and JavaScript.</p>
+    <span class="tag">Redesign overview</span>
+    <h2>Professional presentation,<br><span class="gradient">cleaner story</span></h2>
+    <p class="mb-2">The goal was not just cosmetics. We aligned the new website back to the motadata/aligned, client-facing narrative while removing outdated certification claims and keeping the visual system more polished.</p>
     <div class="grid-2 mt-1">
       <div class="card">
         <div class="icon-box">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="11" fill="#22d3ee" opacity="0.08"/>
-            <path d="M12 4.5l-7 4v5a8.5 8.5 0 007 8 8.5 8.5 0 007-8v-5l-7-4z" fill="#22d3ee" opacity="0.15"/>
-            <path d="M12 6l-5.5 3v3.5a7 7 0 005.5 6.5 7 7 0 005.5-6.5V9L12 6z" fill="#22d3ee" opacity="0.3"/>
-            <path d="M10.5 11.5l1.5 1.5 3-3" stroke="#22d3ee" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
           </svg>
         </div>
-        <h3>Cybersecurity Focus</h3>
-        <p>Showcases expertise in security, cloud, data resilience, and network optimization through modern UI.</p>
+        <h3>No hardcoded secrets</h3>
+        <p>Removed any PAT/token-style onboarding artifacts from the marketing narrative and kept all integration references conceptual.</p>
       </div>
       <div class="card">
         <div class="icon-box">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="11" fill="#22d3ee" opacity="0.08"/>
-            <rect x="5" y="3" width="14" height="18" rx="2" fill="#22d3ee" opacity="0.12"/>
-            <path d="M8 16l8-8M10 8h6v6" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
         </div>
-        <h3>Zero Build Pipeline</h3>
-        <p>No Webpack, Vite, React, or node_modules. Open <code>index.html</code> directly in any browser to run.</p>
+        <h3>Faster, clearer presentation</h3>
+        <p>This deck documents what changed, what matured, and what got removed so stakeholders can compare old vs. new quickly.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SLIDE 3: STACK ═══ -->
+<!-- SLIDE 3: DESIGN SYSTEM -->
 <section class="slide" id="s3">
   <div class="orb orb-1"></div>
   <div class="slide-content">
-    <span class="tag">Tech Stack</span>
-    <h2>Built With<br><span class="gradient">Pure Web Standards</span></h2>
-    <div class="grid-3 mt-1">
-      <div class="card text-center" style="padding:2rem 1.5rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem;color:#22d3ee">&lt;/&gt;</div>
-        <h3>HTML5</h3>
-        <p class="small">Semantic structure, inline SVG icons, responsive meta tags</p>
-      </div>
-      <div class="card text-center" style="padding:2rem 1.5rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem;color:#22d3ee">#</div>
-        <h3>CSS3</h3>
-        <p class="small">Glassmorphism, custom properties, grid, keyframe animations</p>
-      </div>
-      <div class="card text-center" style="padding:2rem 1.5rem">
-        <div style="font-size:2.5rem;margin-bottom:0.75rem;color:#22d3ee">{ }</div>
-        <h3>Vanilla JS</h3>
-        <p class="small">IntersectionObserver, fetch API, DOM manipulation, no libraries</p>
-      </div>
-    </div>
-      <div class="code-block mt-2">
-      <span class="gray"># Total project footprint</span>
-      <br /><span class="cyan">index.html</span>    28 kB  ← all content
-      <br /><span class="cyan">style.css</span>     23 kB  ← all styles
-      <br /><span class="cyan">script.js</span>     10 kB  ← all JS
-      <br /><span class="gray">────────────────</span>
-      <br />Total: <span class="green">~61 kB</span>  <span class="gray">(zero dependencies)</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SLIDE 4: DESIGN SYSTEM ═══ -->
-<section class="slide" id="s4">
-  <div class="orb orb-1"></div>
-  <div class="slide-content">
-    <span class="tag">Design System</span>
-    <h2>Futureswap-Inspired<span class="gradient"> Glass UI</span></h2>
+    <span class="tag">Design system</span>
+    <h2>Light surface +<br><span class="gradient">crimson motion</span></h2>
     <div class="grid-2 mt-1">
       <div class="card">
-        <h3>Color Palette</h3>
+        <h3>Color palette</h3>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem">
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#05080F;border:1px solid rgba(255,255,255,0.1)" title="#05080F Base"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#0C1425" title="#0C1425 Surface"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#1E2A4A" title="#1E2A4A Accent"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#22d3ee" title="#22d3ee Electric Cyan"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#06b6d4" title="#06b6d4 Cyan Dark"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#67e8f9" title="#67e8f9 Cyan Light"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#CBD5E1" title="#CBD5E1 Slate"></div>
-          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#94A3B8" title="#94A3B8"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#ffffff;border:1px solid rgba(255,255,255,0.18)"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#f7f7f8;border:1px solid rgba(0,0,0,0.08)"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#0f172a"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#cb2957"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#d94a6e"></div>
+          <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#94a3b8"></div>
         </div>
-        <p class="small mt-1">Near-black base + electric cyan accent + glass surfaces with white borders</p>
+        <p class="small mt-1">Light surfaces with deep navy text, crimson accents, and restrained glass effects.</p>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem">
-          <span class="badge badge-cyan">Hexagon logo mark</span>
-          <span class="badge badge-cyan">Larger typography</span>
-          <span class="badge badge-cyan">Body: 17px</span>
-          <span class="badge badge-cyan">H1: 5rem</span>
+          <span class="badge badge-accent">Light mode</span>
+          <span class="badge badge-slate">Neutral warmth</span>
+          <span class="badge badge-slate">Motion with restraint</span>
         </div>
       </div>
       <div class="card">
-        <h3>Key Ingredients</h3>
+        <h3>Identified improvements</h3>
         <ul class="mt-1">
-          <li><strong>Glassmorphism</strong> — <code>backdrop-filter: blur(8px)</code> on all cards + nav</li>
-          <li><strong>Surface levels</strong> — 4 tiers of opacity from background to interactive</li>
-          <li><strong>3D Canvas Torus</strong> — rotating wireframe torus in hero with depth-aware line weights</li>
-          <li><strong>Electric cyan</strong> — <code>#22d3ee</code> for CTAs, glows, gradients</li>
-          <li><strong>prefers-reduced-motion</strong> — disables all animations</li>
+          <li><strong>Readability:</strong> moved from low-contrast dark gradients to clean typography rhythm.</li>
+          <li><strong>Hover density:</strong> removed excessive glow surfaces and high-contrast glass noise.</li>
+          <li><strong>Trust messaging:</strong> replaced certification lead ins with client outcomes and services.</li>
+          <li><strong>Consistency:</strong> crimson + warm steel instead of multiple competing accent hues.</li>
+          <li><strong>No certification claims:</strong> removed ISO 27001, SOC 2, GDPR, and trust-badge wording.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SLIDE 5: SECTIONS ═══ -->
+<!-- SLIDE 4: WHAT WAS REMOVED -->
+<section class="slide" id="s4">
+  <div class="orb orb-1"></div>
+  <div class="slide-content">
+    <span class="tag">Content cleanup</span>
+    <h2>Removed loose claims,<br><span class="gradient">preserved context</span></h2>
+    <div class="grid-2 gap-2 mt-1">
+      <div class="card">
+        <h3>Removed</h3>
+        <ul class="mt-1">
+          <li>ISO 27001 and SOC 2 trust badges</li>
+          <li>GDPR compliance language</li>
+          <li>Compliance-first framing on marketing slides</li>
+          <li>Unverified certification claims</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Kept and strengthened</h3>
+        <ul class="mt-1">
+          <li>Motadata product alignment</li>
+          <li>Observability / ITSM capability narrative</li>
+          <li>Client outcomes and partnership story</li>
+          <li>Contact, form behavior, and demo clarity</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small mt-2 ideation-line">Bandook-style improvement: sharper cards, lower visual noise, tighter hierarchy, stronger headline contrast.</p>
+  </div>
+</section>
+
+<!-- SLIDE 5: SECTIONS -->
 <section class="slide" id="s5">
   <div class="orb orb-1"></div>
   <div class="slide-content">
-    <span class="tag">Page Structure</span>
-    <h2>7 Sections,<span class="gradient"> One Page</span></h2>
+    <span class="tag">Page structure</span>
+    <h2>Single page,<br><span class="gradient"> intentional sections</span></h2>
     <div class="grid-2 gap-2 mt-1">
       <div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">1</span>
+            <span class="badge badge-accent">1</span>
             <h3 style="margin:0">Header</h3>
           </div>
-          <p class="small">Fixed glass nav, trust badges (ISO 27001 / SOC 2), scroll-aware hide/show, active link highlighting, mobile slide-down menu</p>
+          <p class="small">Clean nav, Motadata positioning line, clear CTA without extra trust-badge clutter.</p>
         </div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">2</span>
+            <span class="badge badge-accent">2</span>
             <h3 style="margin:0">Hero</h3>
           </div>
-          <p class="small">Animated dot grid, floating glow orbs, trust signal strip, rotating typewriter tagline, dual CTAs with shine effect</p>
+          <p class="small">Clear value proposition, light brand gradient, memorable typewriter line, stronger contrast than the prior dark treatment.</p>
         </div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">3</span>
-            <h3 style="margin:0">About</h3>
+            <span class="badge badge-accent">3</span>
+            <h3 style="margin:0">Solutions</h3>
           </div>
-          <p class="small">4 expertise cards with SVG icons, glass hover lift, staggered scroll reveal</p>
+          <p class="small">Service pillars restated in Motadata terms, with optional detail expansion instead of stacked copy.</p>
         </div>
       </div>
       <div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">4</span>
-            <h3 style="margin:0">Stats</h3>
+            <span class="badge badge-accent">4</span>
+            <h3 style="margin:0">Case studies</h3>
           </div>
-          <p class="small">4 animated counters with narrative descriptions explaining <em>why</em> each metric matters</p>
+          <p class="small">Results-first copy rather than compliance-first copy.</p>
         </div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">5</span>
-            <h3 style="margin:0">Solutions</h3>
+            <span class="badge badge-accent">5 / 6</span>
+            <h3 style="margin:0">Contact</h3>
           </div>
-          <p class="small">8 service cards with <strong>progressive disclosure</strong> — click "Details" to reveal deeper technical info</p>
+          <p class="small">Clear form fields, direct contact path, no backend artifacts surfaced in the user journey.</p>
         </div>
         <div class="card" style="margin-bottom:1rem">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem">
-            <span class="badge badge-cyan">6 / 7</span>
-            <h3 style="margin:0">Clients + Contact</h3>
+            <span class="badge badge-accent">7</span>
+            <h3 style="margin:0">Footer</h3>
           </div>
-          <p class="small">Sector cards, infinite client marquee, form that creates GitHub Issues</p>
+          <p class="small">Company identity, contact email, and copyright remain consistent across versions.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SLIDE 6: INTERACTIONS ═══ -->
+<!-- SLIDE 6: INTERACTIONS -->
 <section class="slide" id="s6">
   <div class="orb orb-1"></div>
   <div class="slide-content">
-    <span class="tag">Dynamics</span>
-    <h2>Interactive<span class="gradient"> Experience</span></h2>
+    <span class="tag">Interaction</span>
+    <h2>Standardized<span class="gradient"> motion</span></h2>
     <div class="grid-2 mt-1">
       <div class="card">
-        <h3>Scroll-Triggered Reveals</h3>
-        <p class="small">Every section fades + slides up as it enters the viewport. Staggered delays create a wave effect across card grids.</p>
+        <h3>Scroll reveals</h3>
+        <p class="small">Each section fades upward into view; grouped delays create smoother card-wave reveals than the prior animation treatment.</p>
         <div class="code-block mt-1" style="font-size:0.75rem">
-          <span class="cyan">const</span> observer = <span class="cyan">new</span> IntersectionObserver(<br />
-          &nbsp;&nbsp;entries => entries.forEach(e => <br />
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">e.target.classList.toggle</span>(<span class="cyan">'visible'</span>, e.isIntersecting)<br />
-          &nbsp;&nbsp;), { threshold: <span class="green">0.15</span> }<br />
+          <span class="accent">const</span> observer = <span class="accent">new</span> IntersectionObserver(<br>
+          &nbsp;&nbsp;entries => entries.forEach(<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">e.target.classList.toggle</span>(<span class="accent">'visible'</span>, e.isIntersecting)<br>
+          &nbsp;&nbsp;), { threshold: <span class="green">0.15</span> }<br>
           )
         </div>
       </div>
       <div class="card">
-        <h3>Continuous Animations</h3>
+        <h3>Interactive behaviors</h3>
         <ul>
-          <li><strong>3D Wireframe Torus</strong> — canvas-based rotating torus in hero, depth-sorted vertices with glow</li>
-          <li><strong>Typewriter</strong> — cycles 4 phrases every 2.8s with cursor blink</li>
-          <li><strong>Counters</strong> — numbers animate from 0 to target over 1.5s</li>
-          <li><strong>Marquee</strong> — client names scroll horizontally, pause on hover</li>
-          <li><strong>Tilt</strong> — cards rotate up to 6° following the mouse</li>
-          <li><strong>Progressive disclosure</strong> — toggle extra solution details inline</li>
+          <li><strong>Typewriter</strong> — clean single-line cycling with softer cursor rhythm.</li>
+          <li><strong>Accordions</strong> — solutions details without forcing the visitor to read everything immediately.</li>
+          <li><strong>Carousel</strong> — testimonial track with dot state and pause-on-hover behavior.</li>
+          <li><strong>Form validation</strong> — client-side checks, error states, and rate-limit feedback.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SLIDE 7: CONTACT FORM ═══ -->
+<!-- SLIDE 7: TAKEWAYS -->
 <section class="slide" id="s7">
   <div class="orb orb-1"></div>
   <div class="slide-content">
-    <span class="tag">Backend-Free Contact</span>
-    <h2>Form →<span class="gradient"> GitHub Issue</span></h2>
-    <p class="mb-1">No server, no database. The form posts directly to the GitHub Issues API using a fine-grained PAT.</p>
-    <div class="grid-2 mt-1">
-      <div class="card">
-        <h3>How It Works</h3>
-        <div class="code-block mt-1" style="font-size:0.75rem">
-          <span class="green">POST</span> https://api.github.com/repos/<span class="cyan">{repo}</span>/issues<br />
-          <span class="gray">Authorization: Bearer {PAT}</span><br />
-          {<br />
-          &nbsp;&nbsp;title: <span class="cyan">"Contact: John &lt;j@a.com&gt;"</span>,<br />
-          &nbsp;&nbsp;body: <span class="cyan">"**Name:** ...\n**Message:** ..."</span>,<br />
-          &nbsp;&nbsp;labels: [<span class="cyan">"contact"</span>]<br />
-          }
-        </div>
-      </div>
-      <div class="card">
-        <h3>Deployment Flow</h3>
-        <ul>
-          <li><strong>PAT</strong> stored as GitHub Actions secret <code>CONTACT_PAT</code></li>
-          <li><strong>Workflow</strong> replaces <code>__GITHUB_PAT__</code> placeholder via <code>sed</code> at deploy time</li>
-          <li><strong>Built files</strong> published to <code>gh-pages</code> branch</li>
-          <li><strong>No backend</strong> = zero server costs, zero maintenance</li>
-        </ul>
-        <div class="stats-row mt-1" style="justify-content:flex-start">
-          <span class="badge badge-green">~50 kB</span>
-          <span class="badge badge-slate">Zero ops</span>
-          <span class="badge badge-slate">Free hosting</span>
-        </div>
-      </div>
-    </div>
+    <span class="tag">Takeaways</span>
+    <h2>A sharper brand surface,<br><span class="gradient">not a rebuild</span></h2>
+    <ul style="max-width:620px;margin:0 auto">
+      <li>Redesign is content-forward: outcomes, services, and partnerships.</li>
+      <li>Compliance language was removed rather than hidden.</li>
+      <li>Visual noise dropped for readability and stronger CTAs.</li>
+      <li>Light theme retained motion where it supports understanding.</li>
+    </ul>
+    <p class="small mt-2 ideation-line">This presentation documents the specific changes so design approvals can focus on what was intentionally altered.</p>
   </div>
 </section>
 
-<!-- ═══ SLIDE 8: DEPLOYMENT ═══ -->
+<!-- SLIDE 8: NEXT -->
 <section class="slide" id="s8">
   <div class="orb orb-1"></div>
-  <div class="slide-content">
-    <span class="tag">CI / CD</span>
-    <h2>GitHub Actions<span class="gradient"> Pipeline</span></h2>
-    <div class="code-block" style="font-size:0.8rem">
-      <span class="gray">.github/workflows/deploy.yml</span><br /><br />
-      <span class="cyan">on</span>: push → <span class="cyan">branches</span>: [main]<br /><br />
-      <span class="cyan">steps</span>:<br />
-      &nbsp;&nbsp;1. actions/checkout<br />
-      &nbsp;&nbsp;2. mkdir <span class="green">dist</span> &amp;&amp; cp <span class="cyan">*.html *.css *.js</span> dist/<br />
-      &nbsp;&nbsp;3. <span class="green">sed</span> <span class="cyan">"s/__GITHUB_PAT__/\$PAT/g"</span> dist/script.js<br />
-      &nbsp;&nbsp;4. peaceiris/actions-gh-pages → publish <span class="green">dist/</span>
-    </div>
-    <div class="grid-3 mt-2">
-      <div class="card text-center">
-        <div class="stat-num" style="font-size:1.5rem">1</div>
-        <p class="small">Push to main</p>
-      </div>
-      <div class="card text-center">
-        <div class="stat-num" style="font-size:1.5rem">~15s</div>
-        <p class="small">Build + Deploy</p>
-      </div>
-      <div class="card text-center">
-        <div class="stat-num" style="font-size:1.5rem">🌐</div>
-        <p class="small">Live on Pages</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SLIDE 9: FILE TOUR ═══ -->
-<section class="slide" id="s9">
-  <div class="orb orb-1"></div>
-  <div class="slide-content">
-    <span class="tag">Codebase Tour</span>
-    <h2>3 Files,<span class="gradient"> No Hidden Complexity</span></h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem">
-      <div class="card">
-        <h3><code style="font-size:1rem">index.html</code></h3>
-        <p class="small" style="margin-top:0.5rem">~430 lines. All 7 sections inline, favicon as data URI, Google Fonts preconnect, mobile-first responsive structure, trust badges, progressive disclosure toggles, hexagon logo mark.</p>
-      </div>
-      <div class="card">
-        <h3><code style="font-size:1rem">style.css</code></h3>
-        <p class="small" style="margin-top:0.5rem">~770 lines. Design tokens with CSS custom properties, 4 surface levels, glass with @supports fallback, grid system, prefers-reduced-motion, narrative stats, larger typography scale.</p>
-      </div>
-    </div>
-    <div class="card mt-1">
-      <h3><code style="font-size:1rem">script.js</code></h3>
-      <p class="small" style="margin-top:0.5rem">~330 lines. 3D torus engine (canvas-based with perspective projection, rotation matrices, depth sorting), progressive disclosure toggle, dot grid, typewriter, scroll-aware header, mobile menu, active nav, IntersectionObserver reveal, counter animation, tilt cards, marquee, form validation + GitHub API.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SLIDE 10: KEY METRICS ═══ -->
-<section class="slide" id="s10">
-  <div class="orb orb-1"></div>
-  <div class="slide-content">
-    <span class="tag">Performance</span>
-    <h2>Built for<span class="gradient"> Speed</span></h2>
-    <div class="grid-2 mt-1">
-      <div class="card">
-        <h3>Bundle Size</h3>
-        <ul class="mt-1">
-          <li><strong>HTML:</strong> 28 kB</li>
-          <li><strong>CSS:</strong> 23 kB</li>
-          <li><strong>JS:</strong> 10 kB</li>
-          <li><strong>Total:</strong> ~61 kB uncompressed</li>
-          <li><strong>gzip</strong> estimate: ~19 kB</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Loading</h3>
-        <ul class="mt-1">
-          <li><strong>Zero</strong> framework JS (no React, no Vue)</li>
-          <li><strong>Zero</strong> CSS frameworks (no Tailwind, no Bootstrap)</li>
-          <li><strong>Zero</strong> external requests (except Google Fonts)</li>
-          <li><strong>Zero</strong> hydration or compile step</li>
-          <li>First paint = HTML loaded</li>
-        </ul>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:1.5rem">
-      <span class="badge badge-green">Lighthouse 95+</span>
-      <span class="badge badge-green">First paint &lt;200ms</span>
-      <span class="badge badge-green">0.03 MB transferred</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SLIDE 11: LIVE DEMO ═══ -->
-<section class="slide" id="s11">
-  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
   <div class="slide-content text-center">
-    <span class="tag">Final</span>
-    <h2>See It<span class="gradient"> Live</span></h2>
+    <span class="tag">Next</span>
+    <h2>From this deck to<br><span class="gradient">a cleaner live site</span></h2>
     <div style="margin:2rem 0">
-      <div style="display:inline-flex;width:4rem;height:4rem;border-radius:1rem;background:linear-gradient(135deg,#22d3ee,#06b6d4);align-items:center;justify-content:center;color:#05080F;box-shadow:0 0 30px rgba(34,211,238,0.20);margin-bottom:1rem">
-        <svg style="width:2rem;height:2rem" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="24 3, 43 14, 43 34, 24 45, 5 34, 5 14" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-          <polygon points="24 8, 38 17, 38 31, 24 40, 10 31, 10 17" fill="currentColor" opacity="0.15"/>
-          <polygon points="24 14, 32 19, 32 29, 24 34, 16 29, 16 19" fill="currentColor" opacity="0.4"/>
-          <circle cx="24" cy="24" r="3" fill="currentColor"/>
-          <circle cx="24" cy="8" r="1.5" fill="currentColor" opacity="0.6"/>
-          <circle cx="38" cy="17" r="1.5" fill="currentColor" opacity="0.6"/>
-          <circle cx="38" cy="31" r="1.5" fill="currentColor" opacity="0.6"/>
-          <circle cx="24" cy="40" r="1.5" fill="currentColor" opacity="0.6"/>
-          <circle cx="10" cy="31" r="1.5" fill="currentColor" opacity="0.6"/>
-          <circle cx="10" cy="17" r="1.5" fill="currentColor" opacity="0.6"/>
-          <line x1="24" y1="8" x2="24" y2="14" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="38" y1="17" x2="32" y2="19" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="38" y1="31" x2="32" y2="29" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="24" y1="40" x2="24" y2="34" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="10" y1="31" x2="16" y2="29" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="10" y1="17" x2="16" y2="19" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <line x1="24" y1="24" x2="24" y2="14" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-          <line x1="24" y1="24" x2="32" y2="19" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-          <line x1="24" y1="24" x2="32" y2="29" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-          <line x1="24" y1="24" x2="24" y2="34" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-          <line x1="24" y1="24" x2="16" y2="29" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-          <line x1="24" y1="24" x2="16" y2="19" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+      <div style="display:inline-flex;width:4rem;height:4rem;border-radius:1rem;background:linear-gradient(135deg,#cb2957,#d94a6e);align-items:center;justify-content:center;color:#fff;box-shadow:0 0 30px rgba(203,41,87,0.18);margin-bottom:1rem">
+        <svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
         </svg>
       </div>
-      <p style="font-size:1.2rem;color:#CBD5E1">GitHub Pages</p>
-      <p style="font-size:1.5rem;font-weight:700;color:#22d3ee">pradyu12.github.io/InfoSecure</p>
+      <p style="color:#e2e8f0">Preview</p>
+      <p style="font-size:1.5rem;font-weight:700;color:#cb2957">www.infosecuresolutions.co.in</p>
     </div>
-    <div class="card" style="max-width:500px;margin:0 auto">
-      <h3>Key Takeaways</h3>
-      <ul class="mt-1">
-        <li>Production-ready corporate site in <strong>3 files</strong></li>
-        <li>No build tools, no frameworks, no server</li>
-        <li>Contact form works via <strong>GitHub Issues API</strong></li>
-        <li>Auto-deploys on push via <strong>GitHub Actions</strong></li>
-        <li>Free hosting + unlimited submissions</li>
+    <div class="card" style="max-width:520px;margin:0 auto">
+      <h3>What to approve</h3>
+      <ul class="mt-1" style="text-align:left">
+        <li>All ISO / SOC / GDPR badges removed</li>
+        <li>Motadata messaging retained and strengthened</li>
+        <li>Visual system simplified toward light-mode readability</li>
+        <li>No hardcoded PATs or secrets introduced</li>
       </ul>
     </div>
     <p class="small" style="margin-top:2rem">Press <strong>Home</strong> or click dot 1 to restart</p>
   </div>
 </section>
 
-<!-- ═══ NAVIGATION ═══ -->
+<!-- NAVIGATION -->
 <div class="slide-nav" id="slideNav"></div>
 <div class="nav-arrows">
   <button id="prevBtn" title="Previous">▲</button>
@@ -624,7 +454,6 @@
   slides.forEach((_, i) => {
     const a = document.createElement('a')
     a.href = '#s' + (i + 1)
-    a.dataset.index = i
     nav.appendChild(a)
   })
 
@@ -646,14 +475,8 @@
   })
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault()
-      goTo(Math.min(current + 1, total - 1))
-    }
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault()
-      goTo(Math.max(current - 1, 0))
-    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(Math.min(current + 1, total - 1)) }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(Math.max(current - 1, 0)) }
     if (e.key === 'Home') { e.preventDefault(); goTo(0) }
     if (e.key === 'End') { e.preventDefault(); goTo(total - 1) }
   })
