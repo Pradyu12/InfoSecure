@@ -773,7 +773,7 @@ function FAQ() {
 
         <div className="faq-list">
           {FAQ_ITEMS.map((item, i) => (
-            <div key={i} className={`faq-item card reveal ${openIndex === i ? 'open' : ''}`} style={{ transitionDelay: `${i * 0.05}s` }}>
+            <div key={i} className={`faq-item card ${openIndex === i ? 'open' : ''}`}>
               <button className="faq-question" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
                 <span>{item.q}</span>
                 <ChevronDown />
