@@ -410,7 +410,7 @@ function Header() {
       <div className="container">
         <div className="header-inner">
           <a href="#" className="logo">
-            <img src="/logo.png" alt="InfoSecure Solutions" style={{ height: '40px', width: 'auto' }} />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="InfoSecure Solutions" style={{ height: '40px', width: 'auto' }} />
           </a>
 
           <div className="trust-badges">
@@ -931,7 +931,7 @@ function Footer() {
       <div className="container">
         <div className="footer-inner">
           <div className="logo" style={{ gap: '0.5rem' }}>
-            <img src="/logo.png" alt="InfoSecure Solutions" style={{ height: '20px', width: 'auto' }} />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="InfoSecure Solutions" style={{ height: '20px', width: 'auto' }} />
           </div>
           <div className="footer-text">&copy; {new Date().getFullYear()} InfoSecure Solutions. All rights reserved.</div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
