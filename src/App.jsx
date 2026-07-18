@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, Component, Suspense, lazy } from 'react'
 import { drawTorus } from './utils/canvas'
 
 /* ═══════════════════════════════════════════
@@ -293,6 +293,89 @@ function useBackToTop() {
   return visible
 }
 
+function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem('theme')
+    if (stored) return stored
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggle = () => setTheme(t => t === 'light' ? 'dark' : 'light')
+
+  return { theme, toggle }
+}
+
+/* ═══════════════════════════════════════════
+   ERROR BOUNDARY
+   ═══════════════════════════════════════════ */
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          padding: '3rem 1.5rem', textAlign: 'center',
+          background: 'var(--surface-1)', borderRadius: 'var(--radius-card)',
+          margin: '1rem auto', maxWidth: '600px'
+        }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5"
+            style={{ width: 48, height: 48, margin: '0 auto 1rem' }}>
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>
+          </svg>
+          <h3 style={{ marginBottom: '0.5rem' }}>Something went wrong</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+            This section encountered an error. Please try reloading the page.
+          </p>
+          <button className="btn-primary" onClick={() => window.location.reload()}>
+            Reload Page
+          </button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
+/* ═══════════════════════════════════════════
+   LAZY SECTION (deferred rendering)
+   ═══════════════════════════════════════════ */
+
+function LazySection({ children }) {
+  const ref = useRef(null)
+  const [shouldRender, setShouldRender] = useState(false)
+
+  useEffect(() => {
+    if (!ref.current) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+    observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
+  return <div ref={ref}>{shouldRender ? children : <div style={{ minHeight: 200 }} />}</div>
+}
+
 /* ═══════════════════════════════════════════
    SVG ICONS
    ═══════════════════════════════════════════ */
@@ -369,6 +452,18 @@ const StarIcon = () => (
   </svg>
 )
 
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+)
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+)
+
 /* ═══════════════════════════════════════════
    SECTION COMPONENTS
    ═══════════════════════════════════════════ */
@@ -378,7 +473,7 @@ function ScrollProgressBar() {
   return <div id="scroll-progress" style={{ width: `${width}%` }} />
 }
 
-function Header() {
+function Header({ theme, toggleTheme }) {
   const hidden = useHeaderScroll()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -427,6 +522,10 @@ function Header() {
             ))}
             <a href="#contact" className="nav-cta" onClick={e => handleNavClick(e, '#contact')}>Get Started</a>
           </nav>
+
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+          </button>
 
           <button className="menu-btn" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
@@ -604,6 +703,62 @@ function About() {
               <p>Every engagement is tied to KPIs — alert reduction, MTTR, cost savings — that your leadership team cares about.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const TEAM_MEMBERS = [
+  {
+    name: 'Shankar',
+    role: 'Founder & CEO',
+    initials: 'SK',
+    tags: ['Motadata Certified', 'ITSM Strategy', 'Enterprise Architecture']
+  },
+  {
+    name: 'Ankit Verma',
+    role: 'Lead Solutions Architect',
+    initials: 'AV',
+    tags: ['AIOps', 'Infrastructure Monitoring', 'Network Visibility']
+  },
+  {
+    name: 'Priyanka Rao',
+    role: 'Head of Delivery',
+    initials: 'PR',
+    tags: ['Implementation', 'Managed Services', 'Client Success']
+  },
+  {
+    name: 'Vikram Joshi',
+    role: 'Senior Support Engineer',
+    initials: 'VJ',
+    tags: ['Troubleshooting', 'Log Analytics', '24/7 NOC Operations']
+  }
+]
+
+function Team() {
+  return (
+    <section className="section" id="team">
+      <div className="container">
+        <div className="section-header reveal">
+          <span className="section-tag">Our Team</span>
+          <h2>Experts behind<br /><span className="gradient-text">every deployment</span></h2>
+          <p>Certified engineers and consultants with deep Motadata platform expertise across industries.</p>
+        </div>
+
+        <div className="team-grid">
+          {TEAM_MEMBERS.map((m, i) => (
+            <div key={i} className="card team-card reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div className="testimonial-avatar" style={{ width: '3.5rem', height: '3.5rem', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                {m.initials}
+              </div>
+              <div className="card-title">{m.name}</div>
+              <p style={{ color: 'var(--accent)', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.75rem' }}>{m.role}</p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {m.tags.map(t => <span key={t} className="badge badge-accent">{t}</span>)}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -821,6 +976,7 @@ function Contact() {
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
+  const [formError, setFormError] = useState('')
   const [honeypot, setHoneypot] = useState('')
 
   const validate = () => {
@@ -833,16 +989,26 @@ function Contact() {
     return Object.keys(e).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (honeypot) return
     if (!validate()) return
     setSending(true)
-    setTimeout(() => {
-      setSending(false)
+    setFormError('')
+    try {
+      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      })
+      if (!res.ok) throw new Error('Submission failed')
       setSubmitted(true)
       setForm({ name: '', email: '', company: '', subject: '', message: '' })
-    }, 1500)
+    } catch {
+      setFormError('Something went wrong. Please try again or email us directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const handleChange = (field, value) => {
@@ -909,6 +1075,11 @@ function Contact() {
                 <div className="honeypot">
                   <input type="text" value={honeypot} onChange={e => setHoneypot(e.target.value)} tabIndex="-1" autoComplete="off" />
                 </div>
+                {formError && (
+                  <div style={{ padding: '0.75rem 1rem', background: 'rgba(220,38,38,0.08)', borderRadius: '8px', color: 'var(--accent)', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                    {formError}
+                  </div>
+                )}
                 <div className="form-row">
                   <div className="form-group">
                     <input type="text" placeholder="Your Name *" value={form.name} onChange={e => handleChange('name', e.target.value)} className={errors.name ? 'error' : ''} />
@@ -1025,6 +1196,7 @@ function BackToTop() {
 
 export default function App() {
   useScrollReveal()
+  const { theme, toggle } = useTheme()
 
   useEffect(() => {
     document.body.classList.add('loaded')
@@ -1033,17 +1205,46 @@ export default function App() {
   return (
     <>
       <ScrollProgressBar />
-      <Header />
-      <Hero />
+      <Header theme={theme} toggleTheme={toggle} />
+      <ErrorBoundary>
+        <Hero />
+      </ErrorBoundary>
       <MotadataPartner />
-      <About />
+      <ErrorBoundary>
+        <About />
+      </ErrorBoundary>
+      <Team />
       <StatsBand />
-      <Solutions />
-      <CaseStudies />
-      <Clients />
-      <Testimonials />
-      <FAQ />
-      <Contact />
+      <LazySection>
+        <ErrorBoundary>
+          <Solutions />
+        </ErrorBoundary>
+      </LazySection>
+      <LazySection>
+        <ErrorBoundary>
+          <CaseStudies />
+        </ErrorBoundary>
+      </LazySection>
+      <LazySection>
+        <ErrorBoundary>
+          <Clients />
+        </ErrorBoundary>
+      </LazySection>
+      <LazySection>
+        <ErrorBoundary>
+          <Testimonials />
+        </ErrorBoundary>
+      </LazySection>
+      <LazySection>
+        <ErrorBoundary>
+          <FAQ />
+        </ErrorBoundary>
+      </LazySection>
+      <LazySection>
+        <ErrorBoundary>
+          <Contact />
+        </ErrorBoundary>
+      </LazySection>
       <Footer />
       <CookieBanner />
       <BackToTop />
