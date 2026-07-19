@@ -827,6 +827,7 @@ function StatsBand() {
             <div key={i} className="stat-item reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
               <div className="stat-value">{s.value}{s.suffix}</div>
               <div className="stat-label">{s.label}</div>
+              {s.narrative && <div className="stat-narrative">{s.narrative}</div>}
             </div>
           ))}
         </div>
@@ -855,7 +856,7 @@ function Solutions() {
               <div className="card-icon-modern">{s.icon}</div>
               <div className="card-title">{s.title}</div>
               <p>{s.description}</p>
-              <button className="solution-toggle" onClick={() => toggle(i)}>
+              <button className={`solution-toggle ${openIndex === i ? 'open' : ''}`} onClick={() => toggle(i)}>
                 {openIndex === i ? 'Show less' : 'Learn more'}
                 <ChevronDown />
               </button>
