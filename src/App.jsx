@@ -322,6 +322,27 @@ function useBackToTop() {
   return visible
 }
 
+function useScrollSpy(selectors, options) {
+  const [activeSection, setActiveSection] = useState('')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            setActiveSection('#' + e.target.id)
+          }
+        })
+      },
+      options
+    )
+    document.querySelectorAll(selectors).forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  }, [selectors, options])
+
+  return activeSection
+}
+
 function useTheme() {
   const [theme, setTheme] = useState(() => {
     const stored = localStorage.getItem('theme')
@@ -523,22 +544,7 @@ function ScrollProgressBar() {
 function Header({ theme, toggleTheme }) {
   const hidden = useHeaderScroll()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            setActiveSection('#' + e.target.id)
-          }
-        })
-      },
-      { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' }
-    )
-    document.querySelectorAll('section[id], .lazy-section').forEach(s => observer.observe(s))
-    return () => observer.disconnect()
-  }, [])
+  const activeSection = useScrollSpy('section[id], .lazy-section', { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' })
 
   const handleNavClick = (e, href) => {
     e.preventDefault()
