@@ -996,16 +996,40 @@ function Contact() {
     setSending(true)
     setFormError('')
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const pat = import.meta.env.VITE_GITHUB_PAT
+      const repo = import.meta.env.VITE_GITHUB_REPO
+      if (!pat || !repo) {
+        setFormError('Contact form is not configured yet. Please email us directly at info@infosecuresolutions.co.in.')
+        return
+      }
+      const body = [
+        `**Name:** ${form.name}`,
+        `**Email:** ${form.email}`,
+        `**Company:** ${form.company || 'N/A'}`,
+        `**Subject:** ${form.subject || 'N/A'}`,
+        `**Message:** ${form.message}`
+      ].join('\n')
+      const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        headers: {
+          'Authorization': `token ${pat}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+          title: `Contact: ${form.subject || 'General inquiry'} from ${form.name}`,
+          body,
+          labels: ['contact']
+        })
       })
-      if (!res.ok) throw new Error('Submission failed')
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        throw new Error(errData.message || 'Submission failed')
+      }
       setSubmitted(true)
       setForm({ name: '', email: '', company: '', subject: '', message: '' })
     } catch {
-      setFormError('Something went wrong. Please try again or email us directly.')
+      setFormError('Something went wrong. Please try again or email us directly at info@infosecuresolutions.co.in.')
     } finally {
       setSending(false)
     }
@@ -1164,7 +1188,7 @@ function CookieBanner() {
       <div className="cookie-content">
         <div className="cookie-text">
           We use cookies to improve your experience. By continuing, you agree to our use of cookies.{' '}
-          <a href="#privacy">Learn more</a>
+          Learn more
         </div>
         <div className="cookie-actions">
           <button className="cookie-decline" onClick={accept}>Decline</button>
