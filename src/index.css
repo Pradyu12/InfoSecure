@@ -270,7 +270,7 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 /* ── Full-bleed stats band ── */
 .stats-band {
   position: relative;
-  padding: 4rem 0;
+  padding: 1.5rem 0;
   margin: 0;
   background: linear-gradient(135deg, rgba(220,38,38,0.03) 0%, transparent 50%, rgba(239,68,68,0.02) 100%);
   border-top: 1px solid rgba(220,38,38,0.05);
@@ -307,12 +307,12 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 .mt-2 { margin-top: 0.5rem; }
 
 /* ── Sections ── */
-.section { padding: 5rem 0; position: relative; }
-@media (min-width: 640px) { .section { padding: 7rem 0; } }
-@media (min-width: 1024px) { .section { padding: 8rem 0; } }
-.section#team { padding-bottom: 3rem; }
-.section-header { max-width: 680px; margin: 0 auto 4rem; text-align: center; }
-.section#team .section-header { margin-bottom: 2.5rem; }
+.section { padding: 3rem 0; position: relative; }
+@media (min-width: 640px) { .section { padding: 4rem 0; } }
+@media (min-width: 1024px) { .section { padding: 5rem 0; } }
+.section#team { padding-top: 2rem; padding-bottom: 0; }
+.section-header { max-width: 680px; margin: 0 auto 2.5rem; text-align: center; }
+.section#team .section-header { margin-bottom: 1rem; }
 .section-tag {
   display: inline-block;
   font-size: 0.7rem;
