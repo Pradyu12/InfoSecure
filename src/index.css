@@ -310,7 +310,9 @@ input, textarea, button { font: inherit; color: inherit; border: none; outline: 
 .section { padding: 5rem 0; position: relative; }
 @media (min-width: 640px) { .section { padding: 7rem 0; } }
 @media (min-width: 1024px) { .section { padding: 8rem 0; } }
+.section#team { padding-bottom: 3rem; }
 .section-header { max-width: 680px; margin: 0 auto 4rem; text-align: center; }
+.section#team .section-header { margin-bottom: 2.5rem; }
 .section-tag {
   display: inline-block;
   font-size: 0.7rem;
