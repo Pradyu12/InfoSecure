@@ -17,7 +17,7 @@
   --radius-card: 12px;
   --radius-btn: 8px;
   --container: min(90vw, 1200px);
-  --section-py: 3rem;
+  --section-py: 2rem;
 }
 
 [data-theme="dark"] {
@@ -36,8 +36,8 @@
   --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.4);
 }
 
-@media (min-width: 640px) { :root { --section-py: 4rem; } }
-@media (min-width: 1024px) { :root { --section-py: 5rem; } }
+@media (min-width: 640px) { :root { --section-py: 2.5rem; } }
+@media (min-width: 1024px) { :root { --section-py: 3rem; } }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -64,7 +64,7 @@ input, textarea, select { font: inherit; }
 .container { max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
 
 .section { padding: var(--section-py) 0; position: relative; }
-.section-header { max-width: 680px; margin: 0 auto 2.5rem; text-align: center; }
+.section-header { max-width: 680px; margin: 0 auto 1.25rem; text-align: center; }
 .section-tag {
   display: inline-block; font-size: 0.7rem; font-weight: 600;
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
@@ -296,7 +296,7 @@ input, textarea, select { font: inherit; }
 }
 @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
-.partner-section { padding: 3rem 0; }
+.partner-section { padding: 1.5rem 0; }
 .partner-section .container { text-align: center; }
 
 .about-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: start; }
@@ -313,7 +313,7 @@ input, textarea, select { font: inherit; }
 @media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; } }
 
 .stats-band {
-  padding: 2rem 0; position: relative;
+  padding: 1rem 0; position: relative;
   background: linear-gradient(135deg, rgba(220,38,38,0.03), transparent 50%, rgba(239,68,68,0.02));
   border-top: 1px solid rgba(220,38,38,0.05);
   border-bottom: 1px solid rgba(220,38,38,0.05);
