@@ -1,0 +1,51 @@
+# docker-compose.yml — Deploy InfoSecure Solutions with Caddy
+#
+# Prerequisites:
+#   1. A VPS (Ubuntu 22.04+) with Docker and Docker Compose installed
+#   2. Domain (infosecuresolutions.co.in) pointing to the VPS IP
+#   3. Ports 80 and 443 open in the firewall
+#
+# Usage:
+#   docker compose up -d
+#
+# The Caddy container will:
+#   - Automatically obtain and renew TLS certificates via Let's Encrypt
+#   - Serve static files from ./dist (after building)
+#   - Enforce all security headers defined in Caddyfile
+#   - Handle CORS preflight requests
+
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    container_name: infosecure-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./dist:/srv/www:ro
+      - caddy_data:/data
+      - caddy_certs:/config
+    depends_on:
+      - api
+    environment:
+      # Optional: set if running behind a reverse proxy or load balancer
+      # CADDY_TRUSTED_PROXIES: "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16"
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: infosecure-api
+    restart: unless-stopped
+    environment:
+      GITHUB_PAT: ${GITHUB_PAT}
+      GITHUB_REPO: ${GITHUB_REPO}
+      PORT: 3001
+    depends_on:
+      - caddy
+
+volumes:
+  caddy_data:
+  caddy_certs:

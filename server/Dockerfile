@@ -1,0 +1,13 @@
+# Dockerfile for the contact form API server
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package.json ./
+RUN npm ci --only=production
+
+COPY index.js ./
+
+ENV PORT=3001
+
+CMD ["node", "index.js"]

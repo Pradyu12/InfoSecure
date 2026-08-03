@@ -26,29 +26,21 @@ export default function Contact() {
     setSending(true)
     setFormError('')
     try {
-      const pat = import.meta.env.VITE_GITHUB_PAT
-      const repo = import.meta.env.VITE_GITHUB_REPO
-      if (!pat || !repo) {
-        setFormError('Contact form is not configured yet. Please email us directly at info@infosecuresolutions.co.in.')
-        return
-      }
-      const body = [
-        `**Name:** ${form.name}`,
-        `**Email:** ${form.email}`,
-        `**Company:** ${form.company || 'N/A'}`,
-        `**Subject:** ${form.subject || 'N/A'}`,
-        `**Message:** ${form.message}`
-      ].join('\n')
-      const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
-          'Authorization': `token ${pat}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.github.v3+json'
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title: `Contact: ${form.subject || 'General inquiry'} from ${form.name}`, body, labels: ['contact'] })
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          subject: form.subject,
+          message: form.message
+        })
       })
-      if (!res.ok) throw new Error('Submission failed')
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Submission failed')
       setSubmitted(true)
       setForm({ name: '', email: '', company: '', subject: '', message: '' })
     } catch {

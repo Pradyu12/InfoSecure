@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to VPS (Caddy)
 
 on:
   push:
@@ -6,12 +6,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -27,16 +21,25 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to VPS via SSH
+        uses: appleboy/scp-action@v1.0.3
         with:
-          path: dist
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          source: "dist/*"
+          target: "${{ secrets.VPS_DEPLOY_PATH || '/srv/www' }}"
+          strip_components: 1
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Set server env and reload services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            cat > /opt/infosecure/.env << EOF
+            GITHUB_PAT=${{ secrets.GITHUB_PAT }}
+            GITHUB_REPO=${{ secrets.GITHUB_REPO }}
+            EOF
+            docker compose -C /opt/infosecure/docker-compose.yml up -d --build
