@@ -1,45 +1,46 @@
-name: Deploy to VPS (Caddy)
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: Deploy to VPS via SSH
-        uses: appleboy/scp-action@v1.0.3
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          source: "dist/*"
-          target: "${{ secrets.VPS_DEPLOY_PATH || '/srv/www' }}"
-          strip_components: 1
+          path: ./dist
 
-      - name: Set server env and reload services
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          script: |
-            cat > /opt/infosecure/.env << EOF
-            GITHUB_PAT=${{ secrets.GITHUB_PAT }}
-            GITHUB_REPO=${{ secrets.GITHUB_REPO }}
-            EOF
-            docker compose -C /opt/infosecure/docker-compose.yml up -d --build
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

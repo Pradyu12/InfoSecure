@@ -73,9 +73,9 @@ export default function Contact() {
     <section className="section" id="contact">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">Contact</span>
-          <h2>Let's discuss your<br /><span className="gradient-text">IT operations</span></h2>
-          <p>Reach out to learn how Motadata can transform your observability, ITSM, and infrastructure management.</p>
+          <span className="section-tag">Ready to innovate?</span>
+          <h2>Contact Us for a Consultation</h2>
+          <p>Talk to our experts about your security, data management, and application acceleration needs.</p>
         </div>
         <div className="contact-grid">
           <div className="contact-info reveal reveal-left">

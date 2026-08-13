@@ -1,16 +1,9 @@
 import { useRef, useEffect } from 'react'
-import { WORDS } from '../data/content'
-import { useTypewriter, useCounter } from '../hooks'
 import { drawTorus } from '../utils/canvas'
 import { ArrowDown, CheckCircle, ShieldIcon, ClockIcon } from '../icons'
 
 export default function Hero() {
-  const tw = useTypewriter(WORDS)
   const canvasRef = useRef(null)
-  const c1 = useCounter(68, '%', 0)
-  const c2 = useCounter(75, '%', 0)
-  const c3 = useCounter(43, '%', 0)
-  const c4 = useCounter(200, '+', 0)
 
   useEffect(() => {
     if (!canvasRef.current) return
@@ -31,19 +24,16 @@ export default function Hero() {
       </div>
       <canvas ref={canvasRef} className="hero-canvas" />
       <div className="hero-content container">
+        <div className="hero-eyebrow">Welcome</div>
         <h1 className="fade-in-up-delay-1">
-          <span className="line-1"><span className="gradient-text">Stop Managing</span></span>
-          <span className="line-2">Tools. Start Managing IT.</span>
+          <span className="line-1">Ideal Security Solutions</span>
+          <span className="line-2">for Your Business</span>
         </h1>
-        <div className="typewriter-wrap fade-in-up-delay-2">
-          <span className="typewriter-label">Powered by </span>
-          <span className="typewriter" style={{ opacity: tw.visible ? 1 : 0 }}>{tw.text}</span>
-        </div>
         <p className="hero-sub fade-in-up-delay-2">
-          InfoSecure Solutions partners with enterprises to deploy Motadata's AI-native observability, ITSM, and infrastructure platform — replacing fragmented tools with unified, intelligent operations.
+          InfoSecure Solutions delivers enterprise-grade security, observability, and IT infrastructure management — trusted by leading organizations across industries.
         </p>
         <div className="hero-ctas fade-in-up-delay-3">
-          <a href="#contact" className="btn-primary">Schedule a Demo</a>
+          <a href="#contact" className="btn-primary">Get Started</a>
           <a href="#solutions" className="btn-secondary">Explore Solutions</a>
         </div>
         <div className="hero-trust fade-in-up-delay-3">
@@ -53,12 +43,12 @@ export default function Hero() {
         </div>
         <div className="hero-metrics fade-in-up-delay-3">
           {[
-            { ref: c1.ref, value: c1.text, label: 'Alert Reduction' },
-            { ref: c2.ref, value: c2.text, label: 'Faster Resolution' },
-            { ref: c3.ref, value: c3.text, label: 'Cost Savings' },
-            { ref: c4.ref, value: c4.text, label: 'Integrations' }
+            { value: '68%', label: 'Alert Reduction' },
+            { value: '75%', label: 'Faster Resolution' },
+            { value: '43%', label: 'Cost Savings' },
+            { value: '200+', label: 'Integrations' }
           ].map((m, i) => (
-            <div key={i} className="metric-item" ref={m.ref}>
+            <div key={i} className="metric-item">
               <div className="metric-info">
                 <span className="metric-value">{m.value}</span>
                 <span className="metric-label">{m.label}</span>

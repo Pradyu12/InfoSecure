@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
   { label: 'About', href: '#about' },
+  { label: 'Values', href: '#values' },
   { label: 'Solutions', href: '#solutions' },
-  { label: 'Case Studies', href: '#cases' },
   { label: 'Clients', href: '#clients' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' }
@@ -19,6 +19,35 @@ export const STATS = [
   { value: 75, suffix: '%', label: 'Faster Incident Resolution', narrative: 'With unified event correlation and automation' },
   { value: 43, suffix: '%', label: 'Lower Operational Costs', narrative: 'Through platform consolidation and smart routing' },
   { value: 200, suffix: '+', label: 'Enterprise Integrations', narrative: 'Native connectors across IT ecosystem' }
+]
+
+export const CORE_VALUES = [
+  { number: '01', title: 'Innovation', description: 'We prioritize innovative solutions that meet the ever-changing demands of the IT landscape.', icon: 'zap' },
+  { number: '02', title: 'Reliability', description: 'Our services are designed to provide dependable support, ensuring uptime and optimal performance for your IT infrastructure.', icon: 'shield' },
+  { number: '03', title: 'Customer Commitment', description: 'We are dedicated to understanding and addressing our clients\u2019 specific needs, delivering personalized services.', icon: 'heart' }
+]
+
+export const VALUE_PROPS = [
+  { title: 'Cost Efficiency', highlight: 'Save up to 75% on bandwidth', description: 'Our solutions can save you up to 75% on bandwidth charges and significantly reduce your operational costs, enhancing your bottom line.', icon: 'edit' },
+  { title: 'Expert Team', highlight: '15+ years of experience', description: 'Our team boasts over 15 years of domain-specific experience, ensuring you receive top-notch services and support tailored to your business needs.', icon: 'globe' },
+  { title: 'Comprehensive Support', highlight: 'Implementation to 24/7 support', description: 'From implementation to 24/7 customer support, our holistic approach ensures your technology operates seamlessly throughout its lifecycle.', icon: 'monitor' }
+]
+
+export const CTA_BANDS = [
+  {
+    eyebrow: 'Take the next step',
+    title: 'Transform Your IT Infrastructure Today',
+    description: 'Discover how Motadata\u2019s AI-native platform can unify your observability, ITSM, and infrastructure operations \u2014 with measurable results.',
+    cta: 'Get Started',
+    href: '#contact'
+  },
+  {
+    eyebrow: 'Ready to innovate?',
+    title: 'Contact Us for a Consultation',
+    description: 'Talk to our experts about your security, data management, and application acceleration needs.',
+    cta: 'Get Started',
+    href: '#contact'
+  }
 ]
 
 export const SOLUTIONS = [
@@ -51,9 +80,9 @@ export const CLIENT_NAMES = [
 ]
 
 export const TESTIMONIALS = [
-  { quote: 'InfoSecure helped us consolidate 12 monitoring tools into a single Motadata platform. Our NOC team now resolves incidents in minutes, not hours.', name: 'Rajesh K.', role: 'Head of IT Operations, Manufacturing Corp', initials: 'RK', stars: 5 },
-  { quote: 'The compliance dashboard they built saved us 40% effort during our ISO audit cycle. Real-time evidence pulling instead of manual spreadsheet work.', name: 'Priya M.', role: 'CISO, Regional Bank', initials: 'PM', stars: 5 },
-  { quote: 'Network fault isolation that used to take 2 hours now happens in under 40 minutes. The flow analysis integration was a game changer.', name: 'Arun S.', role: 'VP Network Engineering, Telecom', initials: 'AS', stars: 5 }
+  { quote: 'InfoSecure Solutions transformed our data management process, making it not only secure but also efficient. Highly recommended!', name: 'John Doe', role: 'Operations Lead', initials: 'JD', stars: 5 },
+  { quote: 'The team\u2019s dedication to customer service and innovation has made a significant impact on our operations. Truly impressed!', name: 'Jane Smith', role: 'IT Director', initials: 'JS', stars: 5 },
+  { quote: 'Their expertise in virtualization and data security is unmatched. InfoSecure Solutions is our go-to partner!', name: 'Emily Johnson', role: 'CTO', initials: 'EJ', stars: 5 }
 ]
 
 export const FAQ_ITEMS = [
