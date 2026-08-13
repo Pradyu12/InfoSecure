@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 import { NAV_LINKS, TRUST_BADGES } from '../data/content'
-import { useHeaderScroll, useTheme } from '../hooks'
-import { MenuIcon, CloseIcon, MoonIcon, SunIcon } from '../icons'
+import { useHeaderScroll } from '../hooks'
+import { MenuIcon, CloseIcon } from '../icons'
 
 export default function Header() {
   const hidden = useHeaderScroll()
-  const { theme, toggle } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
@@ -45,9 +44,6 @@ export default function Header() {
             ))}
             <a href="#contact" className="nav-cta" onClick={e => handleNavClick(e, '#contact')}>Get Started</a>
           </nav>
-          <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
-            {theme === 'light' ? <MoonIcon /> : <SunIcon />}
-          </button>
           <button className="menu-btn" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>

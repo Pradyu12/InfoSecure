@@ -136,7 +136,7 @@ export default function Contact() {
                 <div className="form-error">{errors.message || ''}</div>
               </div>
               {formError && <div className="form-message">{formError}</div>}
-              <button type="submit" className="btn-primary" disabled={sending} style={{ width: '100%', justifyContent: 'center' }}>
+              <button type="submit" className="btn-primary" disabled={sending}>
                 {sending ? 'Sending...' : 'Send Message'} <SendIcon />
               </button>
             </form>

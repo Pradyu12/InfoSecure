@@ -1,16 +1,6 @@
-import { useRef, useEffect } from 'react'
-import { drawTorus } from '../utils/canvas'
 import { ArrowDown, CheckCircle, ShieldIcon, ClockIcon } from '../icons'
 
 export default function Hero() {
-  const canvasRef = useRef(null)
-
-  useEffect(() => {
-    if (!canvasRef.current) return
-    const cleanup = drawTorus(canvasRef.current)
-    return cleanup
-  }, [])
-
   return (
     <section className="hero" id="hero">
       <div className="hero-bg">
@@ -22,10 +12,9 @@ export default function Hero() {
           return <div key={i} className={`dot ${size}`} style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
         })}
       </div>
-      <canvas ref={canvasRef} className="hero-canvas" />
       <div className="hero-content container">
         <div className="hero-eyebrow">Welcome</div>
-        <h1 className="fade-in-up-delay-1">
+        <h1>
           <span className="line-1">Ideal Security Solutions</span>
           <span className="line-2">for Your Business</span>
         </h1>

@@ -1,3 +1,5 @@
+import aboutTeam from '../assets/about-team.jpg'
+
 export default function About() {
   return (
     <section className="section" id="about">
@@ -16,7 +18,7 @@ export default function About() {
           </div>
           <div className="about-media reveal reveal-right">
             <div className="about-img-frame">
-              <img src={`${import.meta.env.BASE_URL}about-team.jpg`} alt="InfoSecure Solutions team" />
+              <img src={aboutTeam} alt="InfoSecure Solutions team" />
             </div>
           </div>
         </div>

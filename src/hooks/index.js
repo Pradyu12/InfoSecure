@@ -56,11 +56,37 @@ export function useCounter(target, suffix = '', decimals = 0, duration = 1500) {
 export function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }) },
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible')
+            observer.unobserve(e.target)
+          }
+        })
+      },
       { threshold: 0.15 }
     )
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+      .forEach(el => observer.observe(el))
+
+    const mo = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType !== 1) return
+          if (node.matches && node.matches('.reveal, .reveal-left, .reveal-right')) {
+            observer.observe(node)
+          }
+          if (node.querySelectorAll) {
+            node.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+              .forEach(el => observer.observe(el))
+          }
+        })
+      })
+    })
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    return () => { observer.disconnect(); mo.disconnect() }
   }, [])
 }
 
@@ -107,23 +133,6 @@ export function useBackToTop() {
   }, [])
 
   return visible
-}
-
-export function useTheme() {
-  const [theme, setTheme] = useState(() => {
-    const stored = localStorage.getItem('theme')
-    if (stored) return stored
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
-  const toggle = () => setTheme(t => t === 'light' ? 'dark' : 'light')
-
-  return { theme, toggle }
 }
 
 export function useLazyRender(rootMargin = '200px') {

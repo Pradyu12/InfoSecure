@@ -22,7 +22,7 @@ export default function CaseStudies() {
           </div>
           <div className="cases-secondary">
             {rest.map((cs, i) => (
-              <div key={i} className="card p-6 reveal" style={{ transitionDelay: `${(i + 1) * 0.1}s` }}>
+              <div key={i} className="card reveal" style={{ transitionDelay: `${(i + 1) * 0.1}s` }}>
                 <div className="case-result">{cs.result}</div>
                 <div className="card-title">{cs.title}</div>
                 <p>{cs.description}</p>
