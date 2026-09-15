@@ -10,7 +10,7 @@
     <meta property="og:description" content="AI-native observability, ITSM, and infrastructure operations delivered with Motadata platform expertise." />
     <meta property="og:url" content="https://www.infosecuresolutions.co.in/" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://www.infosecuresolutions.co.in/og-image.png" />
+    <meta property="og:image" content="/logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="InfoSecure Solutions - Motadata Partner" />
     <meta name="twitter:description" content="Pragmatic IT operations and platform services built around Motadata." />
@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Mulish:wght@300;400;500;600;700;800&display=swap" as="style" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -58,15 +59,14 @@
     </script>
     <title>InfoSecure Solutions - Motadata Partner</title>
     <script defer data-domain="infosecuresolutions.co.in" src="https://plausible.io/js/script.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     
     <!-- Performance: Preload critical resources -->
-    <link rel="preload" href="/src/main.jsx" as="script">
+    <link rel="preload" href="/src/main.jsx" as="script" />
+    <link rel="preload" href="/logo.png" as="image" />
+    <link rel="preload" href="/favicon.png" as="image" />
   </body>
 </html>

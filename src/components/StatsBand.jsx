@@ -2,7 +2,7 @@ import { STATS } from '../data/content'
 
 export default function StatsBand() {
   return (
-    <div className="stats-band">
+    <section className="stats-band" id="stats">
       <div className="container">
         <div className="stats-grid">
           {STATS.map((s, i) => (
@@ -13,6 +13,6 @@ export default function StatsBand() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }

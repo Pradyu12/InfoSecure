@@ -60,17 +60,17 @@ export default function App() {
       <ScrollProgressBar />
       <Header />
       <ErrorBoundary><Hero /></ErrorBoundary>
-      <MotadataPartner />
-      <ErrorBoundary><About /></ErrorBoundary>
+      <LazySection><ErrorBoundary><About /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><CoreValues /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><CTABand {...CTA_BANDS[0]} /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><WhyChooseUs /></ErrorBoundary></LazySection>
-      <StatsBand />
+      <LazySection><StatsBand /></LazySection>
       <LazySection><ErrorBoundary><Solutions /></ErrorBoundary></LazySection>
+      <ErrorBoundary><MotadataPartner /></ErrorBoundary>
       <LazySection><ErrorBoundary><CaseStudies /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><Clients /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><Testimonials /></ErrorBoundary></LazySection>
-      <Team />
+      <LazySection><Team /></LazySection>
       <LazySection><ErrorBoundary><FAQ /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><Contact /></ErrorBoundary></LazySection>
       <Footer />

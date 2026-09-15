@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ Company - Network Topology</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #a0a0b0;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .diagram {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #2a2a4a;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border: 1px solid #2a2a4a;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>XYZ Company - Network Topology Diagram</h1>
+        <p class="subtitle">Basic Enterprise Network Architecture</p>
+        
+        <div class="diagram">
+            <div class="mermaid">
+graph TB
+    subgraph External["External Network"]
+        Internet(("Internet"))
+    end
+    
+    subgraph Perimeter["Perimeter Security"]
+        Firewall[["Firewall<br/>(NGFW/IPS)"]
+    end
+    
+    subgraph Core["Core Network"]
+        CoreSwitch(("Core Switch<br/>L3"))
+        DNSServer(("DNS Server"))
+    end
+    
+    subgraph DMZ["DMZ Zone"]
+        DMZSwitch(("DMZ Switch"))
+        WebServer[["Web Server<br/>(HTTP/HTTPS)"]
+        MailServer[["Mail Server<br/>(SMTP/IMAP)"]
+    end
+    
+    subgraph Internal["Internal Network"]
+        InternalSwitch(("Internal Switch"))
+        AppServer[["Application<br/>Server"]
+        Database[("Database<br/>Server")]
+        Workstation1[["Workstation 1"]
+        Workstation2[["Workstation 2"]
+        Printer[["Printer"]
+        WirelessAP(("Wireless AP"))
+    end
+    
+    subgraph Wireless["Wireless Clients"]
+        Laptop[["Laptop"]
+        Mobile[["Mobile Device"]
+    end
+    
+    %% Connections
+    Internet --> Firewall
+    Firewall --> CoreSwitch
+    CoreSwitch --> DMZSwitch
+    CoreSwitch --> InternalSwitch
+    CoreSwitch --> DNSServer
+    DMZSwitch --> WebServer
+    DMZSwitch --> MailServer
+    InternalSwitch --> AppServer
+    InternalSwitch --> Database
+    InternalSwitch --> Workstation1
+    InternalSwitch --> Workstation2
+    InternalSwitch --> Printer
+    InternalSwitch --> WirelessAP
+    WirelessAP --> Laptop
+    WirelessAP --> Mobile
+    
+    %% Styling
+    classDef external fill:#ff6b6b,color:#fff,stroke:#ff4444,stroke-width:2px
+    classDef security fill:#ffd93d,color:#000,stroke:#e6c200,stroke-width:2px
+    classDef network fill:#6bcb77,color:#fff,stroke:#4ca650,stroke-width:2px
+    classDef server fill:#4d96ff,color:#fff,stroke:#2d74e6,stroke-width:2px
+    classDef client fill:#ff9f1c,color:#fff,stroke:#e67e00,stroke-width:2px
+    
+    class Internet external
+    class Firewall security
+    class CoreSwitch,DMZSwitch,InternalSwitch,WirelessAP,DNSServer network
+    class WebServer,MailServer,AppServer,Database server
+    class Workstation1,Workstation2,Printer,Laptop,Mobile client
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background:#ff6b6b"></div>External (Internet)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#ffd93d"></div>Security (Firewall)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#6bcb77"></div>Network (Switches/AP)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#4d96ff"></div>Servers</div>
+            <div class="legend-item"><div class="legend-color" style="background:#ff9f1c"></div>Clients/Endpoints</div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#2a2a4a',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#4a4a6a',
+                lineColor: '#4a4a6a',
+                secondaryColor: '#16213e',
+                tertiaryColor: '#1a1a2e'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

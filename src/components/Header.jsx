@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NAV_LINKS, TRUST_BADGES } from '../data/content'
+import { NAV_LINKS } from '../data/content'
 import { useHeaderScroll } from '../hooks'
 import { MenuIcon, CloseIcon } from '../icons'
 
@@ -35,9 +35,6 @@ export default function Header() {
           <a href="#" className="logo">
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="InfoSecure Solutions" style={{ height: '40px', width: 'auto' }} />
           </a>
-          <div className="trust-badges">
-            {TRUST_BADGES.map(b => <span key={b} className="trust-badge">{b}</span>)}
-          </div>
           <nav className="nav-links">
             {NAV_LINKS.map(l => (
               <a key={l.href} href={l.href} className={activeSection === l.href ? 'active' : ''} onClick={e => handleNavClick(e, l.href)}>{l.label}</a>

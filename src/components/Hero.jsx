@@ -13,7 +13,6 @@ export default function Hero() {
         })}
       </div>
       <div className="hero-content container">
-        <div className="hero-eyebrow">Welcome</div>
         <h1>
           <span className="line-1">Ideal Security Solutions</span>
           <span className="line-2">for Your Business</span>

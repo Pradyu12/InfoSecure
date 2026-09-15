@@ -1,6 +1,6 @@
 export default function MotadataPartner() {
   return (
-    <div className="partner-section">
+    <section className="partner-section" id="partner">
       <div className="container">
         <p style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
           Technology Partner
@@ -15,6 +15,6 @@ export default function MotadataPartner() {
           ITSM, and infrastructure platform for enterprise IT operations.
         </p>
       </div>
-    </div>
+    </section>
   )
 }
