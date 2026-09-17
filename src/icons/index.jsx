@@ -46,6 +46,9 @@ export const StarIcon = (props) => (
 export const SendIcon = (props) => (
   <Svg {...props}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></Svg>
 )
+export const MapPin = (props) => (
+  <Svg {...props}><path d="M21 10.5c0 4.418-6.075 7.5-9 7.5S3 14.918 3 10.5 9.075 3 12 6.5 21 6.5 21 10.5z"/><circle cx="12" cy="10.5" r="3"/></Svg>
+)
 
 const ICONS = {
   globe: <><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></>,
@@ -61,6 +64,7 @@ const ICONS = {
   zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,
   truck: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>,
   code: <><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></>,
+  "chevron-down": <polyline points="6 9 12 15 18 9"/>,
 }
 
 export const Icon = ({ name, ...props }) => (

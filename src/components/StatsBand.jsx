@@ -1,4 +1,15 @@
+import { useCounter } from '../hooks'
 import { STATS } from '../data/content'
+
+function StatItem({ s, i }) {
+  const { ref, text } = useCounter(s.value, s.suffix)
+  return (
+    <div className="stat-item reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+      <div className="stat-value" ref={ref}>{text}</div>
+      <div className="stat-label">{s.label}</div>
+    </div>
+  )
+}
 
 export default function StatsBand() {
   return (
@@ -6,10 +17,7 @@ export default function StatsBand() {
       <div className="container">
         <div className="stats-grid">
           {STATS.map((s, i) => (
-            <div key={i} className="stat-item reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
-              <div className="stat-value">{s.value}{s.suffix}</div>
-              <div className="stat-label">{s.label}</div>
-            </div>
+            <StatItem key={i} s={s} i={i} />
           ))}
         </div>
       </div>

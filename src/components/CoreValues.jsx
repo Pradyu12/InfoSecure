@@ -1,4 +1,4 @@
-import { CORE_VALUES } from '../data/content'
+import { CORE_VALUES, VALUES_NOTE } from '../data/content'
 
 export default function CoreValues() {
   return (
@@ -17,6 +17,10 @@ export default function CoreValues() {
               <p>{v.description}</p>
             </div>
           ))}
+        </div>
+        <div className="values-note reveal">
+          <div className="value-note-line"></div>
+          <p>{VALUES_NOTE}</p>
         </div>
       </div>
     </section>

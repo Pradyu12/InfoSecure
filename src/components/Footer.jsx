@@ -15,7 +15,7 @@ export default function Footer() {
           </div>
           <div>
             <h4>Contact</h4>
-            <a href="mailto:shankar@infosecuresolutions.co.in">shankar@infosecuresolutions.co.in</a>
+            <a href="mailto:support@infosecuresolutions.co.in">support@infosecuresolutions.co.in</a>
             <a href="tel:+919880564227">+91-9880564227</a>
             <a href="#contact">Get in touch</a>
           </div>

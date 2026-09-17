@@ -1,97 +1,33 @@
-import { useState } from 'react'
-import { MailIcon, PhoneIcon, ClockIcon, SendIcon, CheckCircle } from '../icons'
+import { MailIcon, PhoneIcon, ClockIcon, MapPin } from '../icons'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', company: '', subject: '', message: '' })
-  const [errors, setErrors] = useState({})
-  const [sending, setSending] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [formError, setFormError] = useState('')
-  const [honeypot, setHoneypot] = useState('')
-
-  const validate = () => {
-    const e = {}
-    if (!form.name.trim()) e.name = 'Name is required'
-    if (!form.email.trim()) e.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email'
-    if (!form.message.trim()) e.message = 'Message is required'
-    setErrors(e)
-    return Object.keys(e).length === 0
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (honeypot) return
-    if (!validate()) return
-    setSending(true)
-    setFormError('')
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          company: form.company,
-          subject: form.subject,
-          message: form.message
-        })
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Submission failed')
-      setSubmitted(true)
-      setForm({ name: '', email: '', company: '', subject: '', message: '' })
-    } catch {
-      setFormError('Something went wrong. Please try again or email us directly at info@infosecuresolutions.co.in.')
-    } finally {
-      setSending(false)
-    }
-  }
-
-  const handleChange = (field, value) => {
-    setForm(f => ({ ...f, [field]: value }))
-    if (errors[field]) setErrors(er => ({ ...er, [field]: undefined }))
-  }
-
-  if (submitted) {
-    return (
-      <section className="section" id="contact">
-        <div className="container">
-          <div className="form-success card" style={{ maxWidth: 500, margin: '0 auto' }}>
-            <CheckCircle />
-            <h3 style={{ marginBottom: '0.5rem' }}>Message sent!</h3>
-            <p style={{ color: 'var(--text-secondary)' }}>We'll get back to you within 24 hours.</p>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
   return (
     <section className="section" id="contact">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">Ready to innovate?</span>
-          <h2>Contact Us for a Consultation</h2>
-          <p>Talk to our experts about your security, data management, and application acceleration needs.</p>
+          <span className="section-tag">Get in Touch</span>
+          <h2>Contact InfoSecure Solutions</h2>
+          <p>Ready to modernize your IT operations, observability, or security posture? Reach out and talk to our team.</p>
         </div>
         <div className="contact-grid">
           <div className="contact-info reveal reveal-left">
-            <h3>Get in touch</h3>
+            <h3>Where to find us</h3>
             <div className="contact-detail">
               <div className="contact-icon"><MailIcon /></div>
               <div>
                 <div className="contact-label">Email</div>
-                <div className="contact-value"><a href="mailto:shankar@infosecuresolutions.co.in">shankar@infosecuresolutions.co.in</a></div>
+                <div className="contact-value">
+                  <a href="mailto:support@infosecuresolutions.co.in">support@infosecuresolutions.co.in</a>
+                </div>
               </div>
             </div>
             <div className="contact-detail">
               <div className="contact-icon"><PhoneIcon /></div>
               <div>
                 <div className="contact-label">Phone</div>
-                <div className="contact-value"><a href="tel:+919880564227">+91-9880564227</a></div>
+                <div className="contact-value">
+                  <a href="tel:+919880564227">+91-9880564227</a>
+                </div>
               </div>
             </div>
             <div className="contact-detail">
@@ -101,45 +37,40 @@ export default function Contact() {
                 <div className="contact-value">Mon — Sat, 9:00 AM — 6:00 PM IST</div>
               </div>
             </div>
+            <div className="contact-detail">
+              <div className="contact-icon"><MapPin /></div>
+              <div>
+                <div className="contact-label">Headquarters</div>
+                <div className="contact-value">Bengaluru, Karnataka, India</div>
+              </div>
+            </div>
+            <div className="contact-note">
+              <p>No form to fill — just email us directly or call during business hours. We respond within one business day.</p>
+            </div>
           </div>
-          <div className="contact-form card reveal reveal-right">
-            <h3>Send a message</h3>
-            <form onSubmit={handleSubmit}>
-              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                <input tabIndex={-1} type="text" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
+          <div className="location-map card reveal reveal-right">
+            <div className="location-map__header">
+              <h3>Find us on the map</h3>
+              <div className="location-map__badge">
+                <MapPin /> Bengaluru, India
               </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Name *</label>
-                  <input type="text" value={form.name} onChange={e => handleChange('name', e.target.value)} />
-                  <div className="form-error">{errors.name || ''}</div>
-                </div>
-                <div className="form-group">
-                  <label>Email *</label>
-                  <input type="email" value={form.email} onChange={e => handleChange('email', e.target.value)} />
-                  <div className="form-error">{errors.email || ''}</div>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Company</label>
-                  <input type="text" value={form.company} onChange={e => handleChange('company', e.target.value)} />
-                </div>
-                <div className="form-group">
-                  <label>Subject</label>
-                  <input type="text" value={form.subject} onChange={e => handleChange('subject', e.target.value)} />
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Message *</label>
-                <textarea value={form.message} onChange={e => handleChange('message', e.target.value)} />
-                <div className="form-error">{errors.message || ''}</div>
-              </div>
-              {formError && <div className="form-message">{formError}</div>}
-              <button type="submit" className="btn-primary" disabled={sending}>
-                {sending ? 'Sending...' : 'Send Message'} <SendIcon />
-              </button>
-            </form>
+            </div>
+            <div className="location-map__frame">
+              <iframe
+                title="InfoSecure Solutions location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227572.06108735955!2d77.3771728666711!3d12.950970084102592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!2m4!1e2!2sInfoSecure%20Solutions!3e2!3m2!1sen!2sin!4v1726124800000!5m2!1sen!2sin"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+            <div className="location-map__info">
+              <p>
+                <strong>InfoSecure Solutions</strong><br />
+                Bengaluru, Karnataka<br />
+                India
+              </p>
+            </div>
           </div>
         </div>
       </div>

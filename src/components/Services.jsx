@@ -1,26 +1,26 @@
 import { useState } from 'react'
-import { SOLUTIONS } from '../data/content'
+import { SERVICES } from '../data/content'
 import { Icon, ChevronDown } from '../icons'
 
-export default function Solutions() {
+export default function Services() {
   const [openIndex, setOpenIndex] = useState(null)
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section className="section surface-1" id="solutions">
+    <section className="section surface-1" id="services">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">Solutions</span>
-          <h2>End-to-end technology solutions,<br /><span className="gradient-text">from design to deployment</span></h2>
-                              <p>Security, backup, storage, WAN optimization, virtualization, networking, and data center solutions — with 24/7 support across every engagement.</p>
+          <span className="section-tag">What we deliver</span>
+          <h2>Our Services</h2>
+          <p>From architecture to round-the-clock operations — every engagement is built around your outcomes, not just the technology.</p>
         </div>
-        <div className="solutions-grid">
-          {SOLUTIONS.map((s, i) => (
-            <div key={i} className="card reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
+        <div className="services-grid">
+          {SERVICES.map((s, i) => (
+            <div key={i} className="card service-card reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
               <div className="card-icon-modern"><Icon name={s.icon} /></div>
               <div className="card-title">{s.title}</div>
               <p>{s.description}</p>
-              <button className="solution-toggle" onClick={() => toggle(i)}>
+              <button className="solution-toggle" onClick={() => toggle(i)} aria-expanded={openIndex === i}>
                 {openIndex === i ? 'Show less' : 'Learn more'}
                 <ChevronDown />
               </button>

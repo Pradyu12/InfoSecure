@@ -1,20 +1,15 @@
 import { useEffect, Component } from 'react'
 import { useScrollReveal, useLazyRender } from './hooks'
-import { CTA_BANDS } from './data/content'
 import ScrollProgressBar from './components/ScrollProgressBar'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import MotadataPartner from './components/MotadataPartner'
 import About from './components/About'
 import CoreValues from './components/CoreValues'
-import CTABand from './components/CTABand'
 import WhyChooseUs from './components/WhyChooseUs'
 import StatsBand from './components/StatsBand'
+import Services from './components/Services'
 import Solutions from './components/Solutions'
-import CaseStudies from './components/CaseStudies'
-import Clients from './components/Clients'
-import Testimonials from './components/Testimonials'
-import Team from './components/Team'
+import Partners from './components/Partners'
 import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -62,15 +57,11 @@ export default function App() {
       <ErrorBoundary><Hero /></ErrorBoundary>
       <LazySection><ErrorBoundary><About /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><CoreValues /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><CTABand {...CTA_BANDS[0]} /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><WhyChooseUs /></ErrorBoundary></LazySection>
       <LazySection><StatsBand /></LazySection>
       <LazySection><ErrorBoundary><Solutions /></ErrorBoundary></LazySection>
-      <ErrorBoundary><MotadataPartner /></ErrorBoundary>
-      <LazySection><ErrorBoundary><CaseStudies /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><Clients /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><Testimonials /></ErrorBoundary></LazySection>
-      <LazySection><Team /></LazySection>
+      <LazySection><ErrorBoundary><Services /></ErrorBoundary></LazySection>
+      <LazySection><ErrorBoundary><Partners /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><FAQ /></ErrorBoundary></LazySection>
       <LazySection><ErrorBoundary><Contact /></ErrorBoundary></LazySection>
       <Footer />
