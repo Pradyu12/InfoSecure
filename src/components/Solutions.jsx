@@ -10,7 +10,7 @@ export default function Solutions() {
     <section className="section surface-1" id="solutions">
       <div className="container">
 <div className="section-header reveal">
-          <span className="section-tag" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, textTransform: 'none', letterSpacing: '-0.02em' }}>OUR SOLUTIONS</span>
+          <span className="section-tag" style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 700, textTransform: 'none', letterSpacing: '-0.02em', marginBottom: '1rem', display: 'block' }}>OUR SOLUTIONS</span>
         </div>
         <div className="solutions-grid">
           {SOLUTIONS.map((s, i) => (
