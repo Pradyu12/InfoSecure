@@ -3,10 +3,10 @@ import { InstagramIcon, FacebookIcon, YoutubeIcon, LinkedinIcon, WhatsappIcon } 
 
 export default function Footer() {
   const socials = [
-    { icon: InstagramIcon, href: 'https://instagram.com/infosecuresolutions', label: 'Instagram' },
-    { icon: FacebookIcon, href: 'https://facebook.com/infosecuresolutions', label: 'Facebook' },
-    { icon: YoutubeIcon, href: 'https://youtube.com/@infosecuresolutions', label: 'YouTube' },
-    { icon: LinkedinIcon, href: 'https://linkedin.com/company/infosecuresolutions', label: 'LinkedIn' },
+    { icon: InstagramIcon, label: 'Instagram' },
+    { icon: FacebookIcon, label: 'Facebook' },
+    { icon: YoutubeIcon, label: 'YouTube' },
+    { icon: LinkedinIcon, label: 'LinkedIn' },
   ]
 
   return (
@@ -18,9 +18,9 @@ export default function Footer() {
             <p>InfoSecure Solutions — official Motadata implementation partner delivering AI-native observability, ITSM, and infrastructure management for enterprise IT operations.</p>
             <div className="footer-socials" style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               {socials.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '2.25rem', height: '2.25rem', borderRadius: '8px', background: 'rgba(255,255,255,0.06)', transition: 'background 0.2s, color 0.2s' }}>
+                <span key={i} aria-label={s.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '2.25rem', height: '2.25rem', borderRadius: '8px', background: 'rgba(255,255,255,0.06)' }}>
                   <s.icon width="1.1rem" height="1.1rem" color="rgba(255,255,255,0.75)" />
-                </a>
+                </span>
               ))}
             </div>
           </div>
