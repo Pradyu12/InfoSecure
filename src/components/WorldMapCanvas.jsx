@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { loadLandLatLon } from './earthLand'
 
 // 2D world map — static hub markers + route arcs converging on Bengaluru HQ.
 // Same palette as the 3D site: dark-crimson panel, red hubs, yellow traffic.
@@ -46,6 +47,7 @@ const ROUTES = [
 
 const RED_CSS = '220, 38, 38' // red hub dots
 const TRAFFIC_CSS = '255, 212, 0' // yellow traffic (same as 3D site)
+const HUB_STOP_R = 9 // CSS px — arc terminus = HQ ring radius, so traffic lands on the hub
 
 // equirectangular projection: lon [-180,180] -> [0,W], lat [90,-90] -> [0,H]
 function project(lat, lon, W, H) {
@@ -105,6 +107,7 @@ export default function WorldMapCanvas() {
 
     // single static canvas layer: hubs + routes drawn once, no per-frame loop
     const staticLayer = document.createElement('canvas')
+    let land = [] // [{ lat, lon }] coastline samples for the land silhouette
 
     const paint = (W, H, dpr) => {
       staticLayer.width = W
@@ -113,18 +116,46 @@ export default function WorldMapCanvas() {
       if (!s) return
       s.clearRect(0, 0, W, H)
 
+      // land silhouette — faint dot field so the world shape reads as a quiet
+      // backdrop; arcs + hubs stay the focal point (static, no animation).
+      if (land.length) {
+        const dotR = Math.max(0.6, W / 1100) * dpr * 0.5
+        s.fillStyle = `rgba(${RED_CSS}, 0.3)`
+        for (const p of land) {
+          const [x, y] = project(p.lat, p.lon, W, H)
+          s.beginPath()
+          s.arc(x, y, dotR, 0, Math.PI * 2)
+          s.fill()
+        }
+      }
+
       // route arcs — drawn in device px directly on the static layer.
       // Each arc is a quadratic-bezier from its source hub to Bengaluru HQ,
-      // clipped just before the HQ so the line visually terminates on the dot.
+      // clipped exactly on the hub ring so the line physically reaches the hub.
       const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
+      const stopR = HUB_STOP_R * dpr
       for (const route of ROUTES) {
         const pts = routeCurve(HUBS[route.from], BANG, W, H, route.lift)
-        // trim the tail so the arc does not overlap the HQ dot
+        // walk the arc; when a sample crosses the hub ring, interpolate against
+        // the previous sample to land exactly ON the ring circle, so every
+        // traffic line terminates flush on the Bengaluru hub (no dead gap).
         const trimmed = []
+        let prev = null
+        let hit = null
         for (const p of pts) {
-          if (Math.hypot(p[0] - bhx, p[1] - bhy) < 22 * dpr) break
+          const d = Math.hypot(p[0] - bhx, p[1] - bhy)
+          if (d <= stopR) {
+            if (prev) {
+              const dp = Math.hypot(prev[0] - bhx, prev[1] - bhy)
+              const f = (dp - stopR) / (dp - d || 1)
+              hit = [prev[0] + (p[0] - prev[0]) * f, prev[1] + (p[1] - prev[1]) * f]
+            }
+            break
+          }
           trimmed.push(p)
+          prev = p
         }
+        if (hit) trimmed.push(hit)
         if (trimmed.length < 2) continue
         const grad = s.createLinearGradient(
           trimmed[0][0], trimmed[0][1],
@@ -200,6 +231,15 @@ export default function WorldMapCanvas() {
     }
 
     let dpr = fit()
+
+    // land samples arrive async (image decode) — repaint once they land so the
+    // silhouette appears without a per-frame animation loop.
+    loadLandLatLon().then((pts) => {
+      if (!pts?.length || canvas.parentNode !== mount) return
+      land = pts
+      const next = fit()
+      if (next) dpr = next
+    })
 
     observer = new ResizeObserver(() => { dpr = fit() })
     observer.observe(mount)
