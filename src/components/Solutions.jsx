@@ -9,10 +9,11 @@ export default function Solutions() {
   return (
     <section className="section surface-1" id="solutions">
       <div className="container">
-        <div className="section-header reveal">
+<div className="section-header reveal">
           <span className="section-tag">Solutions</span>
-          <h2>End-to-end technology solutions,<br /><span className="gradient-text">from design to deployment</span></h2>
-                              <p>Security, backup, storage, WAN optimization, virtualization, networking, and data center solutions — with 24/7 support across every engagement.</p>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 3.75rem)', lineHeight: 1.15, fontWeight: 700 }}>
+            End-to-end technology solutions,<br /><span className="gradient-text">from design to deployment</span>
+          </h2>
         </div>
         <div className="solutions-grid">
           {SOLUTIONS.map((s, i) => (

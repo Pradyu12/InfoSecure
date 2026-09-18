@@ -5,7 +5,7 @@ const HIGHLIGHTS = [
   { value: '15+', label: 'Years of expertise' },
   { value: '200+', label: 'Integrations delivered' },
   { value: '24/7', label: 'NOC-managed operations' },
-  { value: '12+', label: 'Global technology partners' },
+  { value: '12+ ', label: 'Global technology partners' },
 ]
 
 export default function About() {
@@ -41,12 +41,16 @@ export default function About() {
           <div className="card mv-card">
             <div className="mv-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 11.5V8.25A2.75 2.75 0 0 1 9.75 5.5c.28 0 .54.04.79.11" />
-                <path d="M10.5 5.5a2.75 2.75 0 0 1 5.5 0v2.75" />
-                <path d="M16.5 11.5v3.25a4.25 4.25 0 0 1-8.5 0v-3.25" />
-                <path d="M12 17.5v-6" />
-                <path d="M8.5 11.5h7" />
-                <path d="M12 20.5c-2 0-3.5-1.5-3.5-3.5v-2.5h7v2.5c0 2-1.5 3.5-3.5 3.5Z" />
+                <circle cx="12" cy="12" r="7.5" />
+                <circle cx="12" cy="12" r="4.25" />
+                <path d="M12 2.75v3.25" />
+                <path d="M12 18v3.25" />
+                <path d="M2.75 12h3.25" />
+                <path d="M18 12h3.25" />
+                <path d="M14.6 9.4 18.2 5.8" />
+                <path d="M9.4 14.6 5.8 18.2" />
+                <path d="M12 12l5-5" />
+                <path d="M12 12l-5 5" />
               </svg>
             </div>
             <h3>Our Mission</h3>

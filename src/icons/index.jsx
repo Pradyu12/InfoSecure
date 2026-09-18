@@ -82,9 +82,9 @@ export const LinkedinIcon = (props) => (
 
 export const WhatsappIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" {...props}>
-    <path d="M21 15c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3V6c0-1.66 1.34-3 3-3h12c1.66 0 3 1.34 3 3v9z" fill="currentColor" stroke="none"/>
-    <path d="M15 10l4.5-2.5a5.5 5.5 0 0 0-7.5-1.5l-1.5 4.5L15 10z" fill="currentColor" stroke="none"/>
-    <path d="M10 14l3-1.8a3.5 3.5 0 0 1-4.5 0L10 14z" fill="currentColor" stroke="none"/>
+    <path d="M21 15c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3V6c0-1.66 1.34-3 3-3h12c1.66 0 3 1.34 3 3v9z" fill="#25D366" stroke="none"/>
+    <path d="M15 10l4.5-2.5a5.5 5.5 0 0 0-7.5-1.5l-1.5 4.5L15 10z" fill="#fff" stroke="none"/>
+    <path d="M10 14l3-1.8a3.5 3.5 0 0 1-4.5 0L10 14z" fill="#25D366" stroke="none"/>
   </svg>
 )
 
