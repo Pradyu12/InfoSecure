@@ -37,12 +37,10 @@ export const CORE_VALUES = [
   { number: '03', title: 'Customer Commitment', description: 'We listen first, then build. Every engagement is shaped around your business goals, with transparent communication from the first workshop to long after go-live — and a direct line to the people doing the work.', icon: 'heart' }
 ]
 
-export const VALUES_NOTE = 'These are not posters on a wall. They are the operating rules every InfoSecure engineer carries into your data center, your NOC, and every 2 a.m. escalation call.'
-
 export const VALUE_PROPS = [
   { title: 'Cost Efficiency', highlight: 'Save up to 75% on bandwidth', description: 'Optimization is engineered in, not bolted on. Clients routinely cut bandwidth spend by up to 75% while improving application performance — a rare combination that compounds year after year.', icon: 'edit' },
   { title: 'Deep Expertise', highlight: '15+ years of domain experience', description: 'Certified engineers who have seen every edge case — from hyperscale data centers to single-site offices. We design for your reality, not a textbook topology.', icon: 'globe' },
-  { title: 'End-to-End Partnership', highlight: 'Design to 24/7 managed support', description: 'One accountable team from architecture and implementation through tuning and round-the-clock operations. No handoffs, no finger-pointing — just results.', icon: 'monitor' }
+  { title: 'End-to-End Partnership', highlight: 'Design to managed support', description: 'One accountable team from architecture and implementation through tuning and continuous operations. No handoffs, no finger-pointing — just results.', icon: 'monitor' }
 ]
 
 export const SOLUTIONS = [
@@ -53,7 +51,7 @@ export const SOLUTIONS = [
   { title: 'Data Center & Storage', description: 'Consolidated, resilient data centers and storage, higher ROI.', detail: 'DC / DR Solutions, Storage Solutions, Data Center Services, Linux-based Firewall / VPN, Mailing Solutions / File Server, Archival & Backup, Storage Consolidation.', icon: 'server' },
   { title: 'Backup & Business Continuity', description: 'Centralized backup and continuity protecting production time.', detail: 'Backup / BCP, Centralized Backup, Archival & Backup (cut migration/production time up to 68%).', icon: 'file' },
   { title: 'Virtualization & Cloud', description: 'Server consolidation and VDI, cut hardware costs up to 43%.', detail: 'Virtualization - Server Consolidation, VDI Solutions, Cloud Services.', icon: 'globe' },
-  { title: 'IT Operations & Managed Services', description: 'Consultancy, implementation, 24/7 managed support.', detail: 'Consultancy Services, Implementation, 24/7 Managed Services.', icon: 'code' }
+  { title: 'IT Operations & Managed Services', description: 'Consultancy, implementation, managed support.', detail: 'Consultancy Services, Implementation, Managed Services.', icon: 'code' }
 ]
 
 export const SERVICES = [
@@ -62,7 +60,7 @@ export const SERVICES = [
   { title: 'Data Center & Storage Services', description: 'Design, audit, and modernize your data center — from storage consolidation and Linux-based firewalls to mailing, file server, archival, and backup solutions.', detail: 'Data Center Services, Linux based Firewall / VPN, Mailing Solutions / File Server / Archival & Backup, Storage Solutions, DC / DR Solutions, Storage Audit, Storage Consolidation.', icon: 'server' },
   { title: 'Backup & Business Continuity', description: 'Safeguard critical data and ensure rapid recovery with centralized backup, business continuity planning, and secure archival — so downtime never becomes a crisis.', detail: 'Backup / BCP, Centralized Backup, Archival & Backup, Disaster Recovery Planning.', icon: 'file' },
   { title: 'Virtualization & Cloud', description: 'Consolidate servers, deliver virtual desktops, and extend operations to the cloud — reducing footprint and cost while improving flexibility and resilience.', detail: 'Virtualization — Server Consolidation, VDI Solutions, Cloud Services.', icon: 'globe' },
-  { title: 'ITSM & Managed Services', description: 'Consultancy, implementation, and 24/7 managed support — from asset and helpdesk management through patch management, audit, and continuous operations.', detail: 'Consultancy Services, Implementation, 24/7 Managed Services, Asset / Helpdesk Management, Patch Management, Auditing (ISO, ISMS), Storage Audit.', icon: 'code' }
+  { title: 'ITSM & Managed Services', description: 'Consultancy, implementation, and managed support — from asset and helpdesk management through patch management, audit, and continuous operations.', detail: 'Consultancy Services, Implementation, Managed Services, Asset / Helpdesk Management, Patch Management, Auditing (ISO, ISMS), Storage Audit.', icon: 'code' }
 ]
 
 export const CASE_STUDIES = [
@@ -95,5 +93,5 @@ export const TEAM_MEMBERS = [
   { name: 'Shankar', role: 'Founder & CEO', initials: 'SK', tags: ['Motadata Certified', 'ITSM Strategy', 'Enterprise Architecture'] },
   { name: 'Ankit Verma', role: 'Lead Solutions Architect', initials: 'AV', tags: ['AIOps', 'Infrastructure Monitoring', 'Network Visibility'] },
   { name: 'Priyanka Rao', role: 'Head of Delivery', initials: 'PR', tags: ['Implementation', 'Managed Services', 'Client Success'] },
-  { name: 'Vikram Joshi', role: 'Senior Support Engineer', initials: 'VJ', tags: ['Troubleshooting', 'Log Analytics', '24/7 NOC Operations'] }
+  { name: 'Vikram Joshi', role: 'Senior Support Engineer', initials: 'VJ', tags: ['Troubleshooting', 'Log Analytics', 'NOC Operations'] }
 ]

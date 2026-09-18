@@ -4,7 +4,7 @@ import { MISSION, VISION } from '../data/content'
 const HIGHLIGHTS = [
   { value: '15+', label: 'Years of expertise' },
   { value: '200+', label: 'Integrations delivered' },
-  { value: '24/7', label: 'NOC-managed operations' },
+  { value: '100+', label: 'Successful customers' },
   { value: '12+ ', label: 'Global technology partners' },
 ]
 
@@ -20,7 +20,7 @@ export default function About() {
               Founded in 2015 and headquartered in Bengaluru, Karnataka — India&rsquo;s technology capital — InfoSecure Solutions has grown from a specialist security integrator into a full-spectrum technology partner. Today we design, deploy, and manage the infrastructure that keeps enterprises running: cybersecurity, network solutions, data centers, virtualization, and cloud.
             </p>
             <p>
-              What sets us apart is accountability. Our certified engineers don&rsquo;t just install technology — they own outcomes. Whether it&rsquo;s cutting bandwidth costs by 75%, reducing alert noise by 68%, or keeping mission-critical systems online 24/7, we measure ourselves by the results our clients see on their balance sheets and dashboards.
+              What sets us apart is accountability. Our certified engineers don&rsquo;t just install technology — they own outcomes. Whether it&rsquo;s cutting bandwidth costs by 75%, reducing alert noise by 68%, or keeping mission-critical systems online around the clock, we measure ourselves by the results our clients see on their balance sheets and dashboards.
             </p>
             <div className="about-highlights">
               {HIGHLIGHTS.map((h, i) => (
