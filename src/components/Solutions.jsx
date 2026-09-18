@@ -10,10 +10,7 @@ export default function Solutions() {
     <section className="section surface-1" id="solutions">
       <div className="container">
 <div className="section-header reveal">
-          <span className="section-tag">Solutions</span>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 3.75rem)', lineHeight: 1.15, fontWeight: 700 }}>
-            End-to-end technology solutions,<br /><span className="gradient-text">from design to deployment</span>
-          </h2>
+          <span className="section-tag" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, textTransform: 'none', letterSpacing: '-0.02em' }}>Solutions</span>
         </div>
         <div className="solutions-grid">
           {SOLUTIONS.map((s, i) => (
