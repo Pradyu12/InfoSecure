@@ -1,4 +1,4 @@
-import { MailIcon, PhoneIcon, ClockIcon } from '../icons'
+import { MailIcon, PhoneIcon, ClockIcon, MapPin } from '../icons'
 
 export default function Contact() {
   return (
