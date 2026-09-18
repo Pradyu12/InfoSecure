@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { loadLandLatLon } from './earthLand'
 
-// 2D world map — flat equirectangular outline with static route arcs.
-// Same palette as the 3D site: dark-crimson panel, red land, yellow traffic.
+// 2D world map — static hub markers + route arcs converging on Bengaluru HQ.
+// Same palette as the 3D site: dark-crimson panel, red hubs, yellow traffic.
 const BANG = { lat: 12.9716, lon: 77.5946 }
 const HUBS = [
   BANG, // 0 — Bengaluru, India: main hub, all traffic converges here
@@ -42,13 +41,10 @@ const ROUTES = [
   { from: 16, lift: 14 }, // 16 Australia — Sydney
 ]
 
-// banner geometry: the 16 route arcs all terminate on thinly spaced ring
-// slots around Bengaluru so the canopy ribs stay distinct (min ~22.5° apart)
-// even when source countries cluster in the same direction
-const HUB_RING_PX = 7
+// banner geometry note: the 16 route arcs all terminate near Bengaluru so the
+// canopy ribs stay visually distinct even when source countries cluster.
 
-const PANEL_CSS = '26, 11, 11' // (unused — panel fill removed, kept for reference)
-const RED_CSS = '220, 38, 38' // red land dots / hubs
+const RED_CSS = '220, 38, 38' // red hub dots
 const TRAFFIC_CSS = '255, 212, 0' // yellow traffic (same as 3D site)
 
 // equirectangular projection: lon [-180,180] -> [0,W], lat [90,-90] -> [0,H]
@@ -99,7 +95,6 @@ export default function WorldMapCanvas() {
   useEffect(() => {
     const mount = mountRef.current
     if (!mount) return
-    let disposed = false
     let observer = null
 
     const canvas = document.createElement('canvas')
@@ -205,16 +200,11 @@ export default function WorldMapCanvas() {
     }
 
     let dpr = fit()
-    loadLandLatLon().then((pts) => {
-      if (disposed) return
-      dpr = fit() ?? dpr
-    })
 
     observer = new ResizeObserver(() => { dpr = fit() })
     observer.observe(mount)
 
     return () => {
-      disposed = true
       observer?.disconnect()
       if (canvas.parentNode === mount) mount.removeChild(canvas)
     }
