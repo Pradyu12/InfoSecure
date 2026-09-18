@@ -162,9 +162,48 @@ export default function WorldMapCanvas() {
         }
       }
 
-      // route arcs — drawn in device px directly on the static layer.
-      // Each arc is a quadratic-bezier from its source hub to Bengaluru HQ,
-      // clipped exactly on the hub ring so the line physically reaches the hub.
+      // HQ — Bangalore, India: larger dot + ring + label with a leader line.
+      // Drawn BEFORE the route arcs so the arcs physically cross on top of the hub.
+      const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
+      s.save()
+      s.shadowColor = `rgba(${RED_CSS}, 0.9)`
+      s.shadowBlur = 10 * dpr
+      s.fillStyle = `rgba(${RED_CSS}, 0.98)`
+      s.beginPath()
+      s.arc(bhx, bhy, 5 * dpr, 0, Math.PI * 2)
+      s.fill()
+      s.restore()
+      s.strokeStyle = `rgba(${RED_CSS}, 0.5)`
+      s.lineWidth = 1.1 * dpr
+      s.beginPath()
+      s.arc(bhx, bhy, 9 * dpr, 0, Math.PI * 2)
+      s.stroke()
+
+      const label = 'Bangalore, India'
+      s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
+      s.textBaseline = 'middle'
+      const labelWidth = s.measureText(label).width
+      const labelX = Math.min(bhx + 16 * dpr, W - labelWidth - 8 * dpr)
+      const labelY = bhy - 18 * dpr
+      const lineX = bhx + 11 * dpr
+      const lineY = bhy - 10 * dpr
+
+      s.beginPath()
+      s.moveTo(bhx, bhy)
+      s.lineTo(lineX, lineY)
+      s.lineTo(labelX, lineY)
+      s.strokeStyle = 'rgba(255, 255, 255, 0.6)'
+      s.lineWidth = 1 * dpr
+      s.stroke()
+
+      s.lineWidth = 2.6 * dpr
+      s.strokeStyle = 'rgba(2, 2, 8, 0.85)'
+      s.strokeText(label, labelX, labelY)
+      s.fillStyle = 'rgba(255, 255, 255, 0.92)'
+      s.fillText(label, labelX, labelY)
+
+      // route arcs — drawn AFTER the HQ hub so the lines visibly cross on top
+      // of the red Bangalore dot instead of being hidden beneath it.
       for (const route of ROUTES) {
         const trimmed = getTrimmedRoute(route, W, H)
         if (trimmed.length < 2) continue
@@ -197,47 +236,6 @@ export default function WorldMapCanvas() {
         s.arc(x, y, 2.4 * dpr, 0, Math.PI * 2)
         s.fill()
         s.restore()
-      }
-
-      // HQ — Bangalore, India: larger dot + ring + label with a leader line
-      {
-        const [x, y] = project(BANG.lat, BANG.lon, W, H)
-        s.save()
-        s.shadowColor = `rgba(${RED_CSS}, 0.9)`
-        s.shadowBlur = 10 * dpr
-        s.fillStyle = `rgba(${RED_CSS}, 0.98)`
-        s.beginPath()
-        s.arc(x, y, 5 * dpr, 0, Math.PI * 2)
-        s.fill()
-        s.restore()
-        s.strokeStyle = `rgba(${RED_CSS}, 0.5)`
-        s.lineWidth = 1.1 * dpr
-        s.beginPath()
-        s.arc(x, y, 9 * dpr, 0, Math.PI * 2)
-        s.stroke()
-
-        const label = 'Bangalore, India'
-        s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
-        s.textBaseline = 'middle'
-        const labelWidth = s.measureText(label).width
-        const labelX = Math.min(x + 16 * dpr, W - labelWidth - 8 * dpr)
-        const labelY = y - 18 * dpr
-        const lineX = x + 11 * dpr
-        const lineY = y - 10 * dpr
-
-        s.beginPath()
-        s.moveTo(x, y)
-        s.lineTo(lineX, lineY)
-        s.lineTo(labelX, lineY)
-        s.strokeStyle = 'rgba(255, 255, 255, 0.6)'
-        s.lineWidth = 1 * dpr
-        s.stroke()
-
-        s.lineWidth = 2.6 * dpr
-        s.strokeStyle = 'rgba(2, 2, 8, 0.85)'
-        s.strokeText(label, labelX, labelY)
-        s.fillStyle = 'rgba(255, 255, 255, 0.92)'
-        s.fillText(label, labelX, labelY)
       }
     }
 
