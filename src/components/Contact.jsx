@@ -39,7 +39,7 @@ export default function Contact() {
               <div className="contact-icon"><MapPin /></div>
               <div>
                 <div className="contact-label">Registered Office</div>
-                <div className="contact-value">Bengaluru, Karnataka, India</div>
+                <div className="contact-value">Kothnur, Gaurav Nagar, JP Nagar 7th Phase, J. P. Nagar, Bengaluru, Karnataka 560062</div>
               </div>
             </div>
             <div className="contact-detail">
@@ -48,9 +48,6 @@ export default function Contact() {
                 <div className="contact-label">Working Office</div>
                 <div className="contact-value">Bengaluru, Karnataka, India</div>
               </div>
-            </div>
-            <div className="contact-note">
-              <p>No form to fill — just email us directly or call during business hours. We respond within one business day.</p>
             </div>
           </div>
           <div className="location-map card reveal reveal-right">
