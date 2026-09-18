@@ -46,14 +46,14 @@ const ROUTES = [
 // canopy ribs stay visually distinct even when source countries cluster.
 
 const RED_CSS = '220, 38, 38' // red hub dots
-const TRAFFIC_CSS = '255, 212, 0' // yellow traffic (same as 3D site)
-const HUB_STOP_R = 9 // CSS px — arc terminus = HQ ring radius, so traffic lands on the hub
+const TRAFFIC_CSS = '255, 215, 0' // brighter yellow traffic (same as 3D site)
+const HUB_STOP_R = 1.5 // CSS px — small gap so yellow arcs meet cleanly at Bangalore center (no red dot)
 
 // Visual weight of the map layer. Bump LAND_ALPHA / LAND_DOT_DIV to make the
 // world silhouette bolder, or lower them for a quieter backdrop.
 const LAND_ALPHA = 0.6 // land silhouette opacity (was 0.3 — too dim)
 const LAND_DOT_DIV = 900 // smaller divisor = larger land dots (was 1100)
-const ARC_FADE = 0.6 // route arc tail opacity (was 0.45)
+const ARC_FADE = 0.7 // route arc tail opacity (was 0.45) - increased for visibility
 const ARC_HEAD = 1.0 // route arc head opacity (was 0.9)
 
 // equirectangular projection: lon [-180,180] -> [0,W], lat [90,-90] -> [0,H]
@@ -162,32 +162,40 @@ export default function WorldMapCanvas() {
         }
       }
 
-      // HQ — Bangalore, India: larger dot + ring + label with a leader line.
-      // Drawn BEFORE the route arcs so the arcs physically cross on top of the hub.
       const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
-      s.save()
-      s.shadowColor = `rgba(${RED_CSS}, 0.9)`
-      s.shadowBlur = 10 * dpr
-      s.fillStyle = `rgba(${RED_CSS}, 0.98)`
-      s.beginPath()
-      s.arc(bhx, bhy, 5 * dpr, 0, Math.PI * 2)
-      s.fill()
-      s.restore()
-      s.strokeStyle = `rgba(${RED_CSS}, 0.5)`
-      s.lineWidth = 1.1 * dpr
-      s.beginPath()
-      s.arc(bhx, bhy, 9 * dpr, 0, Math.PI * 2)
-      s.stroke()
 
+      // route arcs — converge precisely on Bangalore (no red dot to cover)
+      for (const route of ROUTES) {
+        const trimmed = getTrimmedRoute(route, W, H)
+        if (trimmed.length < 2) continue
+        const grad = s.createLinearGradient(
+          trimmed[0][0], trimmed[0][1],
+          trimmed[trimmed.length - 1][0], trimmed[trimmed.length - 1][1],
+        )
+        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, ${ARC_FADE})`)
+        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, ${ARC_HEAD})`)
+        s.lineWidth = Math.max(2, 2.0 * dpr)
+        s.strokeStyle = grad
+        s.shadowColor = `rgba(${TRAFFIC_CSS}, 0.7)`
+        s.shadowBlur = 5 * dpr
+        s.beginPath()
+        s.moveTo(trimmed[0][0], trimmed[0][1])
+        for (let i = 1; i < trimmed.length; i++) {
+          s.lineTo(trimmed[i][0], trimmed[i][1])
+        }
+        s.stroke()
+      }
+
+      // Bangalore, India label with leader line — drawn AFTER arcs so it stays readable on top
       const label = 'Bangalore, India'
       s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
       s.textBaseline = 'middle'
       const labelWidth = s.measureText(label).width
       const pad = 14 * dpr
-      const labelX = Math.min(Math.max(bhx + 12 * dpr, pad), W - labelWidth - pad)
-      const labelY = bhy - 20 * dpr
-      const lineX = labelX
-      const lineY = bhy - 6 * dpr
+      const labelX = Math.min(Math.max(bhx - labelWidth - 12 * dpr, pad), W - labelWidth - pad)
+      const labelY = bhy - 22 * dpr
+      const lineX = bhx - 4 * dpr
+      const lineY = bhy - 7 * dpr
 
       s.beginPath()
       s.moveTo(bhx, bhy)
@@ -202,29 +210,6 @@ export default function WorldMapCanvas() {
       s.strokeText(label, labelX, labelY)
       s.fillStyle = 'rgba(255, 255, 255, 0.92)'
       s.fillText(label, labelX, labelY)
-
-      // route arcs — drawn AFTER the HQ hub so the lines visibly cross on top
-      // of the red Bangalore dot instead of being hidden beneath it.
-      for (const route of ROUTES) {
-        const trimmed = getTrimmedRoute(route, W, H)
-        if (trimmed.length < 2) continue
-        const grad = s.createLinearGradient(
-          trimmed[0][0], trimmed[0][1],
-          trimmed[trimmed.length - 1][0], trimmed[trimmed.length - 1][1],
-        )
-        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, ${ARC_FADE})`)
-        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, ${ARC_HEAD})`)
-        s.lineWidth = Math.max(1, 1.35 * dpr)
-        s.strokeStyle = grad
-        s.shadowColor = `rgba(${TRAFFIC_CSS}, 0.7)`
-        s.shadowBlur = 5 * dpr
-        s.beginPath()
-        s.moveTo(trimmed[0][0], trimmed[0][1])
-        for (let i = 1; i < trimmed.length; i++) {
-          s.lineTo(trimmed[i][0], trimmed[i][1])
-        }
-        s.stroke()
-      }
 
       // secondary hub markers
       for (let h = 1; h < HUBS.length; h++) {
@@ -259,8 +244,8 @@ export default function WorldMapCanvas() {
         const speed = 0.09 + i * 0.0034
         const t = (timeMs * 0.00018 * speed) % 1
         const p = sampleAlongPath(trimmed, t)
-        const glow = 18 * dpr
-        const radius = 2.4 * dpr
+        const glow = 22 * dpr
+        const radius = 3.0 * dpr
 
         ctx.save()
         ctx.fillStyle = `rgba(${TRAFFIC_CSS}, 0.95)`
