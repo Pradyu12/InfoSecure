@@ -257,8 +257,8 @@ export default function WorldMapCanvas() {
         const trimmed = getTrimmedRoute(route, W, H)
         if (trimmed.length < 2) continue
 
-        const speed = 0.055 + i * 0.0022
-        const t = (timeMs * 0.00012 * speed) % 1
+        const speed = 0.07 + i * 0.0028
+        const t = (timeMs * 0.00014 * speed) % 1
         const p = sampleAlongPath(trimmed, t)
         const glow = 18 * dpr
         const radius = 2.4 * dpr
