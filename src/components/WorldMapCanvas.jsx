@@ -183,15 +183,16 @@ export default function WorldMapCanvas() {
       s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
       s.textBaseline = 'middle'
       const labelWidth = s.measureText(label).width
-      const labelX = Math.min(bhx + 16 * dpr, W - labelWidth - 8 * dpr)
-      const labelY = bhy - 18 * dpr
-      const lineX = bhx + 11 * dpr
-      const lineY = bhy - 10 * dpr
+      const pad = 14 * dpr
+      const labelX = Math.min(Math.max(bhx + 12 * dpr, pad), W - labelWidth - pad)
+      const labelY = bhy - 20 * dpr
+      const lineX = labelX
+      const lineY = bhy - 6 * dpr
 
       s.beginPath()
       s.moveTo(bhx, bhy)
       s.lineTo(lineX, lineY)
-      s.lineTo(labelX, lineY)
+      s.lineTo(labelX, labelY)
       s.strokeStyle = 'rgba(255, 255, 255, 0.6)'
       s.lineWidth = 1 * dpr
       s.stroke()
