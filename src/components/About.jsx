@@ -14,8 +14,7 @@ export default function About() {
       <div className="container">
         <div className="about-grid">
           <div className="about-text reveal reveal-left">
-            <span className="section-tag">About us</span>
-            <h2>About InfoSecure Solutions</h2>
+            <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.3em', marginBottom: '1.5rem', display: 'block', wordSpacing: '1em' }}>ABOUT</span>
             <p>
               Founded in 2015 and headquartered in Bengaluru, Karnataka — India&rsquo;s technology capital — InfoSecure Solutions has grown from a specialist security integrator into a full-spectrum technology partner. Today we design, deploy, and manage the infrastructure that keeps enterprises running: cybersecurity, network solutions, data centers, virtualization, and cloud.
             </p>

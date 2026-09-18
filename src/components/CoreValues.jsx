@@ -5,7 +5,7 @@ export default function CoreValues() {
     <section className="section surface-1" id="values">
       <div className="container">
         <div className="section-header reveal">
-          <h2 style={{ color: 'var(--accent)' }}>Our Core Values</h2>
+          <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.3em', marginBottom: '1.5rem', display: 'block', wordSpacing: '1em', color: 'var(--accent)' }}>CORE VALUES</span>
           <p>The principles that guide every deployment, engagement, and long-term partnership.</p>
         </div>
         <div className="values-grid">

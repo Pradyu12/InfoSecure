@@ -10,9 +10,7 @@ export default function Services() {
     <section className="section surface-1" id="services">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">What we deliver</span>
-          <h2>Our Services</h2>
-          <p>From architecture to round-the-clock operations — every engagement is built around your outcomes, not just the technology.</p>
+          <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.3em', marginBottom: '1.5rem', display: 'block', wordSpacing: '1em' }}>SERVICES</span>
         </div>
         <div className="services-grid">
           {SERVICES.map((s, i) => (

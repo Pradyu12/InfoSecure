@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { ArrowDown, MailIcon, MapPin } from '../icons'
+import { ArrowDown, MailIcon, MapPin, PhoneIcon } from '../icons'
 import { CONTACT_INFO } from '../data/content'
 
 const WorldMapCanvas = lazy(() => import('./WorldMapCanvas'))
@@ -24,7 +24,7 @@ export default function Hero() {
           {CONTACT_INFO.map((c, i) => (
             <div key={i} className="hero-contact-item">
               <span className="hero-contact-icon">
-                {c.icon === 'mail' ? <MailIcon /> : <MapPin />}
+                {c.icon === 'mail' ? <MailIcon /> : <PhoneIcon />}
               </span>
               <span className="hero-contact-value">
                 {c.href ? (

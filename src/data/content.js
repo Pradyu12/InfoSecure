@@ -12,7 +12,7 @@ export const TRUST_BADGES = ['Motadata Partner', 'ITSM', 'Observability']
 
 export const CONTACT_INFO = [
   { label: 'Email', value: 'support@infosecuresolutions.co.in', href: 'mailto:support@infosecuresolutions.co.in', icon: 'mail' },
-  { label: 'Location', value: 'Bengaluru, Karnataka, India', href: null, icon: 'map-pin' },
+  { label: 'Phone', value: '+91-9880564227', href: 'tel:+919880564227', icon: 'phone' },
 ]
 
 export const MISSION = 'To make enterprise-grade security, observability, and IT operations accessible, reliable, and measurable for every organization we serve — delivered with certified expertise and unwavering accountability.'
