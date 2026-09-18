@@ -116,6 +116,32 @@ export default function WorldMapCanvas() {
     const staticLayer = document.createElement('canvas')
     let land = [] // [{ lat, lon }] coastline samples for the land silhouette
 
+    const getTrimmedRoute = (route, W, H) => {
+      const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
+      const stopR = HUB_STOP_R * Math.min(2, window.devicePixelRatio || 1)
+      const pts = routeCurve(HUBS[route.from], BANG, W, H, route.lift)
+      const trimmed = []
+      let prev = null
+      let hit = null
+
+      for (const p of pts) {
+        const d = Math.hypot(p[0] - bhx, p[1] - bhy)
+        if (d <= stopR) {
+          if (prev) {
+            const dp = Math.hypot(prev[0] - bhx, prev[1] - bhy)
+            const f = (dp - stopR) / (dp - d || 1)
+            hit = [prev[0] + (p[0] - prev[0]) * f, prev[1] + (p[1] - prev[1]) * f]
+          }
+          break
+        }
+        trimmed.push(p)
+        prev = p
+      }
+
+      if (hit) trimmed.push(hit)
+      return trimmed
+    }
+
     const paint = (W, H, dpr) => {
       staticLayer.width = W
       staticLayer.height = H
@@ -139,30 +165,8 @@ export default function WorldMapCanvas() {
       // route arcs — drawn in device px directly on the static layer.
       // Each arc is a quadratic-bezier from its source hub to Bengaluru HQ,
       // clipped exactly on the hub ring so the line physically reaches the hub.
-      const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
-      const stopR = HUB_STOP_R * dpr
       for (const route of ROUTES) {
-        const pts = routeCurve(HUBS[route.from], BANG, W, H, route.lift)
-        // walk the arc; when a sample crosses the hub ring, interpolate against
-        // the previous sample to land exactly ON the ring circle, so every
-        // traffic line terminates flush on the Bengaluru hub (no dead gap).
-        const trimmed = []
-        let prev = null
-        let hit = null
-        for (const p of pts) {
-          const d = Math.hypot(p[0] - bhx, p[1] - bhy)
-          if (d <= stopR) {
-            if (prev) {
-              const dp = Math.hypot(prev[0] - bhx, prev[1] - bhy)
-              const f = (dp - stopR) / (dp - d || 1)
-              hit = [prev[0] + (p[0] - prev[0]) * f, prev[1] + (p[1] - prev[1]) * f]
-            }
-            break
-          }
-          trimmed.push(p)
-          prev = p
-        }
-        if (hit) trimmed.push(hit)
+        const trimmed = getTrimmedRoute(route, W, H)
         if (trimmed.length < 2) continue
         const grad = s.createLinearGradient(
           trimmed[0][0], trimmed[0][1],
@@ -223,6 +227,41 @@ export default function WorldMapCanvas() {
       }
     }
 
+    const sampleAlongPath = (pts, t) => {
+      if (pts.length < 2) return pts[0] || [0, 0]
+      const scaled = Math.max(0, Math.min(1, t)) * (pts.length - 1)
+      const i = Math.floor(scaled)
+      const frac = scaled - i
+      const a = pts[i]
+      const b = pts[Math.min(i + 1, pts.length - 1)]
+      return [a[0] + (b[0] - a[0]) * frac, a[1] + (b[1] - a[1]) * frac]
+    }
+
+    const drawTrafficFlow = (timeMs, W, H, dpr) => {
+      for (let i = 0; i < ROUTES.length; i++) {
+        const route = ROUTES[i]
+        const trimmed = getTrimmedRoute(route, W, H)
+        if (trimmed.length < 2) continue
+
+        const speed = 0.07 + i * 0.003
+        const start = (timeMs * 0.00011 * speed) % 1
+        for (let j = 0; j < 4; j++) {
+          const p = sampleAlongPath(trimmed, (start + j / 4) % 1)
+          const glow = 18 * dpr
+          const radius = 2.4 * dpr + j * 0.2
+
+          ctx.save()
+          ctx.fillStyle = `rgba(${TRAFFIC_CSS}, 0.9)`
+          ctx.shadowColor = `rgba(${TRAFFIC_CSS}, 0.95)`
+          ctx.shadowBlur = glow
+          ctx.beginPath()
+          ctx.arc(p[0], p[1], radius, 0, Math.PI * 2)
+          ctx.fill()
+          ctx.restore()
+        }
+      }
+    }
+
     const fit = () => {
       const w = mount.clientWidth
       const h = mount.clientHeight
@@ -238,6 +277,19 @@ export default function WorldMapCanvas() {
     }
 
     let dpr = fit()
+    let rafId = null
+
+    const animate = (timeMs) => {
+      if (!canvas.parentNode) return
+      const w = canvas.width
+      const h = canvas.height
+      ctx.clearRect(0, 0, w, h)
+      ctx.drawImage(staticLayer, 0, 0)
+      drawTrafficFlow(timeMs, w, h, dpr || 1)
+      rafId = requestAnimationFrame(animate)
+    }
+
+    rafId = requestAnimationFrame(animate)
 
     // land samples arrive async (image decode) — repaint once they land so the
     // silhouette appears without a per-frame animation loop.
@@ -253,6 +305,7 @@ export default function WorldMapCanvas() {
 
     return () => {
       observer?.disconnect()
+      if (rafId) cancelAnimationFrame(rafId)
       if (canvas.parentNode === mount) mount.removeChild(canvas)
     }
   }, [])
