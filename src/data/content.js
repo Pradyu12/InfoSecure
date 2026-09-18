@@ -45,23 +45,6 @@ export const VALUE_PROPS = [
   { title: 'End-to-End Partnership', highlight: 'Design to 24/7 managed support', description: 'One accountable team from architecture and implementation through tuning and round-the-clock operations. No handoffs, no finger-pointing — just results.', icon: 'monitor' }
 ]
 
-export const CTA_BANDS = [
-  {
-    eyebrow: 'Take the next step',
-    title: 'Transform Your IT Infrastructure Today',
-    description: 'Discover how Motadata\u2019s AI-native platform can unify your observability, ITSM, and infrastructure operations \u2014 with measurable results.',
-    cta: 'Get Started',
-    href: '#contact'
-  },
-  {
-    eyebrow: 'Ready to innovate?',
-    title: 'Contact Us for a Consultation',
-    description: 'Talk to our experts about your security, data management, and application acceleration needs.',
-    cta: 'Get Started',
-    href: '#contact'
-  }
-]
-
 export const SOLUTIONS = [
   { title: 'Cybersecurity', description: 'Comprehensive protection across endpoints, networks, and data.', detail: 'Endpoint Security, Content / URL Filtering, Firewall & UTM / IPS / VPN Solution, Encryption, Vulnerability Assessment Penetration Test, Firewall Monitoring / Optimization.', icon: 'shield' },
   { title: 'Network Solutions & Acceleration', description: 'Faster WAN, lower bandwidth bills, accelerated app performance.', detail: 'Bandwidth Management / Optimization (save up to 75% on bandwidth), WAN Acceleration, Server Load Balancing / Acceleration, Link / Server Load Balancing, Network Monitoring / Optimization.', icon: 'antenna' },

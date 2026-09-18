@@ -11,12 +11,6 @@ export default function Hero() {
         <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
       </div>
       <Suspense fallback={null}><WorldMapCanvas /></Suspense>
-      <div className="hero-grid">
-        {Array.from({ length: 40 }, (_, i) => {
-          const size = ['sm', 'md', 'lg'][i % 3]
-          return <div key={i} className={`dot ${size}`} style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
-        })}
-      </div>
       <div className="hero-content container">
         <div className="hero-eyebrow fade-in-up">InfoSecure Solutions</div>
         <h1>
