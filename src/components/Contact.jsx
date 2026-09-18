@@ -1,4 +1,4 @@
-import { MailIcon, PhoneIcon, ClockIcon, MapPin } from '../icons'
+import { MailIcon, PhoneIcon, ClockIcon } from '../icons'
 
 export default function Contact() {
   return (
@@ -41,7 +41,7 @@ export default function Contact() {
               </div>
               <div>
                 <div className="contact-label">Registered Office</div>
-                <div className="contact-value">Kothnur, Gaurav Nagar, JP Nagar 7th Phase, J. P. Nagar, Bengaluru, Karnataka 560062</div>
+                <div className="contact-value">G 1, Ground Floor, Site No. 6, Vishnu Priya Apartment, 12th Main Road, 4th Cross, Gaurav Nagar, JP Nagar 7th Phase, Bengaluru – 560 078</div>
               </div>
             </div>
             <div className="contact-detail">
@@ -49,21 +49,21 @@ export default function Contact() {
                 <img src={`${import.meta.env.BASE_URL}icons/icons8-location-48.png`} alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
               </div>
               <div>
-                <div className="contact-label">Working Office</div>
-                <div className="contact-value">Bengaluru, Karnataka, India</div>
+                <div className="contact-label">Operational Office</div>
+                <div className="contact-value">4th Floor, Dyashin TechnoSoft Pvt Ltd, Annapoorna Industrial Compound, Kanakapura Main Rd, next to Temple Tree Apartments, Kanakanagar, Ilyas Nagar, J. P. Nagar, Bengaluru, Karnataka-560111</div>
               </div>
             </div>
           </div>
           <div className="location-map card reveal reveal-right">
             <div className="location-map__header">
-              <h3>Working Office Location</h3>
+              <h3>Operational Office Location</h3>
               <div className="location-map__badge">
-                <MapPin /> Bengaluru, India
+                <img src={`${import.meta.env.BASE_URL}icons/icons8-location-48.png`} alt="Location" style={{ width: '0.9rem', height: '0.9rem' }} /> Bengaluru, India
               </div>
             </div>
             <div className="location-map__frame">
               <iframe
-                title="InfoSecure Solutions Working Office location"
+                title="InfoSecure Solutions Operational Office location"
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3889.0532736505547!2d77.56959307429898!3d12.904295987404929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDU0JzE1LjUiTiA3N8KwMzQnMTkuOCJF!5e0!3m2!1sen!2sin!4v1789707651927!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
@@ -76,9 +76,10 @@ export default function Contact() {
             <div className="location-map__info">
               <p>
                 <strong>InfoSecure Solutions</strong><br />
-                Working Office<br />
-                Bengaluru, Karnataka<br />
-                India
+                Operational Office<br />
+                4th Floor, Dyashin TechnoSoft Pvt Ltd, Annapoorna Industrial Compound,<br />
+                Kanakapura Main Rd, next to Temple Tree Apartments, Kanakanagar,<br />
+                Ilyas Nagar, J. P. Nagar, Bengaluru, Karnataka-560111
               </p>
             </div>
           </div>

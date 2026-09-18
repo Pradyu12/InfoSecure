@@ -32,6 +32,7 @@ function HeroSlide({ slide, state }) {
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [previousIndex, setPreviousIndex] = useState(null)
+  const [direction, setDirection] = useState(1)
   const currentIndexRef = useRef(0)
   const exitTimerRef = useRef(null)
 
@@ -39,17 +40,19 @@ export default function Hero() {
     const currentIndexValue = currentIndexRef.current
     if (nextIndex === currentIndexValue) return
 
+    const isForward = nextIndex > currentIndexValue
+    setDirection(isForward ? 1 : -1)
     currentIndexRef.current = nextIndex
     setPreviousIndex(currentIndexValue)
     setCurrentIndex(nextIndex)
     window.clearTimeout(exitTimerRef.current)
-    exitTimerRef.current = window.setTimeout(() => setPreviousIndex(null), 600)
+    exitTimerRef.current = window.setTimeout(() => setPreviousIndex(null), 900)
   }, [])
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       goToSlide((currentIndexRef.current + 1) % heroSlides.length)
-    }, 5000)
+    }, 4000)
 
     return () => {
       window.clearInterval(interval)
@@ -66,7 +69,7 @@ export default function Hero() {
       <div className="hero-content container">
         <div className="hero-eyebrow fade-in-up">InfoSecure Solutions</div>
         <div className="hero-carousel hero-carousel-in">
-          <div className="hero-carousel-content" aria-live="polite">
+          <div className={`hero-carousel-content ${direction === 1 ? 'is-forward' : 'is-backward'}`} aria-live="polite">
             {heroSlides.map((slide, i) => {
               const isActive = i === currentIndex
               const isExiting = i === previousIndex
