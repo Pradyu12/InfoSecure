@@ -1,23 +1,31 @@
-import { PARTNER_NAMES } from '../data/content'
-
 export default function Partners() {
-  const items = [...PARTNER_NAMES, ...PARTNER_NAMES]
+  const partners = [
+    { name: 'Sophos', src: '/icons/sophos.png' },
+    { name: 'Microsoft', src: '/icons/microsoft.png' },
+    { name: 'Motadata', src: '/icons/motadata-logo.png' },
+    { name: 'Dell', src: '/icons/dell-com-logo.png' },
+    { name: 'CrowdStrike', src: '/icons/crowdstrike.com.png' },
+    { name: 'Lenovo', src: '/icons/lenovo.png' },
+    { name: 'HPE', src: '' },
+    { name: 'Netwrix', src: '' },
+    { name: 'DataResolve', src: '' },
+    { name: 'Sharp Business Systems', src: '' },
+    { name: 'Veeam', src: '' },
+  ]
+  const items = [...partners, ...partners]
   return (
     <section className="section surface-1" id="partners">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">Partners</span>
-          <h2>Our technology<br /><span className="gradient-text">partners</span></h2>
-          <p>We implement, integrate, and support best-of-breed platforms alongside our global partners.</p>
+          <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.3em', marginBottom: '1.5rem', display: 'block', wordSpacing: '1em' }}>PARTNERS</span>
         </div>
         <div className="marquee-card card reveal">
-          <div className="marquee-label">In partnership with</div>
           <div className="marquee-track">
-            <div className="marquee-content partners-marquee">
-              {items.map((name, i) => (
-                <span className="partner-item" key={`${name}-${i}`}>
-                  <span className="partner-dot" aria-hidden="true" />
-                  <span className="partner-name">{name}</span>
+            <div className="marquee-content partners-marquee" style={{ alignItems: 'center', gap: '3rem' }}>
+              {items.map((p, i) => (
+                <span className="partner-item" key={`${p.name}-${i}`} style={{ display: 'flex', alignItems: 'center', height: '60px', opacity: 0.7, transition: 'opacity 0.2s' }}>
+                  {p.src && <img src={p.src} alt={p.name} style={{ height: '40px', width: 'auto', objectFit: 'contain', filter: 'grayscale(100%)' }} />}
+                  {!p.src && <span className="partner-name" style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '0.02em', color: 'var(--text-muted)', fontFamily: 'var(--font-heading)' }}>{p.name}</span>}
                 </span>
               ))}
             </div>
