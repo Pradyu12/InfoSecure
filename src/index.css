@@ -361,12 +361,20 @@ section[id] { scroll-margin-top: 96px; }
 }
 .hero-contact-value a:hover { color: #fff; border-color: transparent; }
 .hero-metrics {
-  display: flex; align-items: center; flex-wrap: nowrap; white-space: nowrap;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  flex-wrap: nowrap; white-space: nowrap; overflow: hidden;
   padding: 0.75rem 1rem; border-radius: var(--radius-card);
   background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
 }
-.metric-item { display: inline-flex; align-items: center; gap: 0; }
+.metric-item {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+  flex: 1 1 auto; min-width: 0;
+}
+.metric-info {
+  display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: nowrap;
+  white-space: nowrap;
+}
 .integrations-badge {
   display: inline-block; margin-top: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 999px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #FCA5A5; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; vertical-align: middle;
 }
