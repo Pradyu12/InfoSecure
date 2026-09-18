@@ -1,5 +1,4 @@
 import { NAV_LINKS } from '../data/content'
-import { WhatsappIcon } from '../icons'
 
 export default function Footer() {
   const socials = [
@@ -28,8 +27,8 @@ export default function Footer() {
           </div>
           <div>
             <h4>Contact</h4>
-            <a href="https://wa.me/919880564227" target="_blank" rel="noopener noreferrer" className="contact-whatsapp">
-              <WhatsappIcon width="1rem" height="1rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem' }} />
+            <a href="https://wa.me/919880564227" target="_blank" rel="noopener noreferrer" className="contact-whatsapp" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.625rem 1rem', borderRadius: 'var(--radius-btn)', background: 'rgba(37, 211, 102, 0.15)', border: '1px solid rgba(37, 211, 102, 0.3)', color: '#25D366', fontWeight: 500, textDecoration: 'none', transition: 'background 0.2s, color 0.2s, border-color 0.2s' }}>
+              <img src="/icons/icons8-whatsapp-48.png" alt="WhatsApp" style={{ width: '1.25rem', height: '1.25rem' }} />
               Chat on WhatsApp
             </a>
             <a href="tel:+919880564227">+91-9880564227</a>
