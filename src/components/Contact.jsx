@@ -1,4 +1,4 @@
-import { MailIcon, PhoneIcon, ClockIcon, MapPin } from '../icons'
+import { MailIcon, PhoneIcon, ClockIcon } from '../icons'
 
 export default function Contact() {
   return (
@@ -36,14 +36,18 @@ export default function Contact() {
               </div>
             </div>
             <div className="contact-detail">
-              <div className="contact-icon"><MapPin /></div>
+              <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src="/icons/icons8-location-48.png" alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
+              </div>
               <div>
                 <div className="contact-label">Registered Office</div>
                 <div className="contact-value">Kothnur, Gaurav Nagar, JP Nagar 7th Phase, J. P. Nagar, Bengaluru, Karnataka 560062</div>
               </div>
             </div>
             <div className="contact-detail">
-              <div className="contact-icon"><MapPin /></div>
+              <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src="/icons/icons8-location-48.png" alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
+              </div>
               <div>
                 <div className="contact-label">Working Office</div>
                 <div className="contact-value">Bengaluru, Karnataka, India</div>
