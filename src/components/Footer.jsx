@@ -40,7 +40,6 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} InfoSecure Solutions. All rights reserved.</p>
-          <p>Powered by Motadata</p>
         </div>
       </div>
     </footer>
