@@ -1,8 +1,44 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { ArrowDown, MailIcon, MapPin, PhoneIcon } from '../icons'
 import { CONTACT_INFO } from '../data/content'
 
 const WorldMapCanvas = lazy(() => import('./WorldMapCanvas'))
+
+const heroMessages = [
+  "Ideal Security Solutions for Your Business.",
+  "InfoSecure Solutions unifies enterprise security, deep observability, and IT management into one seamless defense system."
+]
+
+function HeroCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % heroMessages.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="hero-carousel fade-in-up-delay-2">
+      <p className="hero-carousel-text" style={{ opacity: 1 }}>
+        {heroMessages[currentIndex]}
+      </p>
+      <div className="hero-carousel-dots" role="tablist" aria-label="Hero message navigation">
+        {heroMessages.map((_, i) => (
+          <button
+            key={i}
+            role="tab"
+            aria-selected={i === currentIndex}
+            aria-label={`Go to message ${i + 1}`}
+            className={`hero-carousel-dot ${i === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Hero() {
   return (
@@ -17,9 +53,7 @@ export default function Hero() {
           <span className="line-1 gradient-text">Ideal Security Solutions</span>
           <span className="line-2">for Your Business</span>
         </h1>
-        <p className="hero-sub fade-in-up-delay-2">
-          InfoSecure Solutions delivers enterprise-grade security, observability, and IT infrastructure management — trusted by leading organizations across industries.
-        </p>
+        <HeroCarousel />
         <div className="hero-contact fade-in-up-delay-3">
           {CONTACT_INFO.map((c, i) => (
             <div key={i} className="hero-contact-item">
