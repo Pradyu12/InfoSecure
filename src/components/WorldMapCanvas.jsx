@@ -199,7 +199,7 @@ export default function WorldMapCanvas() {
         s.restore()
       }
 
-      // HQ — Bengaluru, India: larger dot + ring + label
+      // HQ — Bangalore, India: larger dot + ring + label with a leader line
       {
         const [x, y] = project(BANG.lat, BANG.lon, W, H)
         s.save()
@@ -215,15 +215,29 @@ export default function WorldMapCanvas() {
         s.beginPath()
         s.arc(x, y, 9 * dpr, 0, Math.PI * 2)
         s.stroke()
+
+        const label = 'Bangalore, India'
         s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
         s.textBaseline = 'middle'
-        const label = 'Bengaluru, India'
-        const lx = Math.min(x + 11 * dpr, W - s.measureText(label).width - 4 * dpr)
+        const labelWidth = s.measureText(label).width
+        const labelX = Math.min(x + 16 * dpr, W - labelWidth - 8 * dpr)
+        const labelY = y - 18 * dpr
+        const lineX = x + 11 * dpr
+        const lineY = y - 10 * dpr
+
+        s.beginPath()
+        s.moveTo(x, y)
+        s.lineTo(lineX, lineY)
+        s.lineTo(labelX, lineY)
+        s.strokeStyle = 'rgba(255, 255, 255, 0.6)'
+        s.lineWidth = 1 * dpr
+        s.stroke()
+
         s.lineWidth = 2.6 * dpr
         s.strokeStyle = 'rgba(2, 2, 8, 0.85)'
-        s.strokeText(label, lx, y)
+        s.strokeText(label, labelX, labelY)
         s.fillStyle = 'rgba(255, 255, 255, 0.92)'
-        s.fillText(label, lx, y)
+        s.fillText(label, labelX, labelY)
       }
     }
 
@@ -243,22 +257,20 @@ export default function WorldMapCanvas() {
         const trimmed = getTrimmedRoute(route, W, H)
         if (trimmed.length < 2) continue
 
-        const speed = 0.07 + i * 0.003
-        const start = (timeMs * 0.00011 * speed) % 1
-        for (let j = 0; j < 4; j++) {
-          const p = sampleAlongPath(trimmed, (start + j / 4) % 1)
-          const glow = 18 * dpr
-          const radius = 2.4 * dpr + j * 0.2
+        const speed = 0.04 + i * 0.0015
+        const t = (timeMs * 0.00009 * speed) % 1
+        const p = sampleAlongPath(trimmed, t)
+        const glow = 18 * dpr
+        const radius = 2.4 * dpr
 
-          ctx.save()
-          ctx.fillStyle = `rgba(${TRAFFIC_CSS}, 0.9)`
-          ctx.shadowColor = `rgba(${TRAFFIC_CSS}, 0.95)`
-          ctx.shadowBlur = glow
-          ctx.beginPath()
-          ctx.arc(p[0], p[1], radius, 0, Math.PI * 2)
-          ctx.fill()
-          ctx.restore()
-        }
+        ctx.save()
+        ctx.fillStyle = `rgba(${TRAFFIC_CSS}, 0.95)`
+        ctx.shadowColor = `rgba(${TRAFFIC_CSS}, 0.95)`
+        ctx.shadowBlur = glow
+        ctx.beginPath()
+        ctx.arc(p[0], p[1], radius, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.restore()
       }
     }
 
