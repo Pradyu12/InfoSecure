@@ -1,11 +1,11 @@
 export default function Partners() {
   const partners = [
-    { name: 'Sophos', src: '/icons/sophos.png' },
-    { name: 'Microsoft', src: '/icons/microsoft.png' },
-    { name: 'Motadata', src: '/icons/motadata-logo.png' },
-    { name: 'Dell', src: '/icons/dell-com-logo.png' },
-    { name: 'CrowdStrike', src: '/icons/crowdstrike.com.png' },
-    { name: 'Lenovo', src: '/icons/lenovo.png' },
+    { name: 'Sophos', src: `${import.meta.env.BASE_URL}icons/sophos.png` },
+    { name: 'Microsoft', src: `${import.meta.env.BASE_URL}icons/microsoft.png` },
+    { name: 'Motadata', src: `${import.meta.env.BASE_URL}icons/motadata-logo.png` },
+    { name: 'Dell', src: `${import.meta.env.BASE_URL}icons/dell-com-logo.png` },
+    { name: 'CrowdStrike', src: `${import.meta.env.BASE_URL}icons/crowdstrike.com.png` },
+    { name: 'Lenovo', src: `${import.meta.env.BASE_URL}icons/lenovo.png` },
     { name: 'HPE', src: '' },
     { name: 'Netwrix', src: '' },
     { name: 'DataResolve', src: '' },

@@ -37,7 +37,7 @@ export default function Contact() {
             </div>
             <div className="contact-detail">
               <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img src="/icons/icons8-location-48.png" alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
+                <img src={`${import.meta.env.BASE_URL}icons/icons8-location-48.png`} alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
               </div>
               <div>
                 <div className="contact-label">Registered Office</div>
@@ -46,7 +46,7 @@ export default function Contact() {
             </div>
             <div className="contact-detail">
               <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img src="/icons/icons8-location-48.png" alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
+                <img src={`${import.meta.env.BASE_URL}icons/icons8-location-48.png`} alt="Location" style={{ width: '1.25rem', height: '1.25rem' }} />
               </div>
               <div>
                 <div className="contact-label">Working Office</div>

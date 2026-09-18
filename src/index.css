@@ -327,8 +327,8 @@ section[id] { scroll-margin-top: 96px; }
   font-size: clamp(2.75rem, 6.5vw, 3.5rem); font-weight: 700; letter-spacing: -0.025em;
   line-height: 1.15; margin-bottom: 1.25rem; color: #fff;
 }
-.hero h1 .line-1 { display: block; animation: hero-line-in 1.4s cubic-bezier(0.19, 1, 0.22, 1) 0.15s both; }
-.hero h1 .line-2 { display: block; animation: hero-line-in 1.4s cubic-bezier(0.19, 1, 0.22, 1) 0.45s both; }
+.hero h1 .line-1 { display: block; }
+.hero h1 .line-2 { display: block; }
 @keyframes hero-line-in {
   0% { opacity: 0; transform: translateY(36px); clip-path: inset(0 0 100% 0); }
   60% { opacity: 1; clip-path: inset(0 0 0 0); }
@@ -342,6 +342,13 @@ section[id] { scroll-margin-top: 96px; }
 /* ============ Hero Carousel ============ */
 .hero-carousel {
   margin-bottom: 2rem;
+}
+.hero-carousel-in {
+  animation: hero-carousel-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@keyframes hero-carousel-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .hero-carousel-text {
   font-size: 1.1rem;
@@ -380,6 +387,28 @@ section[id] { scroll-margin-top: 96px; }
 .hero-carousel-dot:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* ============ Hero Slide Transitions ============ */
+.hero-carousel-content {
+  display: grid;
+  overflow: hidden;
+}
+.hero-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+.hero-slide--active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.hero-slide--exiting {
+  opacity: 0;
+  transform: translateX(-28px);
+  pointer-events: none;
 }
 
 @media (max-width: 640px) {

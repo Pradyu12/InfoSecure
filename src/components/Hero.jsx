@@ -1,33 +1,61 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
-import { ArrowDown, MailIcon, MapPin, PhoneIcon } from '../icons'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { ArrowDown, MailIcon, PhoneIcon } from '../icons'
 import { CONTACT_INFO } from '../data/content'
 
 const WorldMapCanvas = lazy(() => import('./WorldMapCanvas'))
 
 const heroSlides = [
   {
-    h1Line1: "Complete Control",
-    h1Line2: "Over Your Digital Ecosystem",
-    subtitle: "Ideal Security Solutions for Your Business."
+    h1Line1: 'Ideal Security Solutions',
+    h1Line2: 'for Your Business',
+    subtitle: 'InfoSecure Solutions delivers enterprise-grade security, observability, and IT infrastructure management — trusted by leading organizations across industries.'
   },
   {
-    h1Line1: "Complete Control Over",
-    h1Line2: "Your Digital Ecosystem",
-    subtitle: "InfoSecure Solutions unifies enterprise security, deep observability, and IT management into one seamless defense system."
+    h1Line1: 'Complete Control Over',
+    h1Line2: 'Your Digital Ecosystem.',
+    subtitle: 'InfoSecure Solutions unifies enterprise security, deep observability, and IT management into one seamless defense system.'
   }
 ]
 
+function HeroSlide({ slide, state }) {
+  return (
+    <div className={`hero-slide hero-slide--${state}`} aria-hidden={state !== 'active'}>
+      <h1 className="hero-title">
+        <span className="line-1 gradient-text">{slide.h1Line1}</span>
+        <span className="line-2">{slide.h1Line2}</span>
+      </h1>
+      <p className="hero-carousel-text">{slide.subtitle}</p>
+    </div>
+  )
+}
+
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [previousIndex, setPreviousIndex] = useState(null)
+  const currentIndexRef = useRef(0)
+  const exitTimerRef = useRef(null)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % heroSlides.length)
-    }, 5000)
-    return () => clearInterval(interval)
+  const goToSlide = useCallback((nextIndex) => {
+    const currentIndexValue = currentIndexRef.current
+    if (nextIndex === currentIndexValue) return
+
+    currentIndexRef.current = nextIndex
+    setPreviousIndex(currentIndexValue)
+    setCurrentIndex(nextIndex)
+    window.clearTimeout(exitTimerRef.current)
+    exitTimerRef.current = window.setTimeout(() => setPreviousIndex(null), 600)
   }, [])
 
-  const currentSlide = heroSlides[currentIndex]
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      goToSlide((currentIndexRef.current + 1) % heroSlides.length)
+    }, 5000)
+
+    return () => {
+      window.clearInterval(interval)
+      window.clearTimeout(exitTimerRef.current)
+    }
+  }, [goToSlide])
 
   return (
     <section className="hero" id="hero">
@@ -37,23 +65,26 @@ export default function Hero() {
       <Suspense fallback={null}><WorldMapCanvas /></Suspense>
       <div className="hero-content container">
         <div className="hero-eyebrow fade-in-up">InfoSecure Solutions</div>
-        <h1 className="hero-title">
-          <span className="line-1 gradient-text">{currentSlide.h1Line1}</span>
-          <span className="line-2">{currentSlide.h1Line2}</span>
-        </h1>
-        <div className="hero-carousel fade-in-up-delay-2">
-          <p className="hero-carousel-text" style={{ opacity: 1 }}>
-            {currentSlide.subtitle}
-          </p>
+        <div className="hero-carousel hero-carousel-in">
+          <div className="hero-carousel-content" aria-live="polite">
+            {heroSlides.map((slide, i) => {
+              const isActive = i === currentIndex
+              const isExiting = i === previousIndex
+              if (!isActive && !isExiting) return null
+
+              return <HeroSlide key={i} slide={slide} state={isActive ? 'active' : 'exiting'} />
+            })}
+          </div>
           <div className="hero-carousel-dots" role="tablist" aria-label="Hero message navigation">
             {heroSlides.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 role="tab"
                 aria-selected={i === currentIndex}
                 aria-label={`Go to slide ${i + 1}`}
                 className={`hero-carousel-dot ${i === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(i)}
+                onClick={() => goToSlide(i)}
               />
             ))}
           </div>
