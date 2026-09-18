@@ -34,8 +34,18 @@ export default function Header() {
   const handleNavClick = (e, href) => {
     e.preventDefault()
     setMobileOpen(false)
+    setActiveSection(href)
+
     const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (el) {
+      const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+      const top = el.getBoundingClientRect().top + window.scrollY - 96
+      window.history.pushState(null, '', href)
+      window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
+      return
+    }
+
+    window.location.hash = href
   }
 
   return (

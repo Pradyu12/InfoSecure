@@ -1,5 +1,5 @@
 import { useEffect, Component } from 'react'
-import { useScrollReveal, useLazyRender } from './hooks'
+import { useScrollReveal } from './hooks'
 import ScrollProgressBar from './components/ScrollProgressBar'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -40,11 +40,6 @@ class ErrorBoundary extends Component {
   }
 }
 
-function LazySection({ children }) {
-  const { ref, shouldRender } = useLazyRender()
-  return <div ref={ref}>{shouldRender ? children : <div style={{ minHeight: 200 }} />}</div>
-}
-
 export default function App() {
   useScrollReveal()
 
@@ -55,15 +50,15 @@ export default function App() {
       <ScrollProgressBar />
       <Header />
       <ErrorBoundary><Hero /></ErrorBoundary>
-      <LazySection><ErrorBoundary><About /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><CoreValues /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><WhyChooseUs /></ErrorBoundary></LazySection>
-      <LazySection><StatsBand /></LazySection>
-      <LazySection><ErrorBoundary><Solutions /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><Services /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><Partners /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><FAQ /></ErrorBoundary></LazySection>
-      <LazySection><ErrorBoundary><Contact /></ErrorBoundary></LazySection>
+      <ErrorBoundary><About /></ErrorBoundary>
+      <ErrorBoundary><CoreValues /></ErrorBoundary>
+      <ErrorBoundary><WhyChooseUs /></ErrorBoundary>
+      <ErrorBoundary><StatsBand /></ErrorBoundary>
+      <ErrorBoundary><Solutions /></ErrorBoundary>
+      <ErrorBoundary><Services /></ErrorBoundary>
+      <ErrorBoundary><Partners /></ErrorBoundary>
+      <ErrorBoundary><FAQ /></ErrorBoundary>
+      <ErrorBoundary><Contact /></ErrorBoundary>
       <Footer />
       <CookieBanner />
       <BackToTop />

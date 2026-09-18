@@ -49,6 +49,13 @@ const RED_CSS = '220, 38, 38' // red hub dots
 const TRAFFIC_CSS = '255, 212, 0' // yellow traffic (same as 3D site)
 const HUB_STOP_R = 9 // CSS px — arc terminus = HQ ring radius, so traffic lands on the hub
 
+// Visual weight of the map layer. Bump LAND_ALPHA / LAND_DOT_DIV to make the
+// world silhouette bolder, or lower them for a quieter backdrop.
+const LAND_ALPHA = 0.6 // land silhouette opacity (was 0.3 — too dim)
+const LAND_DOT_DIV = 900 // smaller divisor = larger land dots (was 1100)
+const ARC_FADE = 0.6 // route arc tail opacity (was 0.45)
+const ARC_HEAD = 1.0 // route arc head opacity (was 0.9)
+
 // equirectangular projection: lon [-180,180] -> [0,W], lat [90,-90] -> [0,H]
 function project(lat, lon, W, H) {
   return [((lon + 180) / 360) * W, ((90 - lat) / 180) * H]
@@ -119,8 +126,8 @@ export default function WorldMapCanvas() {
       // land silhouette — faint dot field so the world shape reads as a quiet
       // backdrop; arcs + hubs stay the focal point (static, no animation).
       if (land.length) {
-        const dotR = Math.max(0.6, W / 1100) * dpr * 0.5
-        s.fillStyle = `rgba(${RED_CSS}, 0.3)`
+        const dotR = Math.max(0.7, W / LAND_DOT_DIV) * dpr * 0.55
+        s.fillStyle = `rgba(${RED_CSS}, ${LAND_ALPHA})`
         for (const p of land) {
           const [x, y] = project(p.lat, p.lon, W, H)
           s.beginPath()
@@ -161,8 +168,8 @@ export default function WorldMapCanvas() {
           trimmed[0][0], trimmed[0][1],
           trimmed[trimmed.length - 1][0], trimmed[trimmed.length - 1][1],
         )
-        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, 0.45)`)
-        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, 0.9)`)
+        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, ${ARC_FADE})`)
+        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, ${ARC_HEAD})`)
         s.lineWidth = Math.max(1, 1.35 * dpr)
         s.strokeStyle = grad
         s.shadowColor = `rgba(${TRAFFIC_CSS}, 0.7)`
