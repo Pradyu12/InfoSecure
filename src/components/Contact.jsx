@@ -58,9 +58,13 @@ export default function Contact() {
             <div className="location-map__frame">
               <iframe
                 title="InfoSecure Solutions location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227572.06108735955!2d77.3771728666711!3d12.950970084102592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!2m4!1e2!2sInfoSecure%20Solutions!3e2!3m2!1sen!2sin!4v1726124800000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3889.0532736505547!2d77.56959307429898!3d12.904295987404929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDU0JzE1LjUiTiA3N8KwMzQnMTkuOCJF!5e0!3m2!1sen!2sin!4v1789707651927!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               />
             </div>

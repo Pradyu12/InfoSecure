@@ -50,6 +50,44 @@ export const MapPin = (props) => (
   <Svg {...props}><path d="M21 10.5c0 4.418-6.075 7.5-9 7.5S3 14.918 3 10.5 9.075 3 12 6.5 21 6.5 21 10.5z"/><circle cx="12" cy="10.5" r="3"/></Svg>
 )
 
+export const InstagramIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="1.5"/>
+    <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+    <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+  </svg>
+)
+
+export const FacebookIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+  </svg>
+)
+
+export const YoutubeIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+    <path d="M9.75 15.02l5.77-3.22a2.5 2.5 0 0 1 2.77 0l5.78 3.22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <polygon points="9.75 15.02 5 12.34 5 16.34 9.75 15.02" fill="currentColor"/>
+  </svg>
+)
+
+export const LinkedinIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+    <rect x="2" y="9" width="4" height="12" stroke="currentColor" strokeWidth="1.5" rx="1"/>
+    <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="1.5"/>
+  </svg>
+)
+
+export const WhatsappIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <path d="M21 15c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3V6c0-1.66 1.34-3 3-3h12c1.66 0 3 1.34 3 3v9z" fill="currentColor" stroke="none"/>
+    <path d="M15 10l4.5-2.5a5.5 5.5 0 0 0-7.5-1.5l-1.5 4.5L15 10z" fill="currentColor" stroke="none"/>
+    <path d="M10 14l3-1.8a3.5 3.5 0 0 1-4.5 0L10 14z" fill="currentColor" stroke="none"/>
+  </svg>
+)
+
 const ICONS = {
   globe: <><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></>,
   edit: <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>,

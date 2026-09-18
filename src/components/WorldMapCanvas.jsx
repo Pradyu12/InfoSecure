@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { loadLandLatLon } from './earthLand'
 
-// 2D world map — flat equirectangular outline + animated traffic.
+// 2D world map — flat equirectangular outline with static route arcs.
 // Same palette as the 3D site: dark-crimson panel, red land, yellow traffic.
 const BANG = { lat: 12.9716, lon: 77.5946 }
 const HUBS = [
@@ -100,7 +100,6 @@ export default function WorldMapCanvas() {
     const mount = mountRef.current
     if (!mount) return
     let disposed = false
-    let raf = 0
     let observer = null
 
     const canvas = document.createElement('canvas')
@@ -109,42 +108,61 @@ export default function WorldMapCanvas() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
-
-    // static layer: land dots + hubs (no panel fill — transparent over hero bg)
+    // single static canvas layer: hubs + routes drawn once, no per-frame loop
     const staticLayer = document.createElement('canvas')
-    let curves = [] // route polylines in device px
-    let land = []
 
-    const renderStatic = (W, H, dpr) => {
+    const paint = (W, H, dpr) => {
       staticLayer.width = W
       staticLayer.height = H
       const s = staticLayer.getContext('2d')
       if (!s) return
       s.clearRect(0, 0, W, H)
-      // land dots
-      const dotR = Math.max(0.7, W / 900) * dpr * 0.55
-      s.fillStyle = `rgba(${RED_CSS}, 0.78)`
-      for (const p of land) {
-        const [x, y] = project(p.lat, p.lon, W, H)
+
+      // route arcs — drawn in device px directly on the static layer.
+      // Each arc is a quadratic-bezier from its source hub to Bengaluru HQ,
+      // clipped just before the HQ so the line visually terminates on the dot.
+      const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
+      for (const route of ROUTES) {
+        const pts = routeCurve(HUBS[route.from], BANG, W, H, route.lift)
+        // trim the tail so the arc does not overlap the HQ dot
+        const trimmed = []
+        for (const p of pts) {
+          if (Math.hypot(p[0] - bhx, p[1] - bhy) < 22 * dpr) break
+          trimmed.push(p)
+        }
+        if (trimmed.length < 2) continue
+        const grad = s.createLinearGradient(
+          trimmed[0][0], trimmed[0][1],
+          trimmed[trimmed.length - 1][0], trimmed[trimmed.length - 1][1],
+        )
+        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, 0.45)`)
+        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, 0.9)`)
+        s.lineWidth = Math.max(1, 1.35 * dpr)
+        s.strokeStyle = grad
+        s.shadowColor = `rgba(${TRAFFIC_CSS}, 0.7)`
+        s.shadowBlur = 5 * dpr
         s.beginPath()
-        s.arc(x, y, dotR, 0, Math.PI * 2)
-        s.fill()
+        s.moveTo(trimmed[0][0], trimmed[0][1])
+        for (let i = 1; i < trimmed.length; i++) {
+          s.lineTo(trimmed[i][0], trimmed[i][1])
+        }
+        s.stroke()
       }
-      // hub markers — secondary hubs first, HQ last so it draws on top
+
+      // secondary hub markers
       for (let h = 1; h < HUBS.length; h++) {
         const [x, y] = project(HUBS[h].lat, HUBS[h].lon, W, H)
-        const r = 2.6 * dpr
         s.save()
         s.shadowColor = `rgba(${RED_CSS}, 0.9)`
-        s.shadowBlur = 10 * dpr
-        s.fillStyle = `rgba(${RED_CSS}, 0.9)`
+        s.shadowBlur = 8 * dpr
+        s.fillStyle = `rgba(${RED_CSS}, 0.92)`
         s.beginPath()
-        s.arc(x, y, r, 0, Math.PI * 2)
+        s.arc(x, y, 2.4 * dpr, 0, Math.PI * 2)
         s.fill()
         s.restore()
       }
-      // HQ — Bengaluru, Karnataka, India (12.9716N, 77.5946E): bigger dot + ring + label
+
+      // HQ — Bengaluru, India: larger dot + ring + label
       {
         const [x, y] = project(BANG.lat, BANG.lon, W, H)
         s.save()
@@ -155,93 +173,20 @@ export default function WorldMapCanvas() {
         s.arc(x, y, 5 * dpr, 0, Math.PI * 2)
         s.fill()
         s.restore()
-        s.strokeStyle = `rgba(${RED_CSS}, 0.55)`
-        s.lineWidth = 1.2 * dpr
+        s.strokeStyle = `rgba(${RED_CSS}, 0.5)`
+        s.lineWidth = 1.1 * dpr
         s.beginPath()
-        s.arc(x, y, 10 * dpr, 0, Math.PI * 2)
+        s.arc(x, y, 9 * dpr, 0, Math.PI * 2)
         s.stroke()
-        s.font = `600 ${11 * dpr}px Inter, system-ui, sans-serif`
+        s.font = `600 ${10.5 * dpr}px Inter, system-ui, sans-serif`
         s.textBaseline = 'middle'
         const label = 'Bengaluru, India'
         const lx = Math.min(x + 11 * dpr, W - s.measureText(label).width - 4 * dpr)
-        s.lineWidth = 3 * dpr
+        s.lineWidth = 2.6 * dpr
         s.strokeStyle = 'rgba(2, 2, 8, 0.85)'
         s.strokeText(label, lx, y)
         s.fillStyle = 'rgba(255, 255, 255, 0.92)'
         s.fillText(label, lx, y)
-      }
-      // route curves — umbrella: each arc stops on the hub ring around
-      // Bengaluru. Ring slots are evenly spaced by approach-angle rank, so
-      // all 16 ribs stay distinct (min ~22.5° apart) even when countries
-      // share a direction. Per-route lift staggers arc heights mid-map.
-      const [bangX, bangY] = project(BANG.lat, BANG.lon, W, H)
-      const ringR = HUB_RING_PX * dpr
-      // approach angle per route (atan2 space, source -> Bengaluru direction)
-      const approached = ROUTES.map(({ from, lift }) => {
-        const [sx, sy] = project(HUBS[from].lat, HUBS[from].lon, W, H)
-        return { from, lift, angle: Math.atan2(sy - bangY, sx - bangX) }
-      })
-      approached.sort((a, b) => a.angle - b.angle)
-      // even slots around the full ring, in the same angular order
-      approached.forEach((r, rank) => {
-        r.slot = -Math.PI + ((rank + 0.5) / approached.length) * Math.PI * 2
-      })
-      curves = approached.map(({ from, lift, slot }) => {
-        const pts = routeCurve(HUBS[from], BANG, W, H, lift)
-        // hub-edge endpoint on its assigned ring slot
-        const ex = bangX + Math.cos(slot) * ringR
-        const ey = bangY + Math.sin(slot) * ringR
-        // drop bezier tail points inside the hub ring, then land on the slot
-        const trimmed = []
-        for (const p of pts) {
-          if (Math.hypot(p[0] - bangX, p[1] - bangY) < ringR * 0.9) break
-          trimmed.push(p)
-        }
-        trimmed.push([ex, ey])
-        return trimmed
-      })
-    }
-
-    const drawFrame = (W, H, dpr, t) => {
-      ctx.clearRect(0, 0, W, H)
-      ctx.drawImage(staticLayer, 0, 0)
-      // traffic arcs
-      ctx.save()
-      ctx.lineWidth = Math.max(1, 1.5 * dpr)
-      ctx.shadowColor = `rgba(${TRAFFIC_CSS}, 0.7)`
-      ctx.shadowBlur = 6 * dpr
-      for (let r = 0; r < curves.length; r++) {
-        const pts = curves[r]
-        const grad = ctx.createLinearGradient(pts[0][0], pts[0][1], pts[pts.length - 1][0], pts[pts.length - 1][1])
-        grad.addColorStop(0, `rgba(${TRAFFIC_CSS}, 0.55)`)
-        grad.addColorStop(1, `rgba(${TRAFFIC_CSS}, 0.95)`)
-        ctx.strokeStyle = grad
-        strokePath(ctx, pts, W)
-      }
-      ctx.restore()
-      // orbiting traffic dots — each revolves on its own circular track
-      // centered exactly on the Bengaluru hub point; radii track source-
-      // hub distance and per-route speed/phase keep the orbits visually
-      // distinct rather than stacked.
-      const [bhx, bhy] = project(BANG.lat, BANG.lon, W, H)
-      for (let r = 0; r < curves.length; r++) {
-        const route = ROUTES[r]
-        const [sx, sy] = project(HUBS[route.from].lat, HUBS[route.from].lon, W, H)
-        const dist = Math.hypot(sx - bhx, sy - bhy)
-        const radius = Math.max(30 * dpr, Math.min(150 * dpr, dist * 0.2))
-        const speed = 0.3 + (r % 5) * 0.12
-        const phase = (r / curves.length) * Math.PI * 2
-        const angle = (t * speed + phase) % (Math.PI * 2)
-        const ox = bhx + Math.cos(angle) * radius
-        const oy = bhy + Math.sin(angle) * radius
-        ctx.save()
-        ctx.shadowColor = `rgba(${TRAFFIC_CSS}, 0.95)`
-        ctx.shadowBlur = 8 * dpr
-        ctx.fillStyle = `rgba(${TRAFFIC_CSS}, 1)`
-        ctx.beginPath()
-        ctx.arc(ox, oy, 2.6 * dpr, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.restore()
       }
     }
 
@@ -254,46 +199,22 @@ export default function WorldMapCanvas() {
       canvas.height = Math.round(h * dpr)
       canvas.style.width = `${w}px`
       canvas.style.height = `${h}px`
-      renderStatic(canvas.width, canvas.height, dpr)
+      paint(canvas.width, canvas.height, dpr)
+      ctx.drawImage(staticLayer, 0, 0)
       return dpr
     }
 
     let dpr = fit()
-
     loadLandLatLon().then((pts) => {
       if (disposed) return
-      land = pts
       dpr = fit() ?? dpr
-      if (reduceMotion && dpr) drawFrame(canvas.width, canvas.height, dpr, 0.2)
     })
-
-    if (reduceMotion) {
-      drawFrame(canvas.width, canvas.height, dpr ?? 1, 0.2)
-      observer = new ResizeObserver(() => {
-        dpr = fit()
-        if (dpr) drawFrame(canvas.width, canvas.height, dpr, 0.2)
-      })
-      observer.observe(mount)
-      return () => {
-        disposed = true
-        observer?.disconnect()
-        canvas.parentNode === mount && mount.removeChild(canvas)
-      }
-    }
-
-    const loop = () => {
-      raf = requestAnimationFrame(loop)
-      if (!canvas.width || !canvas.height) return
-      drawFrame(canvas.width, canvas.height, dpr ?? 1, performance.now() * 0.001)
-    }
-    loop()
 
     observer = new ResizeObserver(() => { dpr = fit() })
     observer.observe(mount)
 
     return () => {
       disposed = true
-      cancelAnimationFrame(raf)
       observer?.disconnect()
       if (canvas.parentNode === mount) mount.removeChild(canvas)
     }

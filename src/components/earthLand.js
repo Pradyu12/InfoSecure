@@ -84,10 +84,10 @@ export function loadLandLatLon() {
         ARCTIC_SEAS.some(([la0, la1, lo0, lo1]) => lat >= la0 && lat <= la1 && lon >= lo0 && lon <= lo1)
 
       const out = []
-      for (let py = 0; py < SH; py += 2) {
+      for (let py = 0; py < SH; py += 4) {
         const lat = 90 - ((py + 0.5) / SH) * 180
         const rowGreen = lat >= 59.5 && lat <= 84
-        for (let px = 0; px < SW; px += 2) {
+        for (let px = 0; px < SW; px += 4) {
           const lon = ((px + 0.5) / SW) * 360 - 180
           const k = (py * SW + px) * 4
           const r = data[k], g = data[k + 1], b = data[k + 2]
