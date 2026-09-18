@@ -5,7 +5,7 @@ export default function Contact() {
     <section className="section" id="contact">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.3em', marginBottom: '1.5rem', display: 'block', wordSpacing: '1em' }}>CONTACT</span>
+          <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 800, textTransform: 'none', letterSpacing: '0.02em', marginBottom: '1.5rem', display: 'block' }}>Contact</span>
         </div>
         <div className="contact-grid">
           <div className="contact-info reveal reveal-left">
