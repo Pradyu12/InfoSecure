@@ -23,8 +23,8 @@ export default function Partners() {
           <div className="marquee-track">
             <div className="marquee-content partners-marquee" style={{ alignItems: 'center', gap: '3rem' }}>
               {items.map((p, i) => (
-                <span className="partner-item" key={`${p.name}-${i}`} style={{ display: 'flex', alignItems: 'center', height: '60px', opacity: 0.7, transition: 'opacity 0.2s' }}>
-                  {p.src && <img src={p.src} alt={p.name} style={{ height: '40px', width: 'auto', objectFit: 'contain', filter: 'grayscale(100%)' }} />}
+                <span className="partner-item" key={`${p.name}-${i}`} style={{ display: 'flex', alignItems: 'center', height: '60px', opacity: 1, transition: 'opacity 0.2s, transform 0.2s' }}>
+                  {p.src && <img src={p.src} alt={p.name} style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />}
                   {!p.src && <span className="partner-name" style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '0.02em', color: 'var(--text-muted)', fontFamily: 'var(--font-heading)' }}>{p.name}</span>}
                 </span>
               ))}
