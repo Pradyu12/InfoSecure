@@ -5,7 +5,7 @@ export const NAV_LINKS = [
   { label: 'Services', href: '#services' },
   { label: 'Partners', href: '#partners' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Contact US', href: '#contact' }
 ]
 
 export const TRUST_BADGES = ['Motadata Partner', 'ITSM', 'Observability']
