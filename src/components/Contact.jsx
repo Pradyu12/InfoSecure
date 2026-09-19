@@ -50,7 +50,7 @@ export default function Contact() {
               </div>
               <div>
                 <div className="contact-label">Operational Office</div>
-                <div className="contact-value">4th Floor, Dyashin TechnoSoft Pvt Ltd, Annapoorna Industrial Compound, Kanakapura Main Rd, next to Temple Tree Apartments, Kanakanagar, Ilyas Nagar, J. P. Nagar, Bengaluru, Karnataka-560111</div>
+                <div className="contact-value">4th Floor, Annapoorna Industrial Compound, Kanakapura Main Rd, next to Temple Tree Apartments, Kanakanagar, Ilyas Nagar, J. P. Nagar, Bengaluru, Karnataka-560111</div>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function Contact() {
               <p>
                 <strong>InfoSecure Solutions</strong><br />
                 Operational Office<br />
-                4th Floor, Dyashin TechnoSoft Pvt Ltd, Annapoorna Industrial Compound,<br />
+                4th Floor, Annapoorna Industrial Compound,<br />
                 Kanakapura Main Rd, next to Temple Tree Apartments, Kanakanagar,<br />
                 Ilyas Nagar, J. P. Nagar, Bengaluru, Karnataka-560111
               </p>
