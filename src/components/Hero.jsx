@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowDown, MailIcon, PhoneIcon } from '../icons'
+import { MailIcon, PhoneIcon } from '../icons'
 import { CONTACT_INFO } from '../data/content'
 
 const WorldMapCanvas = lazy(() => import('./WorldMapCanvas'))
@@ -124,9 +124,6 @@ export default function Hero() {
             </div>
           ))}
         </div>
-      </div>
-      <div className="scroll-indicator" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
-        <ArrowDown /><span>Scroll</span>
       </div>
     </section>
   )

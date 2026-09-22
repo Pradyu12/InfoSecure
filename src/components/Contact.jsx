@@ -19,15 +19,15 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <div className="contact-detail">
-              <div className="contact-icon"><PhoneIcon /></div>
-              <div>
-                <div className="contact-label">Phone</div>
-                <div className="contact-value">
-                  <a href="tel:+919880564227">+91-9880564227</a>
-                </div>
-              </div>
-            </div>
+<div className="contact-detail">
+               <div className="contact-icon"><PhoneIcon /></div>
+               <div>
+                 <div className="contact-label">Phone</div>
+                 <div className="contact-value">
+                   <a href="tel:+918088577002">+91-8088577002</a>
+                 </div>
+               </div>
+             </div>
             <div className="contact-detail">
               <div className="contact-icon"><ClockIcon /></div>
               <div>

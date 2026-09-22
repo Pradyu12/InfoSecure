@@ -59,9 +59,7 @@ export default function Header() {
             {NAV_LINKS.map(l => (
               <a key={l.href} href={l.href} className={activeSection === l.href ? 'active' : ''} onClick={e => handleNavClick(e, l.href)}>{l.label}</a>
             ))}
-            <a href="#contact" className="nav-cta" onClick={e => handleNavClick(e, '#contact')}>Get Started</a>
-            <a href="#solutions" className="btn-secondary" style={{ padding: '0.5rem 1.2rem', borderRadius: 'var(--radius-btn)', fontWeight: 600, fontSize: '0.9rem', border: '1px solid var(--card-border)', transition: 'background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s', background: 'var(--surface-0)', color: 'var(--text-secondary)' }} onClick={e => handleNavClick(e, '#solutions')}>Explore Solutions</a>
-          </nav>
+            </nav>
           <button className="menu-btn" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -70,7 +68,6 @@ export default function Header() {
           {NAV_LINKS.map(l => (
             <a key={l.href} href={l.href} onClick={e => handleNavClick(e, l.href)}>{l.label}</a>
           ))}
-          <a href="#contact" className="nav-cta" onClick={e => handleNavClick(e, '#contact')}>Get Started</a>
         </div>
       </div>
     </header>

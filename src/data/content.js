@@ -12,7 +12,7 @@ export const TRUST_BADGES = ['Motadata Partner', 'ITSM', 'Observability']
 
 export const CONTACT_INFO = [
   { label: 'Email', value: 'support@infosecuresolutions.co.in', href: 'mailto:support@infosecuresolutions.co.in', icon: 'mail' },
-  { label: 'Phone', value: '+91-9880564227', href: 'tel:+919880564227', icon: 'phone' },
+  { label: 'Phone', value: '+91-8088577002', href: 'tel:+918088577002', icon: 'phone' },
 ]
 
 export const MISSION = 'To make enterprise-grade security, observability, and IT operations accessible, reliable, and measurable for every organization we serve — delivered with certified expertise and unwavering accountability.'
@@ -84,7 +84,7 @@ export const FAQ_ITEMS = [
   { q: 'What industries do you serve?', a: 'We support manufacturing, BFSI, defense, healthcare, telecom, energy, logistics, and technology organizations with platform-led operations.' },
   { q: 'Do you provide managed support?', a: 'Yes. We offer co-managed and managed operating models with onboarding, tuning, automation, and escalation support.' },
   { q: 'How do you handle compliance and audit needs?', a: 'We configure policy-aligned controls, access reviews, audit trails, and reporting to reduce certification effort.' },
-  { q: 'How do I contact InfoSecure Solutions?', a: 'You can reach us at support@infosecuresolutions.co.in or +91-9880564227, Monday through Saturday, 9:00 AM to 6:00 PM IST.' }
+  { q: 'How do I contact InfoSecure Solutions?', a: 'You can reach us at support@infosecuresolutions.co.in or +91-8088577002, Monday through Saturday, 9:00 AM to 6:00 PM IST.' }
 ]
 
 export const TEAM_MEMBERS = [
