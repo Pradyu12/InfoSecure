@@ -8,7 +8,7 @@ export const NAV_LINKS = [
   { label: 'Contact US', href: '#contact' }
 ]
 
-export const TRUST_BADGES = ['Motadata Partner', 'ITSM', 'Observability']
+export const TRUST_BADGES = ['Motadata', 'ITSM', 'Observability']
 
 export const CONTACT_INFO = [
   { label: 'Email', value: 'support@infosecuresolutions.co.in', href: 'mailto:support@infosecuresolutions.co.in', icon: 'mail' },

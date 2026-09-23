@@ -500,6 +500,29 @@ section[id] { scroll-margin-top: 96px; }
 .metric-label { font-size: 0.65rem; color: rgba(255, 255, 255, 0.75); letter-spacing: 0.02em; text-transform: uppercase; }
 .metric-divider { width: 1px; height: 2rem; background: rgba(255, 255, 255, 0.2); }
 
+@media (max-width: 640px) {
+  .hero-metrics {
+    flex-wrap: wrap;
+    white-space: normal;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .metric-item {
+    flex: 1 1 45%;
+    justify-content: flex-start;
+    min-width: 120px;
+  }
+  .metric-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+  .metric-value { font-size: 0.9rem; }
+  .metric-label { font-size: 0.6rem; }
+  .metric-divider { display: none; }
+}
+
 /* ============ Hero scroll rows ============ */
 .hero-scrolls {
   display: flex; flex-direction: column; gap: 0.75rem;

@@ -29,3 +29,9 @@ dist-ssr
 
 # temp
 .freebuff/
+
+# KiloCode agent working directory
+.kilo/
+
+# cPanel deployment artifacts
+cpanel-deploy/

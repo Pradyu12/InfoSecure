@@ -1,6 +1,6 @@
 # InfoSecure Solutions
 
-A React.js web application serving as the public-facing site for InfoSecure Solutions — a Motadata partner delivering implementation and managed services for observability, network visibility, ITSM, infrastructure, compliance, and modern IT operations.
+A React.js web application serving as the public-facing site for InfoSecure Solutions — delivering implementation and managed services for observability, network visibility, ITSM, infrastructure, compliance, and modern IT operations.
 
 ## Project Structure
 
