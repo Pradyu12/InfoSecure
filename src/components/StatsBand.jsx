@@ -15,7 +15,7 @@ export default function StatsBand() {
   return (
     <section className="stats-band" id="stats">
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}><span className="section-eyebrow">Infosecure Solutions</span></div>
+        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}><span className="section-eyebrow"><span>Infosecure</span> <span class="eyebrow-solutions">Solutions</span></span></div>
         <div className="stats-grid">
           {STATS.map((s, i) => (
             <StatItem key={i} s={s} i={i} />

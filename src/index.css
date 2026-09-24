@@ -393,12 +393,13 @@ section[id] { scroll-margin-top: 96px; }
   animation: fade-in-up 0.8s ease-out forwards;
 }
 .section-eyebrow {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; gap: 0.35rem;
   font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-light);
   background: rgba(220, 38, 38, 0.07); border: 1px solid rgba(220, 38, 38, 0.14);
   padding: 0.38rem 0.95rem; border-radius: 999px; margin-bottom: 1rem;
 }
+.section-eyebrow .eyebrow-solutions { color: var(--accent); }
 .hero h1 {
   font-size: clamp(2.75rem, 6.5vw, 3.5rem); font-weight: 700; letter-spacing: -0.025em;
   line-height: 1.15; margin-bottom: 1.25rem; color: #fff;
