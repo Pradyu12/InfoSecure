@@ -530,11 +530,10 @@ section[id] { scroll-margin-top: 96px; }
   display: inline-flex; align-items: center; gap: 0.5rem;
 }
 .hero-contact-icon {
-  width: 1.9rem; height: 1.9rem; border-radius: 999px;
+  width: 1.9rem; height: 1.9rem; border-radius: 7px;
   display: flex; align-items: center; justify-content: center;
-  background: #DC2626; border: 1px solid #DC2626;
-  color: #FFFFFF; flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(220,38,38,0.28), inset 0 1px 0 rgba(255,255,255,0.20);
+  background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #FCA5A5; flex-shrink: 0;
 }
 .hero-contact-icon svg { width: 1.05rem; height: 1.05rem; }
 .hero-contact-value {
