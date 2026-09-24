@@ -194,7 +194,7 @@ section[id] { scroll-margin-top: 96px; }
 @media (min-width: 1024px) { #header .container { padding-left: 0.25rem; } }
 .logo { flex-shrink: 0; min-width: 0; display: flex; align-items: center; gap: 0.65rem; text-decoration: none; margin-left: -0.15rem; }
 .logo img { height: 48px; width: auto; max-width: 100%; object-fit: contain; flex-shrink: 0; }
-.logo-text { display: inline-flex; align-items: baseline; gap: 0.35rem; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1; color: var(--navy-light); white-space: nowrap; }
+.logo-text { display: inline-flex; align-items: baseline; gap: 0.15rem; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1; color: var(--navy-light); white-space: nowrap; }
 .logo-name { color: var(--navy-light); }
 .logo-suffix { color: var(--accent); font-weight: 600; }
 .nav-links { display: none; align-items: center; gap: 0.4rem; margin-left: auto; flex-wrap: nowrap; min-width: 0; }
@@ -393,9 +393,9 @@ section[id] { scroll-margin-top: 96px; }
   animation: fade-in-up 0.8s ease-out forwards;
 }
 .section-eyebrow {
-  display: inline-flex; align-items: center; gap: 0.35rem;
+  display: inline-flex; align-items: center; gap: 0.15rem;
   font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-light);
+  letter-spacing: 0.02em; text-transform: none; color: var(--navy-light);
   background: rgba(220, 38, 38, 0.07); border: 1px solid rgba(220, 38, 38, 0.14);
   padding: 0.38rem 0.95rem; border-radius: 999px; margin-bottom: 1rem;
 }
