@@ -193,7 +193,7 @@ section[id] { scroll-margin-top: 96px; }
 .logo img { height: 48px; width: auto; max-width: 100%; object-fit: contain; flex-shrink: 0; }
 .logo-text { display: inline-flex; align-items: baseline; gap: 0.35rem; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem); letter-spacing: -0.02em; line-height: 1; color: var(--navy-light); white-space: nowrap; }
 .logo-name { color: var(--navy-light); }
-.logo-suffix { color: var(--navy-light); font-weight: 600; }
+.logo-suffix { color: var(--accent); font-weight: 600; }
 .nav-links { display: none; align-items: center; gap: 0.4rem; margin-left: auto; flex-wrap: nowrap; min-width: 0; }
 .nav-links a {
   position: relative; isolation: isolate;
