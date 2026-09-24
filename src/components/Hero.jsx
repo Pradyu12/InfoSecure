@@ -67,7 +67,6 @@ export default function Hero() {
       </div>
       <Suspense fallback={null}><WorldMapCanvas /></Suspense>
       <div className="hero-content container">
-        <div className="hero-eyebrow fade-in-up">Infosecure Solutions</div>
         <div className="hero-carousel hero-carousel-in">
           <div className={`hero-carousel-content ${direction === 1 ? 'is-forward' : 'is-backward'}`} aria-live="polite">
             {heroSlides.map((slide, i) => {

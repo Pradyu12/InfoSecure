@@ -12,6 +12,7 @@ export default function About() {
   return (
     <section className="section" id="about">
       <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}><span className="section-eyebrow">Infosecure Solutions</span></div>
         <div className="about-grid">
           <div className="about-text reveal reveal-left">
             <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 400, textTransform: 'none', letterSpacing: '0.02em', marginBottom: '1.5rem', display: 'block' }}>About us</span>

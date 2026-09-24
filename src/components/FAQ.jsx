@@ -9,6 +9,7 @@ export default function FAQ() {
   return (
     <section className="section surface-1" id="faq">
       <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}><span className="section-eyebrow">Infosecure Solutions</span></div>
         <div className="section-header reveal">
           <span className="section-tag">FAQ</span>
           <h2>Quick<br /><span className="gradient-text">answers</span></h2>

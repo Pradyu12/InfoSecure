@@ -16,6 +16,7 @@ export default function Partners() {
   return (
     <section className="section surface-1" id="partners">
       <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}><span className="section-eyebrow">Infosecure Solutions</span></div>
         <div className="section-header reveal">
           <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 400, textTransform: 'none', letterSpacing: '0.02em', marginBottom: '1.5rem', display: 'block' }}>Partners</span>
         </div>

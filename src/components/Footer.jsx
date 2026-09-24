@@ -1,4 +1,4 @@
-import { NAV_LINKS } from '../data/content'
+import { NAV_LINKS, SOLUTIONS, SERVICES } from '../data/content'
 
 export default function Footer() {
   const socials = [
@@ -26,9 +26,12 @@ export default function Footer() {
             {NAV_LINKS.map(l => <a key={l.href} href={l.href}>{l.label}</a>)}
           </div>
           <div>
-            <h4>Contact</h4>
-            <a href="tel:+918088577002">+91-8088577002</a>
-            <a href="#contact">Get in touch</a>
+            <h4>Solutions</h4>
+            {SOLUTIONS.map(s => <a key={s.title} href="#solutions">{s.title}</a>)}
+          </div>
+          <div>
+            <h4>Services</h4>
+            {SERVICES.map(s => <a key={s.title} href="#services">{s.title}</a>)}
           </div>
         </div>
         <div className="footer-bottom">

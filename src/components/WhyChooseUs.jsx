@@ -5,6 +5,7 @@ export default function WhyChooseUs() {
   return (
     <section className="section" id="why-us">
       <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}><span className="section-eyebrow">Infosecure Solutions</span></div>
         <div className="section-header reveal">
           <span className="section-tag">Why Choose Us</span>
           <h2>Discover Our Unique Value Propositions</h2>
