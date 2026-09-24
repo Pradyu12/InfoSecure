@@ -13,8 +13,8 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="InfoSecure Solutions" style={{ height: '48px', width: 'auto' }} />
-            <p>InfoSecure Solutions — delivering AI-native observability, ITSM, and infrastructure management for enterprise IT operations.</p>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Infosecure Solutions" style={{ height: '48px', width: 'auto' }} />
+            <p>Infosecure Solutions — delivering AI-native observability, ITSM, and infrastructure management for enterprise IT operations.</p>
             <div className="footer-socials" style={{ marginTop: '1.25rem', display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
               {socials.map((s, i) => (
                 <img key={i} src={s.src} alt={s.alt} style={{ width: '2.2rem', height: '2.2rem', borderRadius: '9px', opacity: 0.9, transition: 'opacity 0.2s, transform 0.2s' }} />
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} InfoSecure Solutions. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Infosecure Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

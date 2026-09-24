@@ -53,7 +53,7 @@ export default function Header() {
       <div className="container">
         <div className="header-inner">
           <a href="#" className="logo">
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="InfoSecure Solutions" style={{ height: '56px', width: 'auto' }} />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Infosecure Solutions" style={{ height: '56px', width: 'auto' }} />
           </a>
           <nav className="nav-links">
             {NAV_LINKS.map(l => (

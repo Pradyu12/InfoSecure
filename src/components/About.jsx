@@ -16,7 +16,7 @@ export default function About() {
           <div className="about-text reveal reveal-left">
             <span className="section-tag" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 400, textTransform: 'none', letterSpacing: '0.02em', marginBottom: '1.5rem', display: 'block' }}>About us</span>
             <p>
-              Founded in 2015 and headquartered in Bengaluru, Karnataka — India&rsquo;s technology capital — InfoSecure Solutions has grown from a specialist security integrator into a full-spectrum technology partner. Today we design, deploy, and manage the infrastructure that keeps enterprises running: cybersecurity, network solutions, data centers, virtualization, and cloud.
+              Founded in 2015 and headquartered in Bengaluru, Karnataka — India&rsquo;s technology capital — Infosecure Solutions has grown from a specialist security integrator into a full-spectrum technology partner. Today we design, deploy, and manage the infrastructure that keeps enterprises running: cybersecurity, network solutions, data centers, virtualization, and cloud.
             </p>
             <p>
               What sets us apart is accountability. Our certified engineers don&rsquo;t just install technology — they own outcomes. Whether it&rsquo;s cutting bandwidth costs by 75%, reducing alert noise by 68%, or keeping mission-critical systems online around the clock, we measure ourselves by the results our clients see on their balance sheets and dashboards.
@@ -32,7 +32,7 @@ export default function About() {
           </div>
           <div className="about-media reveal reveal-right">
             <div className="about-img-frame">
-              <img src={aboutTeam} alt="InfoSecure Solutions team" width="1280" height="854" loading="lazy" />
+              <img src={aboutTeam} alt="Infosecure Solutions team" width="1280" height="854" loading="lazy" />
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ command }) => ({
   plugins: [react()],
-  // Hybrid base: GitHub Pages serves at /InfoSecure/ subpath, VPS/Caddy at root /
+  // Hybrid base: GitHub Pages serves at /InfoSecure/ subpath (repo name), VPS/Caddy at root / — branding is Infosecure
   // GITHUB_ACTIONS is set in the deploy workflow — use subpath there, root otherwise
   base: process.env.GITHUB_ACTIONS ? '/InfoSecure/' : '/',
   server: {

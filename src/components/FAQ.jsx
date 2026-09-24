@@ -12,7 +12,7 @@ export default function FAQ() {
         <div className="section-header reveal">
           <span className="section-tag">FAQ</span>
           <h2>Quick<br /><span className="gradient-text">answers</span></h2>
-          <p>Common questions about InfoSecure Solutions and our Motadata platform services.</p>
+          <p>Common questions about Infosecure Solutions and our Motadata platform services.</p>
         </div>
         <div className="faq-list reveal">
           {FAQ_ITEMS.map((faq, i) => (

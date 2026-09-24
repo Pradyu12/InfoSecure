@@ -1,6 +1,6 @@
-# Security Posture — InfoSecure Solutions
+# Security Posture — Infosecure Solutions
 
-This document describes the security measures in place for the InfoSecure Solutions website and how the reconnaissance findings have been addressed.
+This document describes the security measures in place for the Infosecure Solutions website and how the reconnaissance findings have been addressed.
 
 ---
 

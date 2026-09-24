@@ -73,18 +73,18 @@ export const PARTNER_NAMES = [
 ]
 
 export const TESTIMONIALS = [
-  { quote: 'InfoSecure Solutions transformed our data management process, making it not only secure but also efficient. Highly recommended!', name: 'John Doe', role: 'Operations Lead', initials: 'JD', stars: 5 },
+  { quote: 'Infosecure Solutions transformed our data management process, making it not only secure but also efficient. Highly recommended!', name: 'John Doe', role: 'Operations Lead', initials: 'JD', stars: 5 },
   { quote: 'The team\u2019s dedication to customer service and innovation has made a significant impact on our operations. Truly impressed!', name: 'Jane Smith', role: 'IT Director', initials: 'JS', stars: 5 },
-  { quote: 'Their expertise in virtualization and data security is unmatched. InfoSecure Solutions is our go-to partner!', name: 'Emily Johnson', role: 'CTO', initials: 'EJ', stars: 5 }
+  { quote: 'Their expertise in virtualization and data security is unmatched. Infosecure Solutions is our go-to partner!', name: 'Emily Johnson', role: 'CTO', initials: 'EJ', stars: 5 }
 ]
 
 export const FAQ_ITEMS = [
-  { q: 'What is InfoSecure Solutions?', a: 'InfoSecure Solutions is a technology services and implementation partner focused on modern IT operations, observability, ITSM, and infrastructure reliability.' },
-  { q: 'Which platform does InfoSecure Solutions implement?', a: 'We implement and support the Motadata platform across observability, network visibility, infrastructure, log analytics, APM, and ITSM.' },
+  { q: 'What is Infosecure Solutions?', a: 'Infosecure Solutions is a technology services and implementation partner focused on modern IT operations, observability, ITSM, and infrastructure reliability.' },
+  { q: 'Which platform does Infosecure Solutions implement?', a: 'We implement and support the Motadata platform across observability, network visibility, infrastructure, log analytics, APM, and ITSM.' },
   { q: 'What industries do you serve?', a: 'We support manufacturing, BFSI, defense, healthcare, telecom, energy, logistics, and technology organizations with platform-led operations.' },
   { q: 'Do you provide managed support?', a: 'Yes. We offer co-managed and managed operating models with onboarding, tuning, automation, and escalation support.' },
   { q: 'How do you handle compliance and audit needs?', a: 'We configure policy-aligned controls, access reviews, audit trails, and reporting to reduce certification effort.' },
-  { q: 'How do I contact InfoSecure Solutions?', a: 'You can reach us at support@infosecuresolutions.co.in or +91-8088577002, Monday through Saturday, 9:00 AM to 6:00 PM IST.' }
+  { q: 'How do I contact Infosecure Solutions?', a: 'You can reach us at support@infosecuresolutions.co.in or +91-8088577002, Monday through Saturday, 9:00 AM to 6:00 PM IST.' }
 ]
 
 export const TEAM_MEMBERS = [

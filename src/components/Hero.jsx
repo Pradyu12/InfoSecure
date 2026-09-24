@@ -8,12 +8,12 @@ const heroSlides = [
   {
     h1Line1: 'Ideal Security Solutions',
     h1Line2: 'for Your Business',
-    subtitle: 'InfoSecure Solutions delivers enterprise-grade security, observability, and IT infrastructure management — trusted by leading organizations across industries.'
+    subtitle: 'Infosecure Solutions delivers enterprise-grade security, observability, and IT infrastructure management — trusted by leading organizations across industries.'
   },
   {
     h1Line1: 'Complete Control Over',
     h1Line2: 'Your Digital Ecosystem.',
-    subtitle: 'InfoSecure Solutions unifies enterprise security, deep observability, and IT management into one seamless defense system.'
+    subtitle: 'Infosecure Solutions unifies enterprise security, deep observability, and IT management into one seamless defense system.'
   }
 ]
 
@@ -67,7 +67,7 @@ export default function Hero() {
       </div>
       <Suspense fallback={null}><WorldMapCanvas /></Suspense>
       <div className="hero-content container">
-        <div className="hero-eyebrow fade-in-up">InfoSecure Solutions</div>
+        <div className="hero-eyebrow fade-in-up">Infosecure Solutions</div>
         <div className="hero-carousel hero-carousel-in">
           <div className={`hero-carousel-content ${direction === 1 ? 'is-forward' : 'is-backward'}`} aria-live="polite">
             {heroSlides.map((slide, i) => {
