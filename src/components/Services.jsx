@@ -15,6 +15,7 @@ export default function Services() {
         <div className="services-grid">
           {SERVICES.map((s, i) => (
             <div key={i} className="card service-card reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
+              <div className="card-watermark" aria-hidden="true" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}logo.png)` }} />
               <div className="card-icon-modern"><Icon name={s.icon} /></div>
               <div className="card-title">{s.title}</div>
               <p>{s.description}</p>

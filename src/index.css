@@ -141,6 +141,17 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 }
 .card:hover::before, .card:hover::after { opacity: 1; }
 
+.solutions-grid .card, .services-grid .card { isolation: isolate; }
+.card-watermark {
+  position: absolute; bottom: -12px; right: -12px; width: 140px; height: 140px;
+  background: center / contain no-repeat;
+  opacity: 0.06; pointer-events: none; z-index: 0;
+  filter: grayscale(1) contrast(1.05); transform: rotate(-8deg);
+  transition: opacity 0.3s;
+}
+.card:hover .card-watermark { opacity: 0.10; }
+.card > *:not(.card-watermark) { position: relative; z-index: 1; }
+
 .card-icon-modern {
   width: 3rem; height: 3rem; border-radius: 10px;
   background: var(--accent-soft);
