@@ -15,7 +15,6 @@ export default function Solutions() {
         <div className="solutions-grid">
           {SOLUTIONS.map((s, i) => (
             <div key={i} className="card reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
-              <div className="card-watermark" aria-hidden="true" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}logo.png)` }} />
               <div className="card-icon-modern"><Icon name={s.icon} /></div>
               <div className="card-title">{s.title}</div>
               <p>{s.description}</p>
