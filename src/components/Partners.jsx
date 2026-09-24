@@ -23,9 +23,9 @@ export default function Partners() {
           <div className="marquee-track">
             <div className="marquee-content partners-marquee" style={{ alignItems: 'center', gap: '3rem' }}>
               {items.map((p, i) => (
-                <span className="partner-item" key={`${p.name}-${i}`} style={{ display: 'flex', alignItems: 'center', height: '60px', opacity: 1, transition: 'opacity 0.2s, transform 0.2s' }}>
-                  {p.src && <img src={p.src} alt={p.name} style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />}
-                  {!p.src && <span className="partner-name" style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '0.02em', color: 'var(--text-muted)', fontFamily: 'var(--font-heading)' }}>{p.name}</span>}
+                <span className="partner-item" key={`${p.name}-${i}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '64px', minWidth: '120px', opacity: 1, transition: 'opacity 0.2s, transform 0.2s' }}>
+                  {p.src && <img src={p.src} alt={p.name} style={{ height: '48px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }} />}
+                  {!p.src && <span className="partner-name" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '48px', minWidth: '120px', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.02em', color: 'var(--text-muted)', fontFamily: 'var(--font-heading)', textAlign: 'center' }}>{p.name}</span>}
                 </span>
               ))}
             </div>

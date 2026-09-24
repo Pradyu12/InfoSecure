@@ -188,8 +188,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 /* keep anchored sections clear of the fixed header when jumped to */
 section[id] { scroll-margin-top: 96px; }
 .header-inner { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; min-width: 0; }
-.logo { flex-shrink: 0; min-width: 0; }
-.logo img { height: clamp(40px, 5vw, 56px); width: auto; max-width: 100%; }
+.logo { flex-shrink: 0; min-width: 0; display: flex; align-items: center; }
+.logo img { height: 48px; width: auto; max-width: 100%; object-fit: contain; }
 .nav-links { display: none; align-items: center; gap: 0.4rem; margin-left: auto; flex-wrap: nowrap; min-width: 0; }
 .nav-links a {
   position: relative; isolation: isolate;
@@ -226,7 +226,7 @@ section[id] { scroll-margin-top: 96px; }
   .header-inner { gap: 0.5rem; }
   .nav-links { gap: 0.28rem; }
   .nav-links a { padding: 0.38rem 0.7rem; font-size: 0.78rem; min-height: 32px; }
-  .logo img { height: 44px; }
+  .logo img { height: 48px; }
 }
 @media (min-width: 901px) and (max-width: 1024px) {
   .nav-links { gap: 0.32rem; }
