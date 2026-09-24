@@ -188,8 +188,11 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 /* keep anchored sections clear of the fixed header when jumped to */
 section[id] { scroll-margin-top: 96px; }
 .header-inner { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; min-width: 0; }
-.logo { flex-shrink: 0; min-width: 0; display: flex; align-items: center; }
-.logo img { height: 48px; width: auto; max-width: 100%; object-fit: contain; }
+.logo { flex-shrink: 0; min-width: 0; display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+.logo img { height: 48px; width: auto; max-width: 100%; object-fit: contain; flex-shrink: 0; }
+.logo-text { display: inline-flex; align-items: baseline; gap: 0.12rem; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem); letter-spacing: -0.02em; line-height: 1; color: var(--text-primary); white-space: nowrap; }
+.logo-name { color: var(--text-primary); }
+.logo-suffix { color: var(--accent); font-weight: 600; }
 .nav-links { display: none; align-items: center; gap: 0.4rem; margin-left: auto; flex-wrap: nowrap; min-width: 0; }
 .nav-links a {
   position: relative; isolation: isolate;
@@ -237,6 +240,9 @@ section[id] { scroll-margin-top: 96px; }
   .nav-links { gap: 0.45rem; }
 }
 .theme-toggle { display: none; }
+@media (max-width: 480px) { .logo-text { font-size: 1rem; } .logo { gap: 0.5rem; } }
+@media (max-width: 360px) { .logo-text { font-size: 0.92rem; } .logo img { height: 40px; } .header-inner { gap: 0.5rem; } }
+@media (max-width: 340px) { .logo-text { font-size: 0.88rem; } }
 .menu-btn {
   width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
