@@ -54,7 +54,7 @@ export default function Header() {
         <div className="header-inner">
           <a href="#" className="logo" aria-label="Infosecure Solutions home">
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Infosecure Solutions" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
-            <span className="logo-text"><span className="logo-name">Infosecure</span><span className="logo-suffix"> Solutions</span></span>
+            <span className="logo-text"><span className="logo-name">Infosecure</span><span className="logo-suffix">Solutions</span></span>
           </a>
           <nav className="nav-links">
             {NAV_LINKS.map(l => (
