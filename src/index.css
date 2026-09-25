@@ -533,7 +533,7 @@ section[id] { scroll-margin-top: 96px; }
 }
 
 @media (max-width: 640px) {
-  .hero { padding-top: 4rem; }
+  .hero { padding-top: 2rem; align-items: flex-start; }
   .hero-content { padding-bottom: 2rem; }
   .hero-eyebrow { margin-bottom: 1rem; }
   .hero-carousel { margin-bottom: 1.25rem; }
@@ -553,7 +553,7 @@ section[id] { scroll-margin-top: 96px; }
 @media (max-width: 360px) {
   .hero-content { padding-left: 1rem; padding-right: 1rem; }
   .hero {
-    padding-top: 3rem;
+    padding-top: 0.75rem;
   }
   .hero-contact {
     flex-direction: column;
